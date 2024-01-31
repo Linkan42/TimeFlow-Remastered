@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = 3000; // Should be an parameter given in startup
 
-app.post("/api/meeting/save", async (req, res) => {
+app.post("/api/meeting/Save", async (req, res) => {
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body;
 		let meetingId = ~~(Math.random() * 1000000);
@@ -50,7 +50,7 @@ app.post("/api/meeting/save", async (req, res) => {
 	}
 });
 
-app.post("/api/muserList", async (req, res) => {
+app.post("/api/meeting/ListOneUser", async (req, res) => {
 	try{
 		const list = await User.find().select("Name UserId");
 		res.json(list);
@@ -60,7 +60,7 @@ app.post("/api/muserList", async (req, res) => {
 	}
 });
 
-app.post("/api/addParticipantsToMeetings", async (req, res) => {
+app.post("/api/meeting/addParticipantsToMeetings", async (req, res) => {
 	const {users, meetingId} = req.body;
 	let mId = parseInt(meetingId);
 	try{
@@ -75,7 +75,7 @@ app.post("/api/addParticipantsToMeetings", async (req, res) => {
 	}	
 });
 
-app.post("/api/DeleteMeeting", async (req, res) => {
+app.post("/api/meeting/DeleteMeeting", async (req, res) => {
 	const { meetingId } = req.body;
 
 	try {
@@ -98,7 +98,7 @@ app.post("/api/DeleteMeeting", async (req, res) => {
 });
   
 
-app.post("/api/meetingList", async (req, res) => {
+app.post("/api/meeting/ListMeeting", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -125,7 +125,7 @@ app.post("/api/meetingList", async (req, res) => {
 	}
 });
 
-app.post("/api/YoureMeetingList", async (req, res) => {
+app.post("/api/meeting/YoureMeetingList", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -149,7 +149,7 @@ app.post("/api/YoureMeetingList", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting", async(req, res) => {    
+app.post("/api/meeting/sort", async(req, res) => {    
 	try{
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -183,7 +183,6 @@ app.post("/api/meeting", async(req, res) => {
 		});
 		if(nextMeeting)
 		{	
-			
 			res.json(nextMeeting);
 			
 		} else {
