@@ -6,10 +6,6 @@ const PORT       = 3001;
 
 const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority"; 
 
-
-mongoose.connection.on('connected', () => console.log('Connected'));
-mongoose.connection.on('error',     () => console.log('Database connection error'));
-
 const userSchema = new mongoose.Schema({
 	Email: String,
 	Name: String,
@@ -54,10 +50,19 @@ app.listen(PORT, () => {
     console.log(`user microservice on ${PORT}`);
 }); 
 
+async function connect(){
+		await mongoose.connect(url);
+		mongoose.connection.on('connected', () => console.log('Connected'));
+        mongoose.connection.on('error',     () => console.log('Database connection error'));
+}
+connect();
+
+// Example function for testing creating users
+/*
 async function createUserExample(){
-    const name = 'linusson';
-    const email = 'linusson@gmail.com';
-    const password = 'hamburg321';
+    const name = 'example';
+    const email = 'example@example.com';
+    const password = 'example123';
     await mongoose.connect(url);
     try{
         const response = await fetch("http://localhost:3001/api/user/CreateUser", {method: "POST",
@@ -83,3 +88,5 @@ async function createUserExample(){
     }
 }
 createUserExample();
+*/
+
