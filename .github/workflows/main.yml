@@ -1,0 +1,66 @@
+name: main
+
+on:
+  #push:
+  #  branches:
+  #    - '*' # This wildcard matches any branch
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x' # latest 18.x version
+
+      - name: Install dependencies
+        run: |
+          cd meeting
+          npm install
+
+      - name: Transpile JSX to JS with Babel
+        run: |
+          cd meeting
+          npm run build
+
+      - name: Run ESLint
+        run: |
+          cd meeting
+          npm run lint
+
+
+#   Checkout code:
+#       Uses the actions/checkout action to clone your code repository
+#       into the runner's workspace, making your code available for
+#       subsequent steps.
+#  
+#   Set up Node.js:
+#       Uses the actions/setup-node action to configure the Node.js
+#       runtime environment with the specified Node.js version.
+#  
+#   Install dependencies:
+#       Runs the npm install command to install project dependencies
+#       defined in your package.json file.
+#  
+#   Transpile JSX to JS with Babel:
+#       Executes the npm run build command, which initiates your
+#       project's build process, including transpiling JSX to JavaScript
+#       using Babel and any other necessary build tasks.
+#  
+#   Run ESLint:
+#       Executes the npm run lint command, which typically runs ESLint
+#       to perform code linting and identify code style issues in your
+#       JavaScript/JSX code.
+#
+# These steps collectively check out your code, set up the Node.js
+# environment, install dependencies, run code linting with ESLint,
+# and perform code transpilation, depending on your
+# project's build and testing configuration.

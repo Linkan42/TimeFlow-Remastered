@@ -1,30 +1,30 @@
-const express = require('express');
-const app = express();
-const mongoose = require("mongoose");
+import express from "express";
+import MeetingProp from "../database/meeting.js";
+import MeetingParticipan from "../database/meetingParticipan.js";
+import User from "../database/user.js";
 
+import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import process from "dotenv";
+
+const app = express();
 
 const PORT = 3000; // Should be an parameter given in startup
 
-const jwt = require("jsonwebtoken");
-
-const User = require("./database/user.js");
-const MeetingProp = require("./database/meeting.js");
-const MeetingParticipan = require("./database/meetingParticipan.js");
-
 app.post("/api/meeting/Save", async (req, res) => {
 	try{
-		const {location, startTime, endTime, agenda, date} = req.body;
-		let meetingId = ~~(Math.random() * 1000000);
-		let check = 0;
-		let meetingReturn;
+		const {location, startTime, endTime, agenda, date} = req.body,
+			meetingId = ~~(Math.random() * 1000000);
+		let check = 0,
+			meetingReturn;
 
-		const dateNew = new Date(date);
-		const newday = dateNew.getDate();
-		const newmonth = dateNew.getMonth()+1;
+		const dateNew = new Date(date),
+			newday = dateNew.getDate(),
+			newmonth = dateNew.getMonth() + 1;
 
 		while(!check)
 		{	
-			meetingReturn = await MeetingProp.findOne({meetingId: meetingId});
+			meetingReturn = await MeetingProp.findOne({meetingId});
 			if(meetingReturn === null)
 			{
 				check = 1;
@@ -34,25 +34,25 @@ app.post("/api/meeting/Save", async (req, res) => {
 
 		let decoded = null;
 		try {
-			decoded = jwt.verify(token, secretKey);
+			decoded = jwt.verify(token, process.env.SECRET_KEY);
 		} catch (error) {
 			console.error("jwt.verify() failed: ", error);
 		}
-		const userId = decoded.userId;
-		const userName = decoded.name;
+		const {userId} = decoded,
+			userName = decoded.name,
 	
-		const meetingProposal = new MeetingProp({meetingId: meetingId,
-			location:location, 
-			startTime:startTime, 
-			endTime:endTime,
-			createrUserId:userId,
-			createrName: userName,
-			agenda:agenda,
-			date:date,
-			day:newday,
-			month:newmonth});
+			meetingProposal = new MeetingProp({meetingId,
+				location, 
+				startTime, 
+				endTime,
+				createrUserId:userId,
+				createrName: userName,
+				agenda,
+				date,
+				day:newday,
+				month:newmonth});
 		await meetingProposal.save();
-		return res.json({meetingId:meetingId});
+		return res.json({meetingId});
 	}
 	catch{
 		return res.status(400).json({ error: "Faill to insert to database"});
@@ -69,13 +69,13 @@ app.post("/api/meeting/ListOneUser", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/addParticipantsToMeetings", async (req, res) => {
-	const {users, meetingId} = req.body;
-	let mId = parseInt(meetingId);
+app.post("/api/meeting/addParticipantsToMeetings", async (req) => {
+	const {users, meetingId} = req.body,
+		mId = parseInt(meetingId);
 	try{
 		users.forEach(async userId =>	{
-			let uId = parseInt(userId);
-			let newMeetingParticipan = new MeetingParticipan({meetingId:mId, UserId:uId});
+			const uId = parseInt(userId),
+				newMeetingParticipan = new MeetingParticipan({meetingId:mId, UserId:uId});
 			await newMeetingParticipan.save();
 		});
 	}
@@ -88,7 +88,7 @@ app.post("/api/meeting/DeleteMeeting", async (req, res) => {
 	const { meetingId } = req.body;
 
 	try {
-		const meetingDeleteResult = await MeetingProp.deleteOne({ meetingId: meetingId });
+		const meetingDeleteResult = await MeetingProp.deleteOne({ meetingId });
 
 		if (meetingDeleteResult.deletedCount === 0) {
 			return res.status(404).json({ error: "Meeting not found" });
@@ -96,7 +96,7 @@ app.post("/api/meeting/DeleteMeeting", async (req, res) => {
 
 		let responseDel;
 		do {
-			responseDel = await MeetingParticipan.deleteOne({ meetingId: meetingId });
+			responseDel = await MeetingParticipan.deleteOne({ meetingId });
 		} while (responseDel.deletedCount > 0);
 
 		return res.status(200).json({ message: "Meeting and participants deleted successfully" });
@@ -112,13 +112,13 @@ app.post("/api/meeting/ListMeeting", async (req, res) => {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
 		try {
-			decoded = jwt.verify(token, secretKey);
+			decoded = jwt.verify(token, process.env.SECRET_KEY);
 		} catch (error) {
 			console.error("jwt.verify() failed: ", error);
 		}
-		const userId = decoded.userId;
-		const list = await MeetingParticipan.find({UserId: userId});
-		const temp = await MeetingProp.find();
+		const {userId} = decoded,
+			list = await MeetingParticipan.find({UserId: userId}),
+			temp = await MeetingProp.find();
 		let returnMeeting = [];
 		list.forEach(invite => {
 			temp.forEach(meeting => {
@@ -139,12 +139,12 @@ app.post("/api/meeting/YoureMeetingList", async (req, res) => {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
 		try {
-			decoded = jwt.verify(token, secretKey);
+			decoded = jwt.verify(token, process.env.SECRET_KEY);
 		} catch (error) {
 			console.error("jwt.verify() failed: ", error);
 		}
-		const userId = decoded.userId;
-		const temp = await MeetingProp.find();
+		const {userId} = decoded,
+			temp = await MeetingProp.find();
 		let returnMeeting = [];
 		temp.forEach(meeting => {
 			if(meeting.createrUserId === userId)
@@ -163,13 +163,13 @@ app.post("/api/meeting/sort", async(req, res) => {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
 		try {
-			decoded = jwt.verify(token, secretKey);
+			decoded = jwt.verify(token, process.env.SECRET_KEY);
 		} catch (error) {
 			console.log("jwt.verify() failed: ", error);
 		}
-		const userId = decoded.userId;
-		const list = await MeetingParticipan.find({UserId: userId});
-		const meetings =  await MeetingProp.find({});
+		const {userId} = decoded,
+			list = await MeetingParticipan.find({UserId: userId}),
+			meetings =  await MeetingProp.find({});
 		let nextMeeting = new MeetingProp({day:99,
 			month:99});
 		const cDate = new Date();
@@ -203,20 +203,22 @@ app.post("/api/meeting/sort", async(req, res) => {
 });
 
 //Code test remove later
-app.get('/', (req, res ) => 
-    res.json({ message: 'Hello World!' })
+app.get("/", (req, res ) => 
+	res.json({ message: "Hello World!" })
 );
 
 // Open port for comunication
 app.listen(PORT, () => {
-    //console.log(`Meeeting microservice on http://localhost:${PORT}`);
+	//console.log(`Meeeting microservice on http://localhost:${PORT}`);
 });
 
-//database stuff 
-//url to DB
+/*
+ * Database stuff 
+ * url to DB
+ */
 const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority"; 
 
-//connect to db
+//Connect to db
 async function connect(){
 	try{
 		await mongoose.connect(url);
