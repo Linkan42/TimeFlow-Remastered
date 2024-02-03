@@ -4,8 +4,8 @@
         "es2021": true
     },
     "extends": [
-        "eslint:all",
-        "plugin:react/all"
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
