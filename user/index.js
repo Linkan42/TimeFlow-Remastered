@@ -5,7 +5,18 @@ import bodyParser from "body-parser";
 const app        = express();
 const PORT       = 3001;
 
-const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority"; 
+const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
+
+mongoose.connection.on("connected",    () => console.log("Connected to the database")); 
+mongoose.connection.on("error",        () => console.log("Database connection error"));
+
+/* Might want to use in the future
+mongoose.connection.on("open",         () => console.log("Database connection open"));
+mongoose.connection.on("disconnected", () => console.log("Disconnected from the database"));
+mongoose.connection.on("reconnected",  () => console.log("Reconnected to the database"));
+mongoose.connection.on("disconnecting",() => console.log("Disconnecting from the database"));
+mongoose.connection.on("close",        () => console.log("Database connection closed"));
+*/
 
 app.use(bodyParser.json());
 
@@ -43,9 +54,12 @@ app.listen(PORT, () => {
 }); 
 
 async function connect(){
-	await mongoose.connect(url);
-	mongoose.connection.on("connected", () => console.log("Connected"));
-	mongoose.connection.on("error",     () => console.log("Database connection error"));
+	try {
+		await mongoose.connect(url);
+	}
+	catch (error) {
+		console.log(error);
+	}
 }
 connect();
 
