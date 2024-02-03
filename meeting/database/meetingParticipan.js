@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const meetingParticipan = new mongoose.Schema({
 	meetingId: Number,  
 	UserId: Number
 });
 
-module.exports = mongoose.model("meetingParticipan", meetingParticipan);
+export default meetingParticipan;

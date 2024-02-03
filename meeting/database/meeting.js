@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const meetingProposalSchema = new mongoose.Schema({
 	meetingId: Number,      
@@ -12,5 +12,5 @@ const meetingProposalSchema = new mongoose.Schema({
 	day: Number,
 	month: Number
 });
-module.exports = mongoose.model("MeetingProp", meetingProposalSchema);
 
+export default meetingProposalSchema;
