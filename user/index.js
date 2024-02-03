@@ -1,4 +1,4 @@
-import User       from "./database/user.js";
+import User       from "../database/user.js";
 import express    from "express";
 import mongoose   from "mongoose";
 import bodyParser from "body-parser";
