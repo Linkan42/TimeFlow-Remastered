@@ -12,7 +12,7 @@
     },
     "scripts": {
         "start": "node dist/index.js",
-        "lint": "npx eslint meeting/**/*.js --config .eslintrc.json --fix",
+        "lint": "npx eslint index.js database/**/*.js --config .eslintrc.json --fix",
         "build": "babel index.js -d dist"
     },
     "devDependencies": {
