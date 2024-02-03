@@ -1,3 +1,4 @@
+const User       = require('./database/user.js');
 const express    = require('express');
 const mongoose   = require('mongoose');
 const bodyParser = require("body-parser");
@@ -5,15 +6,6 @@ const app        = express();
 const PORT       = 3001;
 
 const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority"; 
-
-const userSchema = new mongoose.Schema({
-	Email: String,
-	Name: String,
-	Password: String,
-	UserId: Number 
-});
-
-const User = mongoose.model("User", userSchema);
 
 app.use(bodyParser.json());
 
