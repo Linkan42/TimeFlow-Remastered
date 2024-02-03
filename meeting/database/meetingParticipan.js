@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-let meetingParticipan = new mongoose.Schema({
+const meetingParticipan = new mongoose.Schema({
 	meetingId: Number,  
 	UserId: Number
 });

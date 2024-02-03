@@ -8,16 +8,8 @@ import jwt from "jsonwebtoken";
 import process from "dotenv";
 
 const app = express();
-const mongoose = require("mongoose");
-
 
 const PORT = 3000; // Should be an parameter given in startup
-
-const jwt = require("jsonwebtoken");
-
-const User = require("./database/user.js");
-const MeetingProp = require("./database/meeting.js");
-const MeetingParticipan = require("./database/meetingParticipan.js");
 
 app.post("/api/meeting/Save", async (req, res) => {
 	try{
@@ -211,13 +203,13 @@ app.post("/api/meeting/sort", async(req, res) => {
 });
 
 //Code test remove later
-app.get('/', (req, res ) => 
-    res.json({ message: 'Hello World!' })
+app.get("/", (req, res ) => 
+	res.json({ message: "Hello World!" })
 );
 
 // Open port for comunication
 app.listen(PORT, () => {
-    //console.log(`Meeeting microservice on http://localhost:${PORT}`);
+	//console.log(`Meeeting microservice on http://localhost:${PORT}`);
 });
 
 /*

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-let meetingProposalSchema = new mongoose.Schema({
+const meetingProposalSchema = new mongoose.Schema({
 	meetingId: Number,      
 	location: String,              
 	startTime: String,
