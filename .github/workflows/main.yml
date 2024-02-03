@@ -26,14 +26,23 @@ jobs:
           cd meeting
           npm install
 
+          cd ../user
+          npm install
+
       - name: Transpile JSX to JS with Babel
         run: |
           cd meeting
           npm run build
 
+          cd ../user
+          npm run build
+
       - name: Run ESLint
         run: |
           cd meeting
+          npm run lint
+
+          cd ../user
           npm run lint
 
 
