@@ -22,16 +22,19 @@ jobs:
           node-version: '18.x' # latest 18.x version
 
       - name: Install dependencies
-        run: cd meeting
-             npm install
+        run: |
+          cd meeting
+          npm install
 
       - name: Transpile JSX to JS with Babel
-        run: cd meeting
-             npm run build
+        run: |
+          cd meeting
+          npm run build
 
       - name: Run ESLint
-        run: cd meeting
-             npm run lint
+        run: |
+          cd meeting
+          npm run lint
 
 
 #   Checkout code:
