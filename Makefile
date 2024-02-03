@@ -14,10 +14,12 @@
 #	npm run start
 
 test:
+	@echo "***meeting microservice***"; \
 	cd meeting; \
 	npm run build; \
 	npm run lint; \
 
+	@echo "***user microservice***"; \
 	cd user; \
 	npm run build; \
 	npm run lint
