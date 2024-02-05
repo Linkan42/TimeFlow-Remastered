@@ -63,6 +63,25 @@ app.post("/api/user/DeleteUser", async(req, res) => {
 	}
 });
 
+app.post("/api/user/UpdateUser", async(req, res) => {
+	try {
+		const { Email, Name, Password } = req.body;
+		const emailFound = await User.findOne({ Email: Email });
+		const filter = { Email };
+		const update = { Name: Name, Password: Password };
+		if (emailFound) {
+			await User.findOneAndUpdate(filter, update);
+			return res.status(200).json({ message: `User with email ${ Email } was updated` });
+		}
+		else {
+			return res.status(404).json({ error: `User with email ${ Email } not found and cannot be updated` });
+		}
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ error: "Something broke" });
+	}
+});
+
 app.listen(PORT, () => {
 	console.log(`user microservice on ${ PORT }`);
 }); 
@@ -139,4 +158,34 @@ async function deleteUserExample() {
 	}
 }
 deleteUserExample();
+*/
+
+//Example function for testing updating users
+/*
+async function updateUserExample() {
+	const email = "example1@example.com";
+	const name  = "adrian";
+	await mongoose.connect(url);
+	try {
+		const response = await fetch("http://localhost:3001/api/user/UpdateUser", { method: "POST",
+			headers: { "Content-Type":"application/json" },
+			body: JSON.stringify({ Email: email, Name: name })});
+		if (response.ok)
+		{
+			console.log(response);
+			const successData = await response.json();
+			console.error("User updated successfully:", response.status, successData.message);
+		}
+		else if (!response.ok)
+		{
+			console.log(response);
+			const errorData = await response.json();
+			console.error("Failed to update user:", response.status, errorData.error);
+		}
+	}
+	catch (error) {
+		console.error(error);
+	}
+}
+updateUserExample();
 */
