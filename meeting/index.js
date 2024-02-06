@@ -1,16 +1,47 @@
 import express from "express";
-import MeetingProp from "../database/meeting.js";
-import MeetingParticipan from "../database/meetingParticipan.js";
-import User from "../database/user.js";
+import MeetingProp from "./database/meeting.js";
+import MeetingParticipan from "./database/meetingParticipan.js";
+import User from "./database/user.js";
 
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import process from "dotenv";
+import amqp from "amqplib/callback_api.js";
 
 const app = express();
 
 const PORT = 3000; // Should be an parameter given in startup
 
+app.get("/api/meeting/Test", async () => {
+	
+	// Set up a connection to Rabbitmq
+	amqp.connect("amqp://localhost", function (err, connection) {
+	
+		// Error 
+		connection.on("error", err => {
+			console.error("Connection error:", err);
+		});
+
+		// Makes a channel to use when connecting 
+		connection.createChannel(function (err, ch) {
+			if (err) {
+				console.log(toString(err));
+			}
+
+			const queue_meeting = "meeting";
+
+			// Connect to the queue 
+			ch.assertQueue(queue_meeting, {
+				durable: false
+			});
+
+			// Read msg from the queue 
+			ch.consume(queue_meeting, function (msg) {
+				console.log("Test Start:", msg.content.toString());
+			});
+		});
+	});
+});
 app.post("/api/meeting/Save", async (req, res) => {
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body,
@@ -209,7 +240,7 @@ app.get("/", (req, res ) =>
 
 // Open port for comunication
 app.listen(PORT, () => {
-	//console.log(`Meeeting microservice on http://localhost:${PORT}`);
+	console.log(`Meeeting microservice on http://localhost:${PORT}`);
 });
 
 /*
