@@ -1,4 +1,4 @@
-import User from "./database/user.js";
+import User from "../database/user.js";
 import express from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
@@ -13,7 +13,7 @@ const app = express(),
 
 app.post("/api/login/validateLogin", async (req, res) => {
 	const {Email} = req.body,
-	 {Password} = req.body;
+		{Password} = req.body;
 
 	try{
 		const person  = await User.findOne({Email, Password});
