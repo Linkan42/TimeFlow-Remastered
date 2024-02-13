@@ -1,9 +1,8 @@
-name: main
+name: cicd
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
       # run when updating main,
       # (pull requests into main are included, despite the "push" syntax)
 
