@@ -1,11 +1,10 @@
-name: main
+name: cicd
 
 on:
-  push:
-    branches:
-      - main
-      # run when updating main,
-      # (pull requests into main are included, despite the "push" syntax)
+  pull_request:
+    branches: [ main ]
+      # run when updating main
+      # (only possible to update main via pull requests)
 
 jobs:
   build-and-lint:

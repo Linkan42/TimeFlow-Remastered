@@ -1,9 +1,10 @@
 import express from "express";
 import amqp from "amqplib/callback_api.js";
+import Buffer from "node:buffer";
 const app = express();
 const PORT = 2999;
 
-app.get("/gateWayAPI/meeting", async (req, res) => {
+app.get("/gateWayAPI/meeting", async (/*req, res*/) => {
 
 	// Set up a connection to Rabbitmq
 	amqp.connect("amqp://localhost", function (err, connection) {
