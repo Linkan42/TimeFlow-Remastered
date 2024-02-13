@@ -1,12 +1,10 @@
-name: main
+name: cicd
 
 on:
-  #push:
-  #  branches:
-  #    - '*' # This wildcard matches any branch
   pull_request:
-    branches:
-      - '*'
+    branches: [ main ]
+      # run when updating main
+      # (only possible to update main via pull requests)
 
 jobs:
   build-and-lint:
@@ -22,34 +20,14 @@ jobs:
           node-version: '18.x' # latest 18.x version
 
       - name: Install dependencies
-        run: |
-          echo "***meeting microservice***"
-          cd meeting
-          npm install
-
-          echo "***user microservice***"
-          cd ../user
-          npm install
+        run: ./scripts/install.sh
 
       - name: Transpile JSX to JS with Babel
-        run: |
-          echo "***meeting microservice***"
-          cd meeting
-          npm run build
-
-          echo "***user microservice***"
-          cd ../user
-          npm run build
+        run: ./scripts/babel.sh
 
       - name: Run ESLint
-        run: |
-          echo "***meeting microservice***"
-          cd meeting
-          npm run lint
+        run: ./scripts/eslint.sh
 
-          echo "***user microservice***"
-          cd ../user
-          npm run lint
 
 
 #   Checkout code:
