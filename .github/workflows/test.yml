@@ -1,0 +1,30 @@
+name: test
+
+on:
+  pull_request:
+    branches: [ main ]
+      # run when updating main
+      # (only possible to update main via pull requests)
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x' # latest 18.x version
+
+      - name: Install dependencies
+        run: ./scripts/install.sh
+
+      - name: Transpile JSX to JS with Babel
+        run: ./scripts/babel.sh
+
+      - name: Run ESLint
+        run: ./scripts/eslint.sh
+

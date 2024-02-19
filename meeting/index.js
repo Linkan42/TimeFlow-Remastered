@@ -1,7 +1,7 @@
 import express from "express";
-import MeetingProp from "./database/meeting.js";
-import MeetingParticipan from "./database/meetingParticipan.js";
-import User from "./database/user.js";
+import MeetingProp from "../database/meeting.js";
+import MeetingParticipan from "../database/meetingParticipan.js";
+import User from "../database/user.js";
 
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
@@ -9,8 +9,12 @@ import process from "dotenv";
 import amqp from "amqplib/callback_api.js";
 
 const app = express();
+//const env = require("dotenv");
 
-const PORT = 3000; // Should be an parameter given in startup
+const PORT = 4001;
+//const DBCONECT = process.env.DBCONECT;
+
+//const PORT = process.env.PORT; // Should be an parameter given in startup
 
 app.get("/api/meeting/Test", async () => {
 	
@@ -247,7 +251,7 @@ app.listen(PORT, () => {
  * Database stuff 
  * url to DB
  */
-const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority"; 
+const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
 
 //Connect to db
 async function connect(){
