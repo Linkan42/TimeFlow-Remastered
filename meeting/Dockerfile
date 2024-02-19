@@ -2,12 +2,16 @@ FROM node:18
 
 WORKDIR /meeting
 
-COPY package*.json ./
+COPY package*.json ./ 
 
 RUN npm install
 
 COPY . . 
 
-EXPOSE 4001
+COPY .env .env
+
+ARG PORT
+
+ENV PORT=${PORT:-4001}
 
 CMD ["npm", "start"]
