@@ -3,7 +3,7 @@ import axios from "axios";
 
 const app = express();
 const PORT = 4000;
-//vet ej vad jag borde skriva här
+//vet ej vad jag borde skriva 
 const HOST = OklartAtm;
 
 app.post('/api/meeting/Save', async (req, res) => {
@@ -13,7 +13,7 @@ app.post('/api/meeting/Save', async (req, res) => {
         
         res.json(meeting_microservice.data);
     } catch (error) {
-        console.error('Error forwarding request to microservice:', error);
+        console.error('Error with meeting api call meeting/Save', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
