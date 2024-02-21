@@ -6,7 +6,6 @@ import User from "../database/user.js";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import process from "dotenv";
-import amqp from "amqplib/callback_api.js";
 
 const app = express();
 //const env = require("dotenv");
