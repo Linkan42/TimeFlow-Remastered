@@ -46,12 +46,8 @@ app.post("/api/login/validateLogin", async (req, res) => {
 });
 
 //#region Database
-/*
- * TODO: try to make the url a so called "secret enviroment variable"
- *       to avoid having it in plain text
- */
-const PORT = 3002,
-	URL = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
+const PORT = process.env.PORT,
+	URL = process.env.DBCONNECT;
 
 app.listen(PORT, () => {
 	console.log(`login microservice on ${ PORT }`);
