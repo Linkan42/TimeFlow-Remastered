@@ -1,5 +1,14 @@
-workflow_dispatch:
+name: meeting
 
+on: 
+  push:
+    branches:
+      - main
+    paths: 
+      - './meeting' 
+
+  workflow_dispatch:
+    
 jobs:
   test:
     runs-on: ubuntu-latest
