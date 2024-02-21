@@ -1,32 +1,23 @@
 import express from "express";
-import amqp from "amqplib/callback_api.js";
-import Buffer from "node:buffer";
+import axios from "axios";
+
 const app = express();
-const PORT = 2999;
+const PORT = 4000;
+//vet ej vad jag borde skriva här
+const HOST = OklartAtm;
 
-app.get("/gateWayAPI/meeting", async (/*req, res*/) => {
-
-	// Set up a connection to Rabbitmq
-	amqp.connect("amqp://localhost", function (err, connection) {
-
-		// Makes a channel to use when connecting 
-		connection.createChannel(function (err, ch) {
-			if (err) {
-				console.log(toString(err));
-			}
-
-			const queue_meeting = "meeting";
-
-			// Connect to the queue 
-			ch.assertQueue(queue_meeting, {
-				durable: false
-			});
-
-			// Send msg to the queue 
-			ch.sendToQueue(queue_meeting, Buffer.from("Test"));
-		});
-	});
+app.post('/api/meeting/Save', async (req, res) => {
+    try {
+      
+        const meeting_microservice = await axios.post('http://${HOST}:4001/meeting/Save', req.body);
+        
+        res.json(meeting_microservice.data);
+    } catch (error) {
+        console.error('Error forwarding request to microservice:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
+
 
 app.listen(PORT, () => {
 	console.log("Gatway open");
