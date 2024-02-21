@@ -5,15 +5,12 @@ import User from "../database/user.js";
 
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import process from "dotenv";
-
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
-//const env = require("dotenv");
 
-const PORT = 4001;
-// const DBCONECT = process.env.DBCONECT;
-
-//const PORT = process.env.PORT; // Should be an parameter given in startup
+const DBCONECT = process.env.DBCONECT;
+const PORT = process.env.PORT; // Should be an parameter given in startup
 
 app.post("/api/meeting/Save", async (req, res) => {
 	try{
@@ -220,7 +217,7 @@ app.listen(PORT, () => {
  * Database stuff 
  * url to DB
  */
-const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
+const url = DBCONECT;
 
 //Connect to db
 async function connect(){
