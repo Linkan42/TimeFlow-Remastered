@@ -1,7 +1,7 @@
 import express from "express";
-import MeetingProp from "../database/meeting.js";
-import MeetingParticipan from "../database/meetingParticipan.js";
-import User from "../database/user.js";
+import MeetingProp from "./database/meeting.js";
+import MeetingParticipan from "./database/meetingParticipan.js";
+import User from "./database/user.js";
 
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
