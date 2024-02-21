@@ -14,4 +14,4 @@ ARG PORT
 
 ENV PORT=${PORT:-4001}
 
-CMD ["npm", "start"]
+CMD ["npm", "docker_start"]
