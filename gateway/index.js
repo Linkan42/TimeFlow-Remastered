@@ -3,12 +3,13 @@ import axios from "axios";
 
 const app = express();
 const PORT = 4000;
-//vet ej vad jag borde skriva 
+
 
 app.post('/api/meeting/Save', async (req, res) => {
     try {
-      
-        const meeting_microservice = await axios.post('http://microservices/meeting/Save', req.body);
+		
+		//http://meeting-microservice/ -- from meeting/kubernetes deploy.yaml
+        const meeting_microservice = await axios.post('http://meeting-microservice/meeting/Save', req.body);
         
         res.json(meeting_microservice.data);
     } catch (error) {
