@@ -16,36 +16,6 @@ const PORT = 4001;
 
 //const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.get("/api/meeting/Test", async () => {
-	
-	// Set up a connection to Rabbitmq
-	amqp.connect("amqp://localhost", function (err, connection) {
-	
-		// Error 
-		connection.on("error", err => {
-			console.error("Connection error:", err);
-		});
-
-		// Makes a channel to use when connecting 
-		connection.createChannel(function (err, ch) {
-			if (err) {
-				console.log(toString(err));
-			}
-
-			const queue_meeting = "meeting";
-
-			// Connect to the queue 
-			ch.assertQueue(queue_meeting, {
-				durable: false
-			});
-
-			// Read msg from the queue 
-			ch.consume(queue_meeting, function (msg) {
-				console.log("Test Start:", msg.content.toString());
-			});
-		});
-	});
-});
 app.post("/api/meeting/Save", async (req, res) => {
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body,
