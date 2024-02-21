@@ -12,7 +12,7 @@ const app = express();
 //const env = require("dotenv");
 
 const PORT = 4001;
-//const DBCONECT = process.env.DBCONECT;
+// const DBCONECT = process.env.DBCONECT;
 
 //const PORT = process.env.PORT; // Should be an parameter given in startup
 
@@ -239,7 +239,7 @@ app.post("/api/meeting/sort", async(req, res) => {
 
 //Code test remove later
 app.get("/", (req, res ) => 
-	res.json({ message: "Hello World!" })
+	console.log("Hello World!")
 );
 
 // Open port for comunication
