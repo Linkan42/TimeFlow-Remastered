@@ -12,7 +12,18 @@ const app = express();
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.post("/api/meeting/Save", async (req, res) => {
+app.post("/meeting/ListOneUser", async (req, res) => {
+	try{
+		const list = await User.find().select("Name UserId");
+		res.json(list);
+	}
+	catch{
+		return res.status(400).json({ error: "userlist"});
+	}
+});
+
+
+app.post("/meeting/Save", async (req, res) => {
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body,
 			meetingId = ~~(Math.random() * 1000000);
@@ -60,7 +71,7 @@ app.post("/api/meeting/Save", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/ListOneUser", async (req, res) => {
+app.post("/meeting/ListOneUser", async (req, res) => {
 	try{
 		const list = await User.find().select("Name UserId");
 		res.json(list);
@@ -70,7 +81,7 @@ app.post("/api/meeting/ListOneUser", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/addParticipantsToMeetings", async (req) => {
+app.post("/meeting/addParticipantsToMeetings", async (req) => {
 	const {users, meetingId} = req.body,
 		mId = parseInt(meetingId);
 	try{
@@ -85,7 +96,7 @@ app.post("/api/meeting/addParticipantsToMeetings", async (req) => {
 	}	
 });
 
-app.post("/api/meeting/DeleteMeeting", async (req, res) => {
+app.post("/meeting/DeleteMeeting", async (req, res) => {
 	const { meetingId } = req.body;
 
 	try {
@@ -108,7 +119,7 @@ app.post("/api/meeting/DeleteMeeting", async (req, res) => {
 });
   
 
-app.post("/api/meeting/ListMeeting", async (req, res) => {
+app.post("/meeting/ListMeeting", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -135,7 +146,7 @@ app.post("/api/meeting/ListMeeting", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/YoureMeetingList", async (req, res) => {
+app.post("/meeting/YoureMeetingList", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -159,7 +170,7 @@ app.post("/api/meeting/YoureMeetingList", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/sort", async(req, res) => {    
+app.post("/meeting/sort", async(req, res) => {    
 	try{
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
