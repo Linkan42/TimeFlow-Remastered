@@ -6,22 +6,22 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-app.post("/meeting/test", async (req, res) => {
+app.get("/meeting/test", async (req, res) => {
 	res.json({ "message": "hello world!" });
 });
 
-app.post("/api/meeting/test", async (req, res) => {
+app.get("/api/meeting/test", async (req, res) => {
 	
 	const meeting_microservice = await axios.post("http://meeting-microservice/meeting/test", req.body);
 	
-	console.log(meeting_microservice_response.data);
+	console.log(meeting_microservice.data);
 
-	res.json(meeting_microservice_response.data);
+	res.json(meeting_microservice.data);
 });
 
 
 
-app.post("/api/meeting/Save", async (req, res) => {
+app.get("/api/meeting/Save", async (req, res) => {
 	try {
 		//http://meeting-microservice/ -- from meeting/kubernetes deploy.yaml
 		const meeting_microservice = await axios.post("http://meeting-microservice/meeting/Save", req.body);
