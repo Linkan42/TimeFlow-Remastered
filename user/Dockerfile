@@ -1,6 +1,6 @@
 FROM node:18
 
-WORKDIR /meeting
+WORKDIR /user
 
 COPY package*.json ./ 
 
