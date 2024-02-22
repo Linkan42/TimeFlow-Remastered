@@ -12,6 +12,6 @@ COPY .env .env
 
 ARG PORT
 
-ENV PORT=${PORT:-3001}
+ENV PORT=${PORT:-3000}
 
 CMD ["npm", "run", "start"]
