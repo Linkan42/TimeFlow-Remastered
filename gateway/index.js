@@ -6,6 +6,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
+app.post("/meeting/test", async (req, res) => {
+	res.json({ "message": "hello world!" });
+});
 
 app.post("/api/meeting/test", async (req, res) => {
 	
