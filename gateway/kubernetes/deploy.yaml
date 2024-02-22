@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: meeting
+  name: gateway
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: meeting
+      app: gateway
   template:
     metadata:
       labels:
-        app: meeting
+        app: gateway
     spec:
       containers: 
-      - name: meeting
-        image: $CONTAINER_REGISTRY_LOGIN_SERVER/meeting:$VERSION 
+      - name: gateway
+        image: $CONTAINER_REGISTRY_LOGIN_SERVER/gateway:$VERSION 
         imagePullPolicy: IfNotPresent
         env:
         - name: PORT
-          value: "4001"
+          value: "4000"
         resources:
           requests:
             cpu: 126m
@@ -30,11 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: meeting-microservices
+  name: LoadBalancer
 spec:
   selector:
-    app: meeting
-  type: ClusterIP
+    app: LoadBalancer
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80

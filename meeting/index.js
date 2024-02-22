@@ -5,48 +5,19 @@ import User from "../database/user.js";
 
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import process from "dotenv";
-import amqp from "amqplib/callback_api.js";
-
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
-//const env = require("dotenv");
 
-const PORT = 4001;
-// const DBCONECT = process.env.DBCONECT;
+const DBCONECT = process.env.DBCONECT;
+const PORT = process.env.PORT; // Should be an parameter given in startup
 
-//const PORT = process.env.PORT; // Should be an parameter given in startup
-
-app.get("/api/meeting/Test", async () => {
-	
-	// Set up a connection to Rabbitmq
-	amqp.connect("amqp://localhost", function (err, connection) {
-	
-		// Error 
-		connection.on("error", err => {
-			console.error("Connection error:", err);
-		});
-
-		// Makes a channel to use when connecting 
-		connection.createChannel(function (err, ch) {
-			if (err) {
-				console.log(toString(err));
-			}
-
-			const queue_meeting = "meeting";
-
-			// Connect to the queue 
-			ch.assertQueue(queue_meeting, {
-				durable: false
-			});
-
-			// Read msg from the queue 
-			ch.consume(queue_meeting, function (msg) {
-				console.log("Test Start:", msg.content.toString());
-			});
-		});
-	});
+app.post("/meeting/test", async (req, res) => {
+		res.json({ "message": "hello world!" });
 });
-app.post("/api/meeting/Save", async (req, res) => {
+
+
+app.post("/meeting/Save", async (req, res) => {
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body,
 			meetingId = ~~(Math.random() * 1000000);
@@ -94,7 +65,7 @@ app.post("/api/meeting/Save", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/ListOneUser", async (req, res) => {
+app.post("/meeting/ListOneUser", async (req, res) => {
 	try{
 		const list = await User.find().select("Name UserId");
 		res.json(list);
@@ -104,7 +75,7 @@ app.post("/api/meeting/ListOneUser", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/addParticipantsToMeetings", async (req) => {
+app.post("/meeting/addParticipantsToMeetings", async (req) => {
 	const {users, meetingId} = req.body,
 		mId = parseInt(meetingId);
 	try{
@@ -119,7 +90,7 @@ app.post("/api/meeting/addParticipantsToMeetings", async (req) => {
 	}	
 });
 
-app.post("/api/meeting/DeleteMeeting", async (req, res) => {
+app.post("/meeting/DeleteMeeting", async (req, res) => {
 	const { meetingId } = req.body;
 
 	try {
@@ -142,7 +113,7 @@ app.post("/api/meeting/DeleteMeeting", async (req, res) => {
 });
   
 
-app.post("/api/meeting/ListMeeting", async (req, res) => {
+app.post("/meeting/ListMeeting", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -169,7 +140,7 @@ app.post("/api/meeting/ListMeeting", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/YoureMeetingList", async (req, res) => {
+app.post("/meeting/YoureMeetingList", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -193,7 +164,7 @@ app.post("/api/meeting/YoureMeetingList", async (req, res) => {
 	}
 });
 
-app.post("/api/meeting/sort", async(req, res) => {    
+app.post("/meeting/sort", async(req, res) => {    
 	try{
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -251,7 +222,7 @@ app.listen(PORT, () => {
  * Database stuff 
  * url to DB
  */
-const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
+const url = DBCONECT;
 
 //Connect to db
 async function connect(){
