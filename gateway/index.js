@@ -6,9 +6,11 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-app.get("/meeting/test", async (req, res) => {
-	res.json({ "message": "hello world!" });
-});
+//test
+app.get("/", (req, res ) => 
+	res.json({ message: "Docker and azure is easy" }) 
+);
+
 
 app.get("/api/meeting/test", async (req, res) => {
 	
