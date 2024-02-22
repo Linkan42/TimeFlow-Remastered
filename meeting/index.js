@@ -12,14 +12,8 @@ const app = express();
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.post("/meeting/ListOneUser", async (req, res) => {
-	try{
-		const list = await User.find().select("Name UserId");
-		res.json(list);
-	}
-	catch{
-		return res.status(400).json({ error: "userlist"});
-	}
+app.post("/meeting/test", async (req, res) => {
+		res.json({ "message": "hello world!" });
 });
 
 
