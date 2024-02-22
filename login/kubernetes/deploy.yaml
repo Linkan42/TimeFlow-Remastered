@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: login
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: login
+  template:
+    metadata:
+      labels:
+        app: login
+    spec:
+      containers: 
+      - name: login
+        image: $CONTAINER_REGISTRY_LOGIN_SERVER/login:$VERSION 
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PORT
+          value: "1337"
+        resources:
+          requests:
+            cpu: 126m
+            memory: 126Mi
+          limits:
+            cpu: 256m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: login-microservices
+spec:
+  selector:
+    app: login
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 1337
