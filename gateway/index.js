@@ -6,14 +6,19 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
+//test
+app.get("/", (req, res ) => 
+	res.json({ message: "Docker and azure is easy" }) 
+);
+
 
 app.post("/api/meeting/test", async (req, res) => {
 	
 	const meeting_microservice = await axios.post("http://meeting-microservice/meeting/test", req.body);
 	
-	console.log(meeting_microservice_response.data);
+	console.log(meeting_microservice.data);
 
-	res.json(meeting_microservice_response.data);
+	res.json(meeting_microservice.data);
 });
 
 

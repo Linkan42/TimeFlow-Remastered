@@ -1,30 +1,30 @@
 import express from "express";
-import amqp from "amqplib/callback_api.js";
+import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
-const PORT = 4000;
-app.get("/gateWayAPI/meeting", async (req, res) => {
-  console.log("here");
-  //Connect to Rabbitmq
-  await amqp.connect("amqp://localhost", function (err, connection) {
-    // Create a channel
-    console.log("here1");
-    connection.createChannel(function (err, ch) {
-      if (err) {
-        console.log(toString(err));
-      }
-      console.log("here2");
-      const queue_meeting = "meeting";
-      ch.assertQueue(queue_meeting, {
-        durable: false
-      });
-      console.log("here3");
-      ch.sendToQueue(queue_meeting, Buffer.from("Test"));
-      console.log("here4");
-      //to make the linter happy
-      //console.log(res);
-      //console.log(req);
+const PORT = process.env.PORT;
+
+//test
+app.get("/", (req, res) => res.json({
+  message: "Docker and azure is easy"
+}));
+app.post("/api/meeting/test", async (req, res) => {
+  const meeting_microservice = await axios.post("http://meeting-microservice/meeting/test", req.body);
+  console.log(meeting_microservice.data);
+  res.json(meeting_microservice.data);
+});
+app.post("/api/meeting/Save", async (req, res) => {
+  try {
+    //http://meeting-microservice/ -- from meeting/kubernetes deploy.yaml
+    const meeting_microservice = await axios.post("http://meeting-microservice/meeting/Save", req.body);
+    res.json(meeting_microservice.data);
+  } catch (error) {
+    console.error("Error with meeting api call meeting/Save", error);
+    res.status(500).json({
+      error: "Internal Server Error"
     });
-  });
+  }
 });
 app.listen(PORT, () => {
   console.log("Gatway open");
