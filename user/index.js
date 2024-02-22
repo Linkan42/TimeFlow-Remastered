@@ -2,10 +2,13 @@ import User       from "../database/user.js";
 import express    from "express";
 import mongoose   from "mongoose";
 import bodyParser from "body-parser";
-const app        = express();
-const PORT       = 3001;
+import dotenv	  from "dotenv";
 
-const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
+dotenv.config();
+const app        = express();
+const DBCONNECT = process.env.DBCONECT;
+const PORT = process.env.PORT;
+
 
 mongoose.connection.on("connected",    () => console.log("Connected to the database")); 
 mongoose.connection.on("error",        () => console.log("Database connection error"));
@@ -89,7 +92,7 @@ app.listen(PORT, () => {
 
 async function connect(){
 	try {
-		await mongoose.connect(url);
+		await mongoose.connect(DBCONNECT);
 	}
 	catch (error) {
 		console.log(error);
