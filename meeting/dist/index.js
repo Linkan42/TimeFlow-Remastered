@@ -226,7 +226,8 @@ app.post("/meeting/sort", async (req, res) => {
 });
 
 //Code test remove later
-app.get("/", (req, res) => console.log("Hello World!"));
+app.get("/", ( /*req, res */
+) => console.log("Hello World!"));
 
 // Open port for comunication
 app.listen(PORT, () => {
