@@ -204,7 +204,7 @@ app.post("/meeting/sort", async(req, res) => {
 });
 
 //Code test remove later
-app.get("/", (req, res ) => 
+app.get("/", (/*req, res */) => 
 	console.log("Hello World!")
 );
 

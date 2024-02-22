@@ -2,9 +2,11 @@ import User from "../database/user.js";
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
-const PORT = 3001;
-const url = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
+const DBCONNECT = process.env.DBCONECT;
+const PORT = process.env.PORT;
 mongoose.connection.on("connected", () => console.log("Connected to the database"));
 mongoose.connection.on("error", () => console.log("Database connection error"));
 
@@ -120,18 +122,14 @@ app.post("/api/user/UpdateUser", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`user microservice on ${PORT}`);
 });
-
-/*
-async function connect(){
-	try {
-		await mongoose.connect(url);
-	}
-	catch (error) {
-		console.log(error);
-	}
+async function connect() {
+  try {
+    await mongoose.connect(DBCONNECT);
+  } catch (error) {
+    console.log(error);
+  }
 }
 connect();
-*/
 
 // Example function for testing creating users
 /*
@@ -196,33 +194,31 @@ deleteUserExample();
 */
 
 //Example function for testing updating users
-
+/*
 async function updateUserExample() {
-  const email = "example1@example.com";
-  const name = "adrian";
-  await mongoose.connect(url);
-  try {
-    const response = await fetch("http://localhost:3001/api/user/UpdateUser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        Email: email,
-        Name: name
-      })
-    });
-    if (response.ok) {
-      console.log(response);
-      const successData = await response.json();
-      console.error("User updated successfully:", response.status, successData.message);
-    } else if (!response.ok) {
-      console.log(response);
-      const errorData = await response.json();
-      console.error("Failed to update user:", response.status, errorData.error);
-    }
-  } catch (error) {
-    console.error(error);
-  }
+	const email = "example1@example.com";
+	const name  = "adrian";
+	await mongoose.connect(url);
+	try {
+		const response = await fetch("http://localhost:3001/api/user/UpdateUser", { method: "POST",
+			headers: { "Content-Type":"application/json" },
+			body: JSON.stringify({ Email: email, Name: name })});
+		if (response.ok)
+		{
+			console.log(response);
+			const successData = await response.json();
+			console.error("User updated successfully:", response.status, successData.message);
+		}
+		else if (!response.ok)
+		{
+			console.log(response);
+			const errorData = await response.json();
+			console.error("Failed to update user:", response.status, errorData.error);
+		}
+	}
+	catch (error) {
+		console.error(error);
+	}
 }
 updateUserExample();
+*/
