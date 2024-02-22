@@ -12,11 +12,6 @@ const app = express();
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.post("/meeting/test", async (req, res) => {
-		res.json({ "message": "hello world!" });
-});
-
-
 app.post("/meeting/Save", async (req, res) => {
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body,
@@ -209,7 +204,7 @@ app.post("/meeting/sort", async(req, res) => {
 });
 
 //Code test remove later
-app.get("/", (req, res ) => 
+app.get("/", (/*req, res */) => 
 	console.log("Hello World!")
 );
 

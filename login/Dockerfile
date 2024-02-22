@@ -2,14 +2,16 @@ FROM node:18
 
 WORKDIR /login
 
-COPY package*.json ./
+COPY package*.json ./ 
 
 RUN npm install
 
-COPY . .
+COPY . . 
 
-ENV PORT=3002
+COPY .env .env
 
-EXPOSE 3002
+ARG PORT
 
-CMD ["npm", "start"]
+ENV PORT=${PORT:-4001}
+
+CMD ["npm", "run", "start"]

@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: meeting
+  name: login
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: meeting
+      app: login
   template:
     metadata:
       labels:
-        app: meeting
+        app: login
     spec:
       containers: 
-      - name: meeting
-        image: $CONTAINER_REGISTRY_LOGIN_SERVER/meeting:$VERSION 
+      - name: login
+        image: $CONTAINER_REGISTRY_LOGIN_SERVER/login:$VERSION 
         imagePullPolicy: IfNotPresent
         env:
         - name: PORT
-          value: "4001"
+          value: "1337"
         resources:
           requests:
             cpu: 126m
@@ -30,12 +30,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: meeting-microservices
+  name: login-microservices
 spec:
   selector:
-    app: meeting
+    app: login
   type: ClusterIP
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 4001
+      targetPort: 1337
