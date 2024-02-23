@@ -42,7 +42,7 @@ spec:
           periodSeconds: 2
         livenessProbe:
           httpGet:
-            part: /
+            path: /
             port: 1337
           initialDelaySeconds: 10
           periodSeconds: 2
