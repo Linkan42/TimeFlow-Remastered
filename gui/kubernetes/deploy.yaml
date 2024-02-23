@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gui
+  template:
+    metadata:
+      labels:
+        app: gui
+    spec:
+      containers: 
+      - name: meeting
+        image: $CONTAINER_REGISTRY_LOGIN_SERVER/gui:$VERSION 
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PORT
+          value: "4000"
+        resources:
+          requests:
+            cpu: 126m
+            memory: 126Mi
+          limits:
+            cpu: 256m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gui
+spec:
+  selector:
+    app: gui
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4000
