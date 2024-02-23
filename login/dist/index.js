@@ -54,6 +54,17 @@ app.post("/api/login/validateLogin", async (req, res) => {
     });
   }
 });
+app.post("/health", async (req, res) => {
+  try {
+    return res.status(200).send({
+      message: "Health very good"
+    });
+  } catch (error) {
+    return res.status(httpCodeServiceUnavailable).json({
+      error: "im dead"
+    });
+  }
+});
 
 //#region Database
 const PORT = process.env.PORT,
