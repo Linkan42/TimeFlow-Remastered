@@ -2,9 +2,9 @@ import User from "../database/user.js";
 import express from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import process from "dotenv";
+import dotenv from "dotenv";
 
-process.config();
+dotenv.config();
 
 const app = express(),
 	httpCodeInternalServerError = 500,
