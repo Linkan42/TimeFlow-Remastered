@@ -13,12 +13,18 @@ app.get("/", (req, res ) =>
 
 
 app.post("/api/meeting/test", async (req, res) => {
-	
+	try{
 	const meeting_microservice = await axios.post("http://meeting-microservice/meeting/test", req.body);
 	
 	console.log(meeting_microservice.data);
 
 	res.json(meeting_microservice.data);
+	}
+	catch (error) {
+		console.error("Error with meeting api call meeting/Save", error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+
 });
 
 

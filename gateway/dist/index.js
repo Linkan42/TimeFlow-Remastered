@@ -10,9 +10,16 @@ app.get("/", (req, res) => res.json({
   message: "Docker and azure is easy"
 }));
 app.post("/api/meeting/test", async (req, res) => {
-  const meeting_microservice = await axios.post("http://meeting-microservice/meeting/test", req.body);
-  console.log(meeting_microservice.data);
-  res.json(meeting_microservice.data);
+  try {
+    const meeting_microservice = await axios.post("http://meeting-microservice/meeting/test", req.body);
+    console.log(meeting_microservice.data);
+    res.json(meeting_microservice.data);
+  } catch (error) {
+    console.error("Error with meeting api call meeting/Save", error);
+    res.status(500).json({
+      error: "Internal Server Error"
+    });
+  }
 });
 app.post("/api/meeting/Save", async (req, res) => {
   try {
