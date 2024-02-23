@@ -16,7 +16,7 @@ app.get("meeting/test", (req, res) => {
     message: "Docker and azure is easy"
   });
 });
-app.post("/meeting/Save", async (req, res) => {
+app.get("/meeting/Save", async (req, res) => {
   try {
     const {
         location,

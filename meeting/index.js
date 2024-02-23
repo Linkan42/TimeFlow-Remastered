@@ -18,7 +18,7 @@ app.get("meeting/test", (req, res ) =>{
 });
 
 
-app.post("/meeting/Save", async (req, res) => {
+app.get("/meeting/Save", async (req, res) => {
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body,
 			meetingId = ~~(Math.random() * 1000000);
