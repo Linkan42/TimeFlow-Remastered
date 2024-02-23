@@ -26,13 +26,13 @@ spec:
           limits:
             cpu: 256m
             memory: 256Mi
-        # startupProbe:
-        #   exec:
-        #     command:
-        #       - cat
-        #       - /tmp/started
-        #       - echo
-        #       - "Oskar är en noob"
+        startupProbe:
+          exec:
+            command:
+              - cat
+              - /tmp/started
+              - echo
+              - "Oskar är en noob"
         #   periodSeconds: 10
         #   failureThreshold: 3
         # readinessProbe:
