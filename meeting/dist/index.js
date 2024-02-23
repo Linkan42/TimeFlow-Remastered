@@ -11,7 +11,7 @@ const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
 app.get("meeting/test", (req, res) => {
-  console.log(`meeting/test here`);
+  console.log("meeting/test here");
   res.json({
     message: "Docker and azure is easy"
   });
