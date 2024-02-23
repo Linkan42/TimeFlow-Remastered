@@ -44,7 +44,7 @@ metadata:
   name: loadbalancer
 spec:
   selector:
-    app: loadbalancer
+    app: gateway
   type: LoadBalancer
   ports:
     - protocol: TCP

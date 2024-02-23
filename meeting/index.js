@@ -12,7 +12,14 @@ const app = express();
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.post("/meeting/Save", async (req, res) => {
+app.post("/meeting/test", (req, res) => {
+	console.log("Here /meeting/test");
+	console.log("Data received:", req.body);
+	res.status(200).json({ message: "POST request to /meeting/test successful" });
+});
+
+
+app.get("/meeting/Save", async (req, res) => {
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body,
 			meetingId = ~~(Math.random() * 1000000);
