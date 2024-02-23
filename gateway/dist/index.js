@@ -11,7 +11,13 @@ app.get("/", (req, res) => res.json({
 }));
 app.post("/api/meeting/test", async (req, res) => {
   try {
-    const meeting_microservice = await axios.post("http://meeting-microservice/meeting/test", req.body);
+    const meeting_microservice = await axios({
+      // Forwards the request to the video-storage microservice.
+      method: "GET",
+      url: `http://meeting-microservice/meeting/test`,
+      data: req,
+      responseType: "json"
+    });
     console.log(meeting_microservice.data);
     res.json(meeting_microservice.data);
   } catch (error) {
