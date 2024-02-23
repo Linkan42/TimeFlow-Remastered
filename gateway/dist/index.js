@@ -1,18 +1,20 @@
 import express from "express";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT;
 
 //test
 app.get("/", (req, res) => res.json({
   message: "Docker and azure is easy"
 }));
-app.get("/api/meeting/test", async (req, res) => {
+app.post("/api/meeting/test", async (req, res) => {
   const meeting_microservice = await axios.post("http://meeting-microservice/meeting/test", req.body);
   console.log(meeting_microservice.data);
   res.json(meeting_microservice.data);
 });
-app.get("/api/meeting/Save", async (req, res) => {
+app.post("/api/meeting/Save", async (req, res) => {
   try {
     //http://meeting-microservice/ -- from meeting/kubernetes deploy.yaml
     const meeting_microservice = await axios.post("http://meeting-microservice/meeting/Save", req.body);
@@ -25,5 +27,5 @@ app.get("/api/meeting/Save", async (req, res) => {
   }
 });
 app.listen(PORT, () => {
-  console.log(`Gatway open ${PORT}`);
+  console.log("Gatway open");
 });
