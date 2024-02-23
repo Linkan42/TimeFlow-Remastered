@@ -18,7 +18,7 @@ app.get("/api/meeting/test", async (req, res) => {
       method: "GET",
       url: "http://meeting/meeting/test",
       data: req,
-      responseType: "json"
+      responseType: "text"
     });
     console.log(meeting_microservice.data);
     res.json(meeting_microservice.data);
