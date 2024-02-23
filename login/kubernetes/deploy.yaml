@@ -29,8 +29,6 @@ spec:
         startupProbe:
           exec:
             command:
-              - cat
-              - /tmp/started
               - echo
               - "Oskar är en noob"
         #   periodSeconds: 10
