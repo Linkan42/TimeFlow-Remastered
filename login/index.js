@@ -4,6 +4,8 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import process from "dotenv";
 
+process.config();
+
 const app = express(),
 	httpCodeInternalServerError = 500,
 	httpCodeNotFound = 404,
