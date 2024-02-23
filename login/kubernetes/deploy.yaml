@@ -32,7 +32,7 @@ spec:
               #- cat
               #- /tmp/started
               - echo
-              - Oskar är en noob
+              - "Oskar är en noob"
           periodSeconds: 10
           failureThreshold: 3
         readinessProbe:
