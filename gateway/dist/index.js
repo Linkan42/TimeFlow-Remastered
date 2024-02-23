@@ -10,6 +10,7 @@ app.get("/", (req, res) => res.json({
   message: "Docker and azure is easy"
 }));
 app.get("/api/meeting/test", async (req, res) => {
+  console.log("here /api/meeting/test");
   try {
     console.log("here");
     const meeting_microservice = await axios({
