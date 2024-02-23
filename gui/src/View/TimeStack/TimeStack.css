@@ -1,0 +1,19 @@
+
+
+.block{
+    position: absolute;
+    top: 50%;
+    left: 62%;
+    transform: translate(-48%, -50%);
+    max-height: '60vh';
+}
+
+.std{
+    position: relative;
+    width: 20vw;
+}
+
+.date{
+    background-color: white;
+    width: 20vw;
+}

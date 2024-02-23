@@ -1,0 +1,24 @@
+.container {
+    position: relative;
+    max-width: 100vw;
+    max-height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+
+.centered-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center horizontally and vertically */
+    max-width: 100vw; /* Ensure the image doesn't exceed the container width */
+    max-height: 100vh; /* Ensure the image doesn't exceed the container height */
+
+    /*
+    position: absolute;                 is often used to position the element relative to its nearest positioned ancestor,
+                                        usually the parent container.
+    top: 50% and left: 50%;             position the top-left corner of the element at the center of its parent container.
+    transform: translate(-50%, -50%);   then moves the element back up and to the left by 50% of its own height and width, 
+                                        effectively centering the entire element within the container
+    */
+}

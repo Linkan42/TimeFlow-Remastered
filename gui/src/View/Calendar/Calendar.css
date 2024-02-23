@@ -1,0 +1,8 @@
+.calendar {
+    box-shadow: 1;
+    border-radius: 2;
+    padding: 2;
+    min-width: 200px;
+    width: 'auto';
+    height: '60vh';
+}

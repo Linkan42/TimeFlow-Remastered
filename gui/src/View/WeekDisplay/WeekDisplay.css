@@ -1,0 +1,35 @@
+.Panel{
+    padding: 2%!important;
+    max-height: 100%;
+    max-width: 100%;
+    overflow-y: auto;
+    background-color: #FAFAFA;
+}
+
+.ListItemButton{
+    width: auto;
+    height: inherit;
+    background-color: #FAFAFA !important;
+    color: white;
+}
+
+.InfoBox{
+    box-shadow: 1;
+    border-radius: 2;
+    padding: 0.2;
+    color: white;
+}
+
+.TextPlace{
+    color: black;
+    padding-left: 15px;
+    padding-top: 10px;
+}
+
+.paperContainer {
+    color: white;
+}
+
+.Text {
+    color: black;
+}
