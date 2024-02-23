@@ -18,7 +18,6 @@ test:
 	./scripts/eslint.sh
 
 deploy:
-	gh workflow run gateway.yaml; \
-	gh workflow run login.yaml; \
-	gh workflow run meeting.yaml; \
-	gh workflow run user.yaml
+	gh workflow run gateway.yaml | gh workflow run login.yaml | gh workflow run meeting.yaml | gh workflow run user.yaml
+
+.PHONY:
