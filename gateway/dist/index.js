@@ -9,9 +9,9 @@ const PORT = process.env.PORT;
 app.get("/", (req, res) => res.json({
   message: "Docker and azure is easy"
 }));
-app.post("/api/meeting/test", async (req, res) => {
+app.get("/api/meeting/test", async (req, res) => {
   try {
-    console.log('here');
+    console.log("here");
     const meeting_microservice = await axios({
       // Forwards the request to the video-storage microservice.
       method: "GET",
