@@ -12,9 +12,10 @@ const app = express();
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.get("meeting/test", (req, res ) =>{
-	console.log("meeting/test here");
-	res.json({ message: "Docker and azure is easy" });
+app.post("/meeting/test", (req, res) => {
+	console.log("Here /meeting/test");
+	console.log("Data received:", req.body);
+	res.status(200).json({ message: "POST request to /meeting/test successful" });
 });
 
 
