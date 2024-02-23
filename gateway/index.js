@@ -1,10 +1,9 @@
 import express from "express";
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
+
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = 4000;
 
 //test
 app.get("/", (req, res ) => 
@@ -37,5 +36,5 @@ app.get("/api/meeting/Save", async (req, res) => {
 
 
 app.listen(PORT, () => {
-	console.log("Gatway open");
+	console.log(`Gatway open ${PORT}`);
 });
