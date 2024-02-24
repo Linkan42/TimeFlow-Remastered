@@ -1,0 +1,39 @@
+.input{
+    width: 20vw!important;
+    background-color: white;
+}
+.inputButton{
+    width: 20vw!important;
+    height: 6vh!important;
+    background-color: #344966!important;
+}
+.InPutField{
+    height: auto;
+    background-color: white!important;
+}
+
+.dateGrid{
+    transform: translate(5%, 2%);
+    background-color: transparent;
+}
+
+.dateStack{
+    background-color: transparent;
+}
+
+.coWorkerList{
+    box-shadow: 1;
+    height: 43vh!important;
+    width: 15vw;
+    overflow: auto!important;
+    color:white;
+    background-color: transparent;
+
+    
+}
+
+.coWorkerInfo{
+    background-color: #FAFAFA!important;
+    width: 14vw;
+    transform: translate(4%);
+}

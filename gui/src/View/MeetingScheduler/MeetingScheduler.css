@@ -1,0 +1,8 @@
+.meetingContainer {
+    height: 100vh;
+    min-height: 100%;
+    background-image: url('002.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

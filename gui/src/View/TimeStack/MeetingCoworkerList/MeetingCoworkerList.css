@@ -1,0 +1,12 @@
+.coWorkerList{
+    background: paper;
+    box-shadow: 1;
+    border-radius: 2;
+    padding: 2;
+    max-height: 60vh!important;
+    overflow: auto!important;
+}
+.coWorkerList{
+    color:white;
+    background-color: steelblue;
+}

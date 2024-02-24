@@ -1,0 +1,21 @@
+.profileContainer {
+    background-color: #FAFAFA;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-bottom: -10vh;
+}
+
+.save_button {    
+    position: absolute;
+    color: black;
+    left: 50%;
+    transform: translate(-50%, 10%); /* Center horizontally and vertically */
+
+    /*
+    position: absolute;                 is often used to position the element relative to its nearest positioned ancestor,
+                                        usually the parent container.
+    top: 50% and left: 50%;             position the top-left corner of the element at the center of its parent container.
+    transform: translate(-50%, -50%);   then moves the element back up and to the left by 50% of its own height and width, 
+                                        effectively centering the entire element within the container
+    */
+}

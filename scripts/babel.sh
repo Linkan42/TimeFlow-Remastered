@@ -2,6 +2,10 @@ echo "***gateway microservice***"
 cd gateway
 npm run build
 
+echo "***gui microservice***"
+cd ../gui
+npm run build
+
 # echo "***log microservice***"
 # cd ../log
 # npm run build
