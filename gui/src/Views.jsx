@@ -12,10 +12,10 @@ const secretKey = process.env.SECRET_KEY;
 const Views = () => {
     const [tokenValid, setTokenValid] = useState(null);
 
-    useEffect(() => {
+        useEffect(() => {
         const fetchData = async () => {
             const userToken = localStorage.getItem("token");
-            
+
             try {
                 const decoded = verifyToken(userToken, secretKey);
 
@@ -52,17 +52,17 @@ const Views = () => {
         <Routes>
             {tokenValid ? (
                 <>
-                    <Route index element={<SignIn />} />
-                    <Route path="/home" element={<HomePage />} />
-                    <Route path="/meetingScheduler" element={<MeetingScheduler />} />
-                    <Route path='*' element={<div>404 LOL</div>} />
+                <Route index element={<SignIn />} />
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/meetingScheduler" element={<MeetingScheduler />} />
+                <Route path='*' element={<div>404 LOL</div>} />
                 </>
             ) : (
                 <>
-                    <Route index element={<SignIn />} />
-                    <Route path="/home" element={<div> Please log in first!</div>} />
-                    <Route path="/meetingScheduler" element={<div> Please log in first!</div>} />
-                    <Route path='*' element={<div>404 LOL</div>} />
+                <Route index element={<SignIn />} />
+                <Route path="/home" element={<div> Please log in first!</div>} />
+                <Route path="/meetingScheduler" element={<div> Please log in first!</div>} />
+                <Route path='*' element={<div>404 LOL</div>} />
                 </>
             )}
         </Routes>

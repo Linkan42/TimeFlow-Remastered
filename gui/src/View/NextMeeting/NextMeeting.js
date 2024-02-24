@@ -2,7 +2,7 @@ import { Container, Paper  } from "@mui/material";
 import React, {useState, useEffect} from "react";
 
 
-export function NextMeeting(props) {
+export function NextMeeting(/*props*/) {
 	const [nextMeetingData, setNextMeetingData] = useState([]);
 	const [token] = useState(localStorage.getItem("token"));
 	useEffect(() => {
