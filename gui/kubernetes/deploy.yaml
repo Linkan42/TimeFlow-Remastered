@@ -21,10 +21,10 @@ spec:
           value: "4000"
         resources:
           requests:
-            cpu: 126m
-            memory: 1024Mi
+            cpu: 1024m
+            memory: 2048Mi
           limits:
-            cpu: 256m
+            cpu: 2048m
             memory: 2048Mi
 ---
 apiVersion: v1
