@@ -2,6 +2,10 @@ echo "***gateway microservice***"
 cd gateway
 npm run lint
 
+echo "***gui microservice***"
+cd ../gui
+npm run lint
+
 # echo "***log microservice***"
 # cd ../log
 # npm run lint

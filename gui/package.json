@@ -26,11 +26,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
+    "start": "serve -s build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint-browser": "npx eslint src --config .eslintrc-browser.json --fix"
+    "lint": "npx eslint src --config .eslintrc-browser.json --fix"
   },
   "eslintConfig": {
     "extends": [

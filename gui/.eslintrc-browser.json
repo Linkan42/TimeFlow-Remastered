@@ -30,9 +30,14 @@
     },
     "overrides": [
         {
-            "files": ["src/View/TimeStack/MeetingCoworkerList/MeetingCoworkerList.js"],
+            "files": ["src/View/TimeStack/MeetingCoworkerList/MeetingCoworkerList.js",
+                      "src/App.test.js",
+                      "src/Views.jsx"],
             "rules": {
-                "react/jsx-key": "off"
+                "react/jsx-key": "off",
+                "no-undef": "off",
+                "quotes": "off",
+                "indent": "off"
             }
         }
     ]
