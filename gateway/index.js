@@ -65,7 +65,7 @@ app.get("/api/ValidateEmail", async (req, res) => {
 	console.log("here /api/ValidateEmail");
 	try{
 		console.log("here");
-
+		
 		const user_microservices = await axios.post("http://user-microservices/ValidateEmail", req.body);
 	
 		console.log(user_microservices.data);
