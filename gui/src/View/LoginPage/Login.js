@@ -18,14 +18,14 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import "./Login.css";
 //import useValidateEmail from "./useValidateEmail";
-import useValidateName from "./useValidateName";
-import useCreateUser from "./useCreateUser";
+//import useValidateName from "./useValidateName";
+//import useCreateUser from "./useCreateUser";
 import ValidateEmail1 from "./LoginApi";
 
 function FormDialog() {
 	const [open, setOpen]                     = React.useState(false);
 	const [validEmail, setValidEmail]         = React.useState(true);
-	const [validUserName, setValidUserName]   = React.useState(true);
+	//const [validUserName, setValidUserName]   = React.useState(true);
 	const [passwordsMatch, setPasswordsMatch] = React.useState(true);
 
 	const [email, setEmail]                   = React.useState("");
@@ -44,30 +44,34 @@ function FormDialog() {
 	const HandleCreateAccount = async () => {
 		//if email exists in database, display error
 		//const {ValidateEmail} = useValidateEmail();
-		const {ValidateName}  = useValidateName();
+		//const {ValidateName}  = useValidateName();
 
-		const NameExists  = await ValidateName(userName);
+		//const NameExists  = await ValidateName(userName);
 
-		const {CreateUser} = useCreateUser();
+		//const {CreateUser} = useCreateUser();
 		const EmailExists = await ValidateEmail1(email);
 
 
-		if(EmailExists)
+		if(EmailExists){
 			setValidEmail(false);
-		else
+			console.log("great success!");
+		}
+		else{
 			setValidEmail(true);
-		if(NameExists)
-			setValidUserName(false);
-		else
-			setValidUserName(true);
-		if(!passwordsMatch){
-			//cant create account
+			console.log("He can not afford!");
 		}
-		if(!EmailExists && !NameExists && passwordsMatch){
-			//create account
-			setOpen(false);
-			await CreateUser(email, userName, password2);
-		}
+		// if(NameExists)
+		// 	setValidUserName(false);
+		// else
+		// 	setValidUserName(true);
+		// if(!passwordsMatch){
+		// 	//cant create account
+		// }
+		// if(!EmailExists && !NameExists && passwordsMatch){
+		// 	//create account
+		// 	setOpen(false);
+		// 	await CreateUser(email, userName, password2);
+		// }
 	};
   
 	const handlePasswordsMatch = (e) => {
@@ -103,8 +107,8 @@ function FormDialog() {
 						autoFocus
 						onChange={(e) => setUserName(e.target.value)}
 						value={userName}
-						error={!validUserName}
-						helperText={!validUserName ? "Name already exists" : ""}
+						//error={!validUserName}
+						//helperText={!validUserName ? "Name already exists" : ""}
 						margin="dense"
 						id="usernametf"
 						label="Account Name"
