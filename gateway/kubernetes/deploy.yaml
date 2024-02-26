@@ -18,7 +18,7 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: PORT
-          value: "4000"
+          value: "4025"
         resources:
           requests:
             cpu: 126m
@@ -28,13 +28,13 @@ spec:
             memory: 2048Mi
         readinessProbe:
             tcpSocket:
-              port: 4000
+              port: 4025
             initialDelaySeconds: 10
             periodSeconds: 2
         livenessProbe:
           httpGet:
             path: /
-            port: 4000
+            port: 4025
           initialDelaySeconds: 10
           periodSeconds: 2
 ---
@@ -49,4 +49,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 4000
+      targetPort: 4025
