@@ -17,9 +17,10 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import "./Login.css";
-import useValidateEmail from "./useValidateEmail";
+//import useValidateEmail from "./useValidateEmail";
 import useValidateName from "./useValidateName";
 import useCreateUser from "./useCreateUser";
+import ValidateEmail1 from "./LoginApi";
 
 function FormDialog() {
 	const [open, setOpen]                     = React.useState(false);
@@ -42,14 +43,15 @@ function FormDialog() {
 
 	const HandleCreateAccount = async () => {
 		//if email exists in database, display error
-		const {ValidateEmail} = useValidateEmail();
+		//const {ValidateEmail} = useValidateEmail();
 		const {ValidateName}  = useValidateName();
 
-		const EmailExists = await ValidateEmail(email);
 		const NameExists  = await ValidateName(userName);
 
 		const {CreateUser} = useCreateUser();
-		
+		const EmailExists = await ValidateEmail1(email);
+
+
 		if(EmailExists)
 			setValidEmail(false);
 		else
