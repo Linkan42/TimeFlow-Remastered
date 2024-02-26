@@ -11,7 +11,7 @@ app.get("/", (req, res ) =>
 	res.json({ message: "Docker and azure is easy" }) 
 );
 
-//metting 
+//metting  
 app.get("/api/meeting/test", async (req, res) => {
 	console.log("here /api/meeting/test");
 	try{
@@ -87,7 +87,7 @@ app.get("/api/ValidateLogin", async (req, res) => {
 	
 		console.log(login_microservices.data);
 
-		res.json(login_microservices.data);
+		res.status(200).json(login_microservices.data);
 	}
 	catch (error) {
 		console.error("Error with /api/ValidateLogin", error);
