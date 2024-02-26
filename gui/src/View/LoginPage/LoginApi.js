@@ -1,14 +1,12 @@
-import axios from "axios";
-
-
 const ValidateEmail1 = async (Email) => {
 	try {
-		
-		const gateway_response = await axios.post("http://gateway/api/ValidateLogin", Email);
-        
-		if (gateway_response.status === 200) {
+		const response = await fetch("http://gateway/api/ValidateEmail", {method: "POST",
+			headers: {"Content-Type":"application/json"},
+			body: JSON.stringify({ Email: Email })});
+		if(response.ok){
 			return false;
-		} else {
+		}
+		else{
 			return true;
 		}
 	} catch (error) {
