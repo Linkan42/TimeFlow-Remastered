@@ -5,7 +5,7 @@ const ValidateEmail = async (Email) => {
 		const body = { Email: Email };
 		console.log("here");
         
-		const apiResponse = await axios.post("http://gateway/api/ValidateEmail", body);
+		const apiResponse = await axios.post("http://20.103.11.40/gateway/api/ValidateEmail", body);
             
 		console.log(apiResponse.data);
 	}
