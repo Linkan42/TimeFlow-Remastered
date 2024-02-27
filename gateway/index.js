@@ -58,7 +58,7 @@ app.get("/api/CreateUser", async (req, res) => {
 app.post("/api/ValidateEmail", async (req, res) => {
 	console.log("here /api/ValidateEmail");
 	try {
-		console.log("here");
+		console.log("here", req.body);
 		const user_microservices = await axios.post("http://user-microservices/ValidateEmail", req.body);
 		console.log(user_microservices.data);
 		res.status(200).json({
