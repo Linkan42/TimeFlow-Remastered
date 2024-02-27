@@ -76,7 +76,6 @@ app.post("/api/ValidateLogin", async (req, res) => {
     });
   }
 });
-3;
 app.listen(PORT, () => {
   console.log("Gatway open");
 });

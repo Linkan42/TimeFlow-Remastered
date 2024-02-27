@@ -92,8 +92,6 @@ app.post("/api/ValidateLogin", async (req, res) => {
 
 });
 
-3;
-
 
 
 
