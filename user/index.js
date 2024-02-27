@@ -24,7 +24,7 @@ mongoose.connection.on("close",        () => console.log("Database connection cl
 
 app.use(bodyParser.json());
 
-app.post("/validate-email", async (req, res) => {
+app.post("/ValidateEmail", async (req, res) => {
 	const {Email} = req.body;
 
 	try{
