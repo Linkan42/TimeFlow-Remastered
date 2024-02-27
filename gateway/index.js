@@ -1,10 +1,16 @@
 import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(cors({
+	origin: "http://20.76.209.148",
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	allowedHeaders: ["Content-Type", "Authorization"]
+}));
 //metting  
 app.get("/api/meeting/test", async (req, res) => {
 	console.log("here /api/meeting/test");
