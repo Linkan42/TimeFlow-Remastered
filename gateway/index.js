@@ -9,7 +9,8 @@ const PORT = process.env.PORT;
 app.use(cors({
 	origin: "http://20.76.209.148",
 	methods: ["GET", "POST", "PUT", "DELETE"],
-	allowedHeaders: ["Content-Type", "Authorization"]
+	allowedHeaders: ["Content-Type", "Authorization"],
+	credentials: true // Allow credentials
 }));
 //metting  
 app.get("/api/meeting/test", async (req, res) => {
