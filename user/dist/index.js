@@ -5,7 +5,8 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
-const DBCONNECT = process.env.DBCONECT;
+//const DBCONNECT = process.env.DBCONECT;
+const DBCONNECT = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
 const PORT = process.env.PORT;
 mongoose.connection.on("connected", () => console.log("Connected to the database"));
 mongoose.connection.on("error", () => console.log("Database connection error"));
@@ -19,6 +20,29 @@ mongoose.connection.on("close",        () => console.log("Database connection cl
 */
 
 app.use(bodyParser.json());
+app.post("/validate-email", async (req, res) => {
+  const {
+    Email
+  } = req.body;
+  try {
+    const emailFound = await User.findOne({
+      Email
+    });
+    if (emailFound) {
+      return res.status(400).json({
+        error: "Email already exists"
+      });
+    } else {
+      return res.status(200).json({
+        message: "Email OK!"
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      error: "Something broke"
+    });
+  }
+});
 app.post("/api/user/CreateUser", async (req, res) => {
   try {
     const {
