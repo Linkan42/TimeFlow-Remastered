@@ -10,6 +10,7 @@ const ValidateEmail = async (Email) => {
 		});
             
 		console.log(apiResponse.data);
+		return apiResponse.data;
 	}
 	catch (error) {
 		console.error("Error with meeting api call gateway/api/ValidateEmail", error);
