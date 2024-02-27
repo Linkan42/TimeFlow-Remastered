@@ -6,7 +6,7 @@ const ValidateEmail = async (Email) => {
 		console.log("here");
         
 		const apiResponse = await axios.post("http://20.103.11.40/api/ValidateEmail", body, {
-			withCredentials: true
+			withCredentials: true,
 		});
             
 		console.log(apiResponse.data);
