@@ -30,9 +30,11 @@ app.post("/ValidateEmail", async (req, res) => {
 	try{
 		const emailFound = await User.findOne({Email});
 		if (emailFound) {
+			console.log("Email: " + emailFound + " already exists");
 			return res.status(400).json({ error: "Email already exists" });
 		}
 		else {
+			console.log("Email: " + emailFound + " do not already exists");
 			return res.status(200).json({ message: "Email OK!" });
 		}
 	} catch(error) {
