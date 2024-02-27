@@ -4,7 +4,7 @@ const ValidateEmail = async (Email) => {
 	try {
 		const body = JSON.stringify({ Email: Email });
 
-		const meeting_microservice = await axios.post("http://meeting/meeting/test", body);
+		const meeting_microservice = await axios.post("http://gateway/meeting/test", body);
 		if(meeting_microservice.ok){
 			return false;
 		}
