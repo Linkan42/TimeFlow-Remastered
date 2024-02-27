@@ -1,9 +1,11 @@
-const ValidateEmail1 = async (Email) => {
+import axios from "axios";
+
+const ValidateEmail = async (Email) => {
 	try {
-		const response = await fetch("http://gateway/api/ValidateEmail", {method: "POST",
-			headers: {"Content-Type":"application/json"},
-			body: JSON.stringify({ Email: Email })});
-		if(response.ok){
+		const body = JSON.stringify({ Email: Email });
+
+		const meeting_microservice = await axios.post("http://meeting/meeting/test", body);
+		if(meeting_microservice.ok){
 			return false;
 		}
 		else{
@@ -15,4 +17,4 @@ const ValidateEmail1 = async (Email) => {
 	}
 };
 
-export default ValidateEmail1;
+export default ValidateEmail;

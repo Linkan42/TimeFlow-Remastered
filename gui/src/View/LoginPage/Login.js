@@ -20,7 +20,7 @@ import "./Login.css";
 //import useValidateEmail from "./useValidateEmail";
 //import useValidateName from "./useValidateName";
 //import useCreateUser from "./useCreateUser";
-import ValidateEmail1 from "./LoginApi";
+import ValidateEmail from "./LoginApi";
 
 function FormDialog() {
 	const [open, setOpen]                     = React.useState(false);
@@ -49,7 +49,7 @@ function FormDialog() {
 		//const NameExists  = await ValidateName(userName);
 
 		//const {CreateUser} = useCreateUser();
-		const EmailExists = await ValidateEmail1(email);
+		const EmailExists = await ValidateEmail(email);
 
 
 		if(EmailExists){
