@@ -55,7 +55,7 @@ app.get("/api/CreateUser", async (req, res) => {
 		});
 	}
 });
-app.get("/api/ValidateEmail", async (req, res) => {
+app.post("/api/ValidateEmail", async (req, res) => {
 	console.log("here /api/ValidateEmail");
 	try {
 		console.log("here");
