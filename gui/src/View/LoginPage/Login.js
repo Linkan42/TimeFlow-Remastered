@@ -49,6 +49,7 @@ function FormDialog() {
 		//const NameExists  = await ValidateName(userName);
 
 		//const {CreateUser} = useCreateUser();
+		console.log("ValidateEmail called with:", email);
 		const EmailExists = await ValidateEmail(email);
 
 
