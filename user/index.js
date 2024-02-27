@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 
 app.post("/ValidateEmail", async (req, res) => {
 	const {Email} = req.body;
-
+	console.log("Email:", Email);
 	try{
 		const emailFound = await User.findOne({Email});
 		if (emailFound !== null) {
