@@ -5,14 +5,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-// Middleware to set CORS headers
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://20.76.209.148');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
-
 //metting  
 app.get("/api/meeting/test", async (req, res) => {
   console.log("here /api/meeting/test");
