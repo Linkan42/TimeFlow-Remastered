@@ -70,14 +70,14 @@ app.post("/api/ValidateEmail", async (req, res) => {
 			console.log(response);
 			//const successData = await response.json();
 			console.error("Email is valid and does not exist in database:", response.status/*, successData.message*/);
-			return response;
+			return res.status(200).json({ message: "Email OK!" });
 		}
 		else if(!response.ok)
 		{
 			console.log(response);
 			//const errorData = await response.json();
 			console.error("Email already exists:", response.status/*, errorData.error*/);
-			return response;
+			return res.status(400).json({ error: "Email already exists, returning res.status(400)" });
 		}
 	} catch (error) {
 		console.error("Error with /api/ValidateEmail", error);

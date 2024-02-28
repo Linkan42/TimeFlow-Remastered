@@ -53,27 +53,27 @@ function FormDialog() {
 		console.log("new");
 		let value = null;
 		try {
-			const EmailExists = await fetch("http://20.103.11.40/api/ValidateEmail", {
+			const response = await fetch("http://20.103.11.40/api/ValidateEmail", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
 				body: JSON.stringify({ Email: email})
 			});
 		
 			console.log("hello");
-			console.log("Response status:", EmailExists.status);
-			console.log("Response status text:", EmailExists.statusText);
+			console.log("Response status:", response.status);
+			console.log("Response status text:", response.statusText);
 		
-			if (EmailExists.status === 200) {
-				const responseBody = await EmailExists.json(); // Assuming the response body is in JSON format
+			if (response.status === 200) {
+				const responseBody = await response.json(); // Assuming the response body is in JSON format
 				console.log("Response body:", responseBody);
 				value = false;
-			} else if (EmailExists.status === 400) {
+			} else if (response.status === 400) {
 				console.log("Email already exists");
 				value = true;
 				// Handle the case when the email already exists (e.g., display an error message)
 			}
 		} catch (error) {
-			console.error('Error:', error);
+			console.error("Error:", error);
 		}
 
 		if(value){
