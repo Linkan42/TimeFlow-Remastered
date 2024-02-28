@@ -3,7 +3,7 @@ import axios from "axios";
 const ValidateEmail = async (Email) => {
 	try{
 		const body = { Email: Email };
-		console.log("here:", body.Email);
+		console.log("here:", body);
         
 		const apiResponse = await axios.post("http://20.103.11.40/api/ValidateEmail", body, {
 			withCredentials: true,
