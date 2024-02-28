@@ -2,9 +2,11 @@ import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
 import cors from "cors";
+import bodyParser from "body-parser";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
+app.use(bodyParser.json());
 app.use(cors({
   origin: "http://20.76.209.148",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -56,12 +58,29 @@ app.get("/api/CreateUser", async (req, res) => {
 });
 app.post("/api/ValidateEmail", async (req, res) => {
   try {
-    console.log("/api/ValidateEmail req.body = ", req.body);
-    const user_microservices = await axios.post("http://user-microservices/ValidateEmail", req.body);
-    console.log(user_microservices.data);
-    res.status(200).json({
-      data: user_microservices.data
+    console.log("/api/ValidateEmail req.body = ", req.body, req.json);
+    const response = await fetch("http://user-microservices/user/validate-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(req.body)
     });
+    if (response.ok) {
+      console.log(response);
+      //const successData = await response.json();
+      console.error("Email is valid and does not exist in database:", response.status /*, successData.message*/);
+      return res.status(200).json({
+        message: "Email OK!"
+      });
+    } else if (!response.ok) {
+      console.log(response);
+      //const errorData = await response.json();
+      console.error("Email already exists:", response.status /*, errorData.error*/);
+      return res.status(400).json({
+        error: "Email already exists, returning res.status(400)"
+      });
+    }
   } catch (error) {
     console.error("Error with /api/ValidateEmail", error);
     res.status(500).json({

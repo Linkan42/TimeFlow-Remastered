@@ -5,8 +5,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
-//const DBCONNECT = process.env.DBCONECT;
-const DBCONNECT = "mongodb+srv://Filmdados:TimeFlow@timeflow.bba95oe.mongodb.net/?retryWrites=true&w=majority";
+const DBCONNECT = process.env.DBCONNECT;
 const PORT = process.env.PORT;
 mongoose.connection.on("connected", () => console.log("Connected to the database"));
 mongoose.connection.on("error", () => console.log("Database connection error"));
@@ -20,26 +19,24 @@ mongoose.connection.on("close",        () => console.log("Database connection cl
 */
 
 app.use(bodyParser.json());
-app.post("/ValidateEmail", async (req, res) => {
-  const {
-    Email
-  } = req.body;
-  console.log("Email:", Email);
+app.post("/user/validate-email", async (req, res) => {
   try {
-    const emailFound = await User.findOne({
+    console.log(req.body);
+    const {
       Email
+    } = req.body;
+    const emailFound = await User.findOne({
+      Email: Email
     });
-    if (emailFound !== null) {
-      console.log("Email: " + emailFound + " already exists");
-      return res.status(200).json({
-        message: "Email already exists",
-        data: true
+    if (emailFound) {
+      console.log("Email exists");
+      return res.status(400).json({
+        error: "Email already exists, returning res.status(400)"
       });
     } else {
-      console.log("Email: " + emailFound + " do not already exists");
+      console.log("Email does not exist, returning res.status(200)");
       return res.status(200).json({
-        message: "Email OK!",
-        data: false
+        message: "Email OK!"
       });
     }
   } catch (error) {
