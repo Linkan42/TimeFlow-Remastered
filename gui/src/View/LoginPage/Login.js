@@ -20,7 +20,7 @@ import "./Login.css";
 //import useValidateEmail from "./useValidateEmail";
 //import useValidateName from "./useValidateName";
 //import useCreateUser from "./useCreateUser";
-import ValidateEmail from "./LoginApi";
+//import ValidateEmail from "./LoginApi";
 
 function FormDialog() {
 	const [open, setOpen]                     = React.useState(false);
@@ -52,17 +52,17 @@ function FormDialog() {
 		console.log("ValidateEmail called with:", email);
 		console.log("new");
 
-		const EmailExists = await fetch('http://20.103.11.40/api/ValidateEmail', {
+		const EmailExists = await fetch("http://20.103.11.40/api/ValidateEmail", {
 			method: "POST",
 			headers: {"Content-Type":"application/json"},
 			body: JSON.stringify({ Email: email})
 		})
-		.then(data => {
-			console.log('Validation result:', data);
-		})
-		.catch(error => {
-			console.error('Error validating email:', error);
-		});
+			.then(data => {
+				console.log("Validation result:", data);
+			})
+			.catch(error => {
+				console.error("Error validating email:", error);
+			});
 
 
 		if(EmailExists){
