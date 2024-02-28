@@ -56,12 +56,25 @@ app.get("/api/CreateUser", async (req, res) => {
 });
 app.post("/api/ValidateEmail", async (req, res) => {
   try {
-    console.log("/api/ValidateEmail req.body = ", req.body);
-    const user_microservices = await axios.post("http://user-microservices/ValidateEmail", req.body);
-    console.log(user_microservices.data);
-    res.status(200).json({
-      data: user_microservices.data
+    console.log("/api/ValidateEmail req.body = ", req.body, req.json);
+    const response = await fetch("http://user-microservice/user/validate-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: req.body
     });
+    if (response.ok) {
+      console.log(response);
+      const successData = await response.json();
+      console.error("Email is valid and does not exist in database:", response.status, successData.message);
+      return response;
+    } else if (!response.ok) {
+      console.log(response);
+      const errorData = await response.json();
+      console.error("Email already exists:", response.status, errorData.error);
+      return response;
+    }
   } catch (error) {
     console.error("Error with /api/ValidateEmail", error);
     res.status(500).json({

@@ -56,14 +56,9 @@ function FormDialog() {
 			method: "POST",
 			headers: {"Content-Type":"application/json"},
 			body: JSON.stringify({ Email: email})
-		})
-			.then(data => {
-				console.log("Validation result:", data);
-			})
-			.catch(error => {
-				console.error("Error validating email:", error);
-			});
+		});
 
+		console.log(EmailExists, EmailExists.status)
 
 		if(EmailExists){
 			setValidEmail(false);
