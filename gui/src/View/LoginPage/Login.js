@@ -57,7 +57,7 @@ function FormDialog() {
 			headers: {"Content-Type":"application/json"},
 			body: JSON.stringify({ Email: email})
 		});
-
+		console.log("hello");
 		console.log(EmailExists, EmailExists.status);
 
 		if(EmailExists){
