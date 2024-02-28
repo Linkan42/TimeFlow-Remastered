@@ -20,12 +20,12 @@ mongoose.connection.on("close",        () => console.log("Database connection cl
 
 app.use(bodyParser.json());
 app.post("/user/validate-email", async (req, res) => {
-  const {
-    Email
-  } = req.body;
   try {
-    const emailFound = await User.findOne({
+    const {
       Email
+    } = req.body;
+    const emailFound = await User.findOne({
+      Email: Email
     });
     if (emailFound) {
       return res.status(400).json({
