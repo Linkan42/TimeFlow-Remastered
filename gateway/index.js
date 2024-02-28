@@ -58,7 +58,7 @@ app.get("/api/CreateUser", async (req, res) => {
 app.post("/api/ValidateEmail", async (req, res) => {
 	try {
 		console.log("/api/ValidateEmail req.body = ", req.body, req.json);
-		const response = await fetch("http://user-microservice/user/validate-email", {
+		const response = await fetch("http://user-microservices/user/validate-email", {
 			method: "POST",
 			headers: {"Content-Type":"application/json"},
 			body: req.body
