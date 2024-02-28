@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 const bodyParser = require("body-parser");
@@ -16,9 +17,15 @@ app.use(bodyParser.json());
 // Serve static files from the build folder
 app.use(express.static(path.join(__dirname, my_path)));
 
+// Add CORS middleware
+app.use(cors({
+	origin: "http://20.76.209.148",
+	methods: ["GET", "POST", "PUT", "DELETE"],
+	allowedHeaders: ["Content-Type", "Authorization"],
+	credentials: true // Allow credentials
+}));
 
-
-// Handle requests to the root URL
+// Handle requests to the root URL.
 app.get(["/", "/home", "/login", "/meetingScheduler", "/*"], (req, res) => {
 	// Send the index.html file from the build folder as the response
 	res.sendFile(path.join(__dirname, my_path, "index.html"));
