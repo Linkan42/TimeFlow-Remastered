@@ -41,7 +41,7 @@ app.post("/user/validate-email", async (req, res) => {
 	}
 });
 
-app.post("/api/user/CreateUser", async(req, res) => {
+app.post("/user/create-user", async(req, res) => {
 	try {
 		const { Email, Name, Password } = req.body;
 		const emailFound = await User.findOne({ Email: Email });
@@ -68,7 +68,7 @@ app.post("/api/user/CreateUser", async(req, res) => {
 	}
 });
 
-app.post("/api/user/DeleteUser", async(req, res) => {
+app.post("/user/delete-user", async(req, res) => {
 	try {
 		const { Email } = req.body;
 		const emailFound = await User.findOne({ Email: Email });
@@ -84,7 +84,7 @@ app.post("/api/user/DeleteUser", async(req, res) => {
 	}
 });
 
-app.post("/api/user/UpdateUser", async(req, res) => {
+app.post("/user/update-user", async(req, res) => {
 	try {
 		const { Email, Name, Password } = req.body;
 		const emailFound = await User.findOne({ Email: Email });
