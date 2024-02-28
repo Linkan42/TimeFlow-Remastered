@@ -58,7 +58,7 @@ function FormDialog() {
 			body: JSON.stringify({ Email: email})
 		});
 
-		console.log(EmailExists, EmailExists.status)
+		console.log(EmailExists, EmailExists.status);
 
 		if(EmailExists){
 			setValidEmail(false);
