@@ -2,9 +2,11 @@ import express from "express";
 import axios from "axios";
 import dotenv from "dotenv";
 import cors from "cors";
+import bodyParser from "body-parser";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
+app.use(bodyParser.json());
 app.use(cors({
   origin: "http://20.76.209.148",
   methods: ["GET", "POST", "PUT", "DELETE"],
@@ -62,7 +64,7 @@ app.post("/api/ValidateEmail", async (req, res) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: req.body
+      body: JSON.stringify(req.body)
     });
     if (response.ok) {
       console.log(response);
