@@ -51,14 +51,18 @@ function FormDialog() {
 		//const {CreateUser} = useCreateUser();
 		console.log("ValidateEmail called with:", email);
 		console.log("new");
-
-		const EmailExists = await fetch("http://20.103.11.40/api/ValidateEmail", {
-			method: "POST",
-			headers: {"Content-Type":"application/json"},
-			body: JSON.stringify({ Email: email})
-		});
-		console.log("hello");
-		console.log(EmailExists, EmailExists.status);
+		let EmailExists = {};
+		try {
+			EmailExists = await fetch("http://20.103.11.40/api/ValidateEmail", {
+				method: "POST",
+				headers: {"Content-Type":"application/json"},
+				body: JSON.stringify({ Email: email})
+			});
+			console.log("hello");
+			console.log(EmailExists, EmailExists.status);
+		} catch (error) {
+			console.error("Error:", error);
+		}
 
 		if(EmailExists){
 			setValidEmail(false);
