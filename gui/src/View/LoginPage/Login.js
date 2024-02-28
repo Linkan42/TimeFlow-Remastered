@@ -51,20 +51,32 @@ function FormDialog() {
 		//const {CreateUser} = useCreateUser();
 		console.log("ValidateEmail called with:", email);
 		console.log("new");
-		let EmailExists = {};
+		let value = null;
 		try {
-			EmailExists = await fetch("http://20.103.11.40/api/ValidateEmail", {
+			const EmailExists = await fetch("http://20.103.11.40/api/ValidateEmail", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
 				body: JSON.stringify({ Email: email})
 			});
+		
 			console.log("hello");
-			console.log(EmailExists, EmailExists.status);
+			console.log("Response status:", EmailExists.status);
+			console.log("Response status text:", EmailExists.statusText);
+		
+			if (EmailExists.status === 200) {
+				const responseBody = await EmailExists.json(); // Assuming the response body is in JSON format
+				console.log("Response body:", responseBody);
+				value = false;
+			} else if (EmailExists.status === 400) {
+				console.log("Email already exists");
+				value = true;
+				// Handle the case when the email already exists (e.g., display an error message)
+			}
 		} catch (error) {
-			console.error("Error:", error);
+			console.error('Error:', error);
 		}
 
-		if(EmailExists){
+		if(value){
 			setValidEmail(false);
 			console.log("great success!");
 		}
