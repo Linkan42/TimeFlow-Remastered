@@ -45,6 +45,32 @@ app.post("/user/validate-email", async (req, res) => {
     });
   }
 });
+app.post("/user/validate-name", async (req, res) => {
+  try {
+    console.log(req.body);
+    const {
+      Name
+    } = req.body;
+    const nameFound = await User.findOne({
+      Name: Name
+    });
+    if (nameFound) {
+      console.log("Username exists");
+      return res.status(400).json({
+        error: "Username already exists, returning res.status(400)"
+      });
+    } else {
+      console.log("Username does not exist, returning res.status(200)");
+      return res.status(200).json({
+        message: "Username OK!"
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      error: "Something broke"
+    });
+  }
+});
 app.post("/user/create-user", async (req, res) => {
   try {
     const {

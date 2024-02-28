@@ -56,9 +56,9 @@ app.get("/api/CreateUser", async (req, res) => {
     });
   }
 });
-app.post("/api/ValidateEmail", async (req, res) => {
+app.post("/api/validate-email", async (req, res) => {
   try {
-    console.log("/api/ValidateEmail req.body = ", req.body, req.json);
+    console.log("/api/validate-email req.body = ", req.body);
     const response = await fetch("http://user-microservices/user/validate-email", {
       method: "POST",
       headers: {
@@ -66,15 +66,14 @@ app.post("/api/ValidateEmail", async (req, res) => {
       },
       body: JSON.stringify(req.body)
     });
+    console.log(response);
     if (response.ok) {
-      console.log(response);
       //const successData = await response.json();
       console.error("Email is valid and does not exist in database:", response.status /*, successData.message*/);
       return res.status(200).json({
         message: "Email OK!"
       });
     } else if (!response.ok) {
-      console.log(response);
       //const errorData = await response.json();
       console.error("Email already exists:", response.status /*, errorData.error*/);
       return res.status(400).json({
@@ -83,6 +82,37 @@ app.post("/api/ValidateEmail", async (req, res) => {
     }
   } catch (error) {
     console.error("Error with /api/ValidateEmail", error);
+    res.status(500).json({
+      error: "Internal Server Error"
+    });
+  }
+});
+app.post("/api/validate-name", async (req, res) => {
+  try {
+    console.log("/api/validate-name req.body = ", req.body);
+    const response = await fetch("http://user-microservices/user/validate-name", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(req.body)
+    });
+    console.log(response);
+    if (response.ok) {
+      //const successData = await response.json();
+      console.error("Username is valid and does not exist in database:", response.status /*, successData.message*/);
+      return res.status(200).json({
+        message: "Username OK!"
+      });
+    } else if (!response.ok) {
+      //const errorData = await response.json();
+      console.error("Username already exists:", response.status /*, errorData.error*/);
+      return res.status(400).json({
+        error: "Username already exists, returning res.status(400)"
+      });
+    }
+  } catch (error) {
+    console.error("Error with /api/validate-name", error);
     res.status(500).json({
       error: "Internal Server Error"
     });
