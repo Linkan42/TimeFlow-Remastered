@@ -50,6 +50,7 @@ function FormDialog() {
 
 		//const {CreateUser} = useCreateUser();
 		console.log("ValidateEmail called with:", email);
+		console.log("new");
 
 		const EmailExists = await fetch('http://20.103.11.40/api/ValidateEmail', {
 			method: "POST",
