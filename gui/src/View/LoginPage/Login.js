@@ -20,7 +20,7 @@ import "./Login.css";
 //import useValidateEmail from "./useValidateEmail";
 //import useValidateName from "./useValidateName";
 //import useCreateUser from "./useCreateUser";
-import ValidateEmail from "./LoginApi";
+//import ValidateEmail from "./LoginApi";
 
 function FormDialog() {
 	const [open, setOpen]                     = React.useState(false);
@@ -50,10 +50,33 @@ function FormDialog() {
 
 		//const {CreateUser} = useCreateUser();
 		console.log("ValidateEmail called with:", email);
-		const EmailExists = await ValidateEmail(email);
+		console.log("new");
+		let value = null;
+		try {
+			const response = await fetch("http://20.103.11.40/api/ValidateEmail", {
+				method: "POST",
+				headers: {"Content-Type":"application/json"},
+				body: JSON.stringify({ Email: email})
+			});
+		
+			console.log("hello");
+			console.log("Response status:", response.status);
+			console.log("Response status text:", response.statusText);
+		
+			if (response.status === 200) {
+				const responseBody = await response.json(); // Assuming the response body is in JSON format
+				console.log("Response body:", responseBody);
+				value = false;
+			} else if (response.status === 400) {
+				console.log("Email already exists");
+				value = true;
+				// Handle the case when the email already exists (e.g., display an error message)
+			}
+		} catch (error) {
+			console.error("Error:", error);
+		}
 
-
-		if(EmailExists){
+		if(value){
 			setValidEmail(false);
 			console.log("great success!");
 		}
