@@ -24,7 +24,7 @@ app.post("/user/validate-email", async (req, res) => {
     console.log(req.body);
     const {
       Email
-    } = req.body.Email;
+    } = req.body;
     const emailFound = await User.findOne({
       Email: Email
     });
