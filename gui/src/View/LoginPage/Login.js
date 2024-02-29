@@ -91,14 +91,34 @@ function FormDialog() {
 		}
 
 		
-		// if(!passwordsMatch){
-		// 	//cant create account
-		// }
-		// if(!EmailExists && !NameExists && passwordsMatch){
-		// 	//create account
-		// 	setOpen(false);
-		// 	await CreateUser(email, userName, password2);
-		// }
+		if (!passwordsMatch){
+			//cant create account
+		}
+		if (validEmail && validUserName && passwordsMatch) {
+			//create account
+			setOpen(false);
+			try {
+				const response = await fetch("http://20.103.11.40/", {
+					method: "POST",
+					headers: {"Content-Type":"application/json"},
+					body: JSON.stringify({ 
+						Email: email,	
+						Name: userName,
+						Password: password2,
+						URL: "http://user-microservices/user/create-user"})
+				});
+				console.log("Response status:", response.status);
+				if (response.status === 201) {
+					console.log("User created");
+				} else if (response.status === 400) {
+					console.log("User creation failed");
+				} else {
+					console.log("User creation failed:", response.status);
+				}
+			} catch (error) {
+				console.error("Error:", error);
+			}
+		}
 	};
   
 	const handlePasswordsMatch = (e) => {
