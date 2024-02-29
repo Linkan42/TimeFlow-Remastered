@@ -13,6 +13,39 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true // Allow credentials
 }));
+
+// the function 
+
+app.post("/*", async (req, res) => {
+  console.log(req);
+  try {
+    const response = await fetch(req.body.url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(req.body)
+    });
+    console.log(response);
+    if (response.status >= 200 && response.status < 300) {
+      console.log("Message:", response.message, response.status);
+      res = response;
+      return res;
+    } else if (response.status >= 400 && response.status < 500) {
+      console.log("Message:", response.message, response.status);
+      res = response;
+      return res;
+    } else {
+      console.log("Unhandled response:", response.status);
+      res = response;
+      return res;
+    }
+  } catch (error) {
+    console.log(error.error);
+    console.log("Message:", error.message, error.status);
+  }
+});
+
 //metting  
 app.get("/api/meeting/test", async (req, res) => {
   console.log("here /api/meeting/test");
