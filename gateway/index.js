@@ -17,7 +17,7 @@ app.use(cors({
 
 // the function 
 
-app.post("/*", async (req, res) => {
+app.post("/", async (req, res) => {
 	console.log(req);
 	try {
 		const response = await fetch(req.body.url, {
