@@ -1,8 +1,8 @@
-import User from "../database/user.js";
-import express from "express";
-import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
+const User = require("../database/user.cjs");
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 dotenv.config();
 const app = express(),
   httpCodeInternalServerError = 500,
