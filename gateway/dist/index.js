@@ -19,7 +19,7 @@ app.use(cors({
 app.post("/", async (req, res) => {
   console.log(req.body);
   try {
-    const response = await fetch(req.body.url, {
+    const response = await fetch(req.body.URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
