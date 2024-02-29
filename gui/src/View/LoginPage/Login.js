@@ -213,12 +213,13 @@ export default function SignIn() {
 
 		auth = false;
 
-		const response = await fetch("gateway/api/ValidateLogin", {
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
 				Email: email,
-				Password: password
+				Password: password,
+				URL: "http://login-microservices/login/validateLogin"
 			})
 		});
 
