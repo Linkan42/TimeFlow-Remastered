@@ -36,7 +36,7 @@ app.post("/", async (req, res) => {
       console.log("Message:", responseData.message, responseData.status);
       return res.status(responseData.status).json(responseData);
     } else {
-      console.log("Unhandled response:", responseData.error, responseData.status);
+      console.log("Unhandled response:", response.error, responseData.error, responseData.status);
       return res.status(responseData.status).json(responseData);
     }
   } catch (error) {
