@@ -18,7 +18,7 @@ app.use(cors({
 // the function 
 
 app.post("/", async (req, res) => {
-	console.log(req);
+	console.log(req.body);
 	try {
 		const response = await fetch(req.body.url, {
 			method: "POST",
