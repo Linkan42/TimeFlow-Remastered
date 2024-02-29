@@ -17,15 +17,12 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import "./Login.css";
-//import useValidateEmail from "./useValidateEmail";
-//import useValidateName from "./useValidateName";
-//import useCreateUser from "./useCreateUser";
-//import ValidateEmail from "./LoginApi";
+
 
 function FormDialog() {
 	const [open, setOpen]                     = React.useState(false);
 	const [validEmail, setValidEmail]         = React.useState(true);
-	//const [validUserName, setValidUserName]   = React.useState(true);
+	const [validUserName, setValidUserName]   = React.useState(true);
 	const [passwordsMatch, setPasswordsMatch] = React.useState(true);
 
 	const [email, setEmail]                   = React.useState("");
@@ -42,60 +39,87 @@ function FormDialog() {
 	};
 
 	const HandleCreateAccount = async () => {
-		//if email exists in database, display error
-		//const {ValidateEmail} = useValidateEmail();
-		//const {ValidateName}  = useValidateName();
 
-		//const NameExists  = await ValidateName(userName);
+		// check email
 
-		//const {CreateUser} = useCreateUser();
-		console.log("ValidateEmail called with:", email);
-		console.log("new");
-		let value = null;
+		console.log("Evaluating email availability with", email, "...");
+
 		try {
-			const response = await fetch("http://20.103.11.40/api/ValidateEmail", {
+			const response = await fetch("http://20.103.11.40/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
-				body: JSON.stringify({ Email: email})
+				body: JSON.stringify({ 
+					Email: email, 
+					URL: "http://user-microservices/user/validate-email"})
 			});
-		
-			console.log("hello");
 			console.log("Response status:", response.status);
-			console.log("Response status text:", response.statusText);
-		
 			if (response.status === 200) {
-				const responseBody = await response.json(); // Assuming the response body is in JSON format
-				console.log("Response body:", responseBody);
-				value = false;
+				setValidEmail(true);
+				console.log("Email available");
 			} else if (response.status === 400) {
-				console.log("Email already exists");
-				value = true;
-				// Handle the case when the email already exists (e.g., display an error message)
+				setValidEmail(false);
+				console.log("Email unavailable");
+			} else {
+				console.log("Unhandled response status:", response.status);
 			}
 		} catch (error) {
 			console.error("Error:", error);
 		}
 
-		if(value){
-			setValidEmail(false);
-			console.log("great success!");
+		//check name
+
+		console.log("Evaluating name availability with", userName, "...");
+
+		try {
+			const response = await fetch("http://20.103.11.40/", {
+				method: "POST",
+				headers: {"Content-Type":"application/json"},
+				body: JSON.stringify({ Name: userName,
+					URL: "http://user-microservices/user/validate-name"})
+			});
+			console.log("Response status:", response.status);
+			if (response.status === 200) {
+				setValidUserName(true);
+				console.log("Username available");
+			} else if (response.status === 400) {
+				setValidUserName(false);
+				console.log("Username unavailable");
+			} else {
+				console.log("Unhandled response status:", response.status);
+			}
+		} catch (error) {
+			console.error("Error:", error);
 		}
-		else{
-			setValidEmail(true);
-			console.log("He can not afford!");
+
+		
+		if (!passwordsMatch){
+			//cant create account
 		}
-		// if(NameExists)
-		// 	setValidUserName(false);
-		// else
-		// 	setValidUserName(true);
-		// if(!passwordsMatch){
-		// 	//cant create account
-		// }
-		// if(!EmailExists && !NameExists && passwordsMatch){
-		// 	//create account
-		// 	setOpen(false);
-		// 	await CreateUser(email, userName, password2);
-		// }
+		if (validEmail && validUserName && passwordsMatch) {
+			//create account
+			setOpen(false);
+			try {
+				const response = await fetch("http://20.103.11.40/", {
+					method: "POST",
+					headers: {"Content-Type":"application/json"},
+					body: JSON.stringify({ 
+						Email: email,	
+						Name: userName,
+						Password: password2,
+						URL: "http://user-microservices/user/create-user"})
+				});
+				console.log("Response status:", response.status);
+				if (response.status === 201) {
+					console.log("User created");
+				} else if (response.status === 400) {
+					console.log("User creation failed");
+				} else {
+					console.log("User creation failed:", response.status);
+				}
+			} catch (error) {
+				console.error("Error:", error);
+			}
+		}
 	};
   
 	const handlePasswordsMatch = (e) => {
@@ -131,8 +155,8 @@ function FormDialog() {
 						autoFocus
 						onChange={(e) => setUserName(e.target.value)}
 						value={userName}
-						//error={!validUserName}
-						//helperText={!validUserName ? "Name already exists" : ""}
+						error={!validUserName}
+						helperText={!validUserName ? "Name already exists" : ""}
 						margin="dense"
 						id="usernametf"
 						label="Account Name"

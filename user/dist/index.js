@@ -24,28 +24,58 @@ app.post("/user/validate-email", async (req, res) => {
     console.log(req.body);
     const {
       Email
-    } = req.body;
+    } = req.body.Email;
     const emailFound = await User.findOne({
       Email: Email
     });
     if (emailFound) {
-      console.log("Email exists");
+      console.log("Email unavailable, returning status 400");
       return res.status(400).json({
-        error: "Email already exists, returning res.status(400)"
+        message: "Email unavailable, returning res.status(400)"
       });
     } else {
-      console.log("Email does not exist, returning res.status(200)");
+      console.log("Email available, returning status 200");
       return res.status(200).json({
-        message: "Email OK!"
+        message: "Email available, returning res.status(200)"
       });
     }
   } catch (error) {
+    console.log("error");
+    console.log("Error, returning status 500");
     return res.status(500).json({
       error: "Something broke"
     });
   }
 });
-app.post("/api/user/CreateUser", async (req, res) => {
+app.post("/user/validate-name", async (req, res) => {
+  try {
+    console.log(req.body);
+    const {
+      Name
+    } = req.body;
+    const nameFound = await User.findOne({
+      Name: Name
+    });
+    if (nameFound) {
+      console.log("Username unavailable");
+      return res.status(400).json({
+        message: "Username unavailable, returning res.status(400)"
+      });
+    } else {
+      console.log("Username available, returning res.status(200)");
+      return res.status(200).json({
+        message: "Username available, returning res.status(200)"
+      });
+    }
+  } catch (error) {
+    console.log("error");
+    console.log("Error, returning status 500");
+    return res.status(500).json({
+      error: "Something broke"
+    });
+  }
+});
+app.post("/user/create-user", async (req, res) => {
   try {
     const {
       Email,
@@ -85,7 +115,7 @@ app.post("/api/user/CreateUser", async (req, res) => {
     });
   }
 });
-app.post("/api/user/DeleteUser", async (req, res) => {
+app.post("/user/delete-user", async (req, res) => {
   try {
     const {
       Email
@@ -111,7 +141,7 @@ app.post("/api/user/DeleteUser", async (req, res) => {
     });
   }
 });
-app.post("/api/user/UpdateUser", async (req, res) => {
+app.post("/user/update-user", async (req, res) => {
   try {
     const {
       Email,
