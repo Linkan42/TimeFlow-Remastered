@@ -13,7 +13,7 @@ const app = express(),
 	httpCodeServiceUnavailable = 503;
 
 
-app.post("/api/login/validateLogin", async (req, res) => {
+app.post("/login/validateLogin", async (req, res) => {
 	const {Email} = req.body,
 		{Password} = req.body;
 

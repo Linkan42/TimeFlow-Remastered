@@ -177,24 +177,25 @@ function FormDialog() {
 export default function SignIn() {  
 	const [email, setEmail]       = React.useState("");
 	const [password, setPassword] = React.useState("");
-
+	
 	// wipe token when viewing the sign in page
 	localStorage.removeItem("token");
-
+	
 	/*const [EmailExists, setEmailExists]       = React.useState(true);*/
 	let auth = true;
-
+	
 	const HandleSignIn =  async () => {
 		//const {ValidateLogin} = useValidateLogin();
-
+		
 		auth = false;
 
-		const response = await fetch("gateway/api/ValidateLogin", {
+		const response = await fetch("http://20.103.11.40/api/ValidateLogin", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
 				Email: email,
-				Password: password
+				Password: password,
+				URL: "http://login-microservices/login/validateLogin"
 			})
 		});
 
