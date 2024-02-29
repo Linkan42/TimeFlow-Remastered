@@ -30,11 +30,11 @@ app.post("/user/validate-email", async (req, res) => {
 		const emailFound = await User.findOne({ Email: Email });
 		if (emailFound) {
 			console.log("Email unavailable, returning status 400");
-			return res.status(400).json({ message: "Email unavailable"});
+			return res.status(400).json({ message: "Email unavailable, returning res.status(400)"});
 		}
 		else {
 			console.log("Email available, returning status 200");
-			return res.status(200).json({ message: "Email available"});
+			return res.status(200).json({ message: "Email available, returning res.status(200)"});
 		}
 	} catch(error) {
 		console.log("error");
@@ -48,14 +48,16 @@ app.post("/user/validate-name", async (req, res) => {
 		const {Name} = req.body;
 		const nameFound = await User.findOne({ Name: Name });
 		if (nameFound) {
-			console.log("Username exists");
-			return res.status(400).json({ error: "Username already exists, returning res.status(400)" });
+			console.log("Username unavailable");
+			return res.status(400).json({ message: "Username unavailable, returning res.status(400)" });
 		}
 		else {
-			console.log("Username does not exist, returning res.status(200)");
-			return res.status(200).json({ message: "Username OK!" });
+			console.log("Username available, returning res.status(200)");
+			return res.status(200).json({ message: "Username available, returning res.status(200)" });
 		}
 	} catch(error) {
+		console.log("error");
+		console.log("Error, returning status 500");
 		return res.status(500).json({ error: "Something broke" });
 	}
 });

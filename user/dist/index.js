@@ -31,12 +31,12 @@ app.post("/user/validate-email", async (req, res) => {
     if (emailFound) {
       console.log("Email unavailable, returning status 400");
       return res.status(400).json({
-        message: "Email unavailable"
+        message: "Email unavailable, returning res.status(400)"
       });
     } else {
       console.log("Email available, returning status 200");
       return res.status(200).json({
-        message: "Email available"
+        message: "Email available, returning res.status(200)"
       });
     }
   } catch (error) {
@@ -57,17 +57,19 @@ app.post("/user/validate-name", async (req, res) => {
       Name: Name
     });
     if (nameFound) {
-      console.log("Username exists");
+      console.log("Username unavailable");
       return res.status(400).json({
-        error: "Username already exists, returning res.status(400)"
+        message: "Username unavailable, returning res.status(400)"
       });
     } else {
-      console.log("Username does not exist, returning res.status(200)");
+      console.log("Username available, returning res.status(200)");
       return res.status(200).json({
-        message: "Username OK!"
+        message: "Username available, returning res.status(200)"
       });
     }
   } catch (error) {
+    console.log("error");
+    console.log("Error, returning status 500");
     return res.status(500).json({
       error: "Something broke"
     });
