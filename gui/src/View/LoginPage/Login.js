@@ -189,7 +189,7 @@ export default function SignIn() {
 		
 		auth = false;
 
-		const response = await fetch("http://20.103.11.40/api/ValidateLogin", {
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
