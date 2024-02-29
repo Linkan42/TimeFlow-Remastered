@@ -71,10 +71,11 @@ function FormDialog() {
 		console.log("Evaluating name availability with", userName, "...");
 
 		try {
-			const response = await fetch("http://20.103.11.40/api/validate-name", {
+			const response = await fetch("http://20.103.11.40/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
-				body: JSON.stringify({ Name: userName })
+				body: JSON.stringify({ Name: userName,
+					URL: "http://user-microservices/user/validate-name"})
 			});
 			console.log("Response status:", response.status);
 			if (response.status === 200) {
