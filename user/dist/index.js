@@ -24,22 +24,24 @@ app.post("/user/validate-email", async (req, res) => {
     console.log(req.body);
     const {
       Email
-    } = req.body;
+    } = req.body.Email;
     const emailFound = await User.findOne({
       Email: Email
     });
     if (emailFound) {
-      console.log("Email exists");
+      console.log("Email unavailable, returning status 400");
       return res.status(400).json({
-        error: "Email already exists, returning res.status(400)"
+        message: "Email unavailable"
       });
     } else {
-      console.log("Email does not exist, returning res.status(200)");
+      console.log("Email available, returning status 200");
       return res.status(200).json({
-        message: "Email OK!"
+        message: "Email available"
       });
     }
   } catch (error) {
+    console.log("error");
+    console.log("Error, returning status 500");
     return res.status(500).json({
       error: "Something broke"
     });
