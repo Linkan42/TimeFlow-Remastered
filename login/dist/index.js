@@ -9,7 +9,7 @@ const app = express(),
   httpCodeNotFound = 404,
   httpCodeOk = 200,
   httpCodeServiceUnavailable = 503;
-app.post("/api/login/validateLogin", async (req, res) => {
+app.post("/login/validateLogin", async (req, res) => {
   const {
       Email
     } = req.body,
