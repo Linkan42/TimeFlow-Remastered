@@ -28,10 +28,11 @@ app.post("/", async (req, res) => {
     });
     console.log(response);
     const responseData = await response.json();
-    if (responseData.status >= 200 && responseData.status < 300) {
+    console.log(responseData);
+    if (response.status >= 200 && response.status < 300) {
       console.log("Message:", responseData.message, responseData.status);
       return res.status(responseData.status).json(responseData);
-    } else if (responseData.status >= 400 && responseData.status < 500) {
+    } else if (response.status >= 400 && response.status < 500) {
       console.log("Message:", responseData.message, responseData.status);
       return res.status(responseData.status).json(responseData);
     } else {
