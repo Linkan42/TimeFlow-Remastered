@@ -45,10 +45,12 @@ function FormDialog() {
 		console.log("Evaluating email availability with", email, "...");
 
 		try {
-			const response = await fetch("http://20.103.11.40/api/validate-email", {
+			const response = await fetch("http://20.103.11.40/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
-				body: JSON.stringify({ Email: email })
+				body: JSON.stringify({ 
+					Email: email, 
+					URL: "http://user-microservices/user/validate-email"})
 			});
 			console.log("Response status:", response.status);
 			if (response.status === 200) {
@@ -88,6 +90,7 @@ function FormDialog() {
 			console.error("Error:", error);
 		}
 
+		
 		// if(!passwordsMatch){
 		// 	//cant create account
 		// }
