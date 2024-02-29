@@ -26,20 +26,18 @@ app.post("/", async (req, res) => {
 			body: JSON.stringify(req.body)
 		});
 		console.log(response);
-		if (response.status >=200 && response.status < 300) {
-			console.log("Message:", response.message, response.status);
-			res = response;
-			return res;
+		const responseData = await response.json();
+		if (responseData.status >=200 && responseData.status < 300) {
+			console.log("Message:", responseData.message, responseData.status);
+			return res.status(responseData.status).json(responseData);
 		}
-		else if (response.status >=400 && response.status < 500) {
-			console.log("Message:", response.message, response.status);
-			res = response;
-			return res;
+		else if (responseData.status >=400 && responseData.status < 500) {
+			console.log("Message:", responseData.message, responseData.status);
+			return res.status(responseData.status).json(responseData);
 		}
 		else {
-			console.log("Unhandled response:", response.status);
-			res = response;
-			return res;
+			console.log("Unhandled response:", responseData.error, responseData.status);
+			return res.status(responseData.status).json(responseData);
 		}
 	} catch(error) {
 		console.log(error.error);
