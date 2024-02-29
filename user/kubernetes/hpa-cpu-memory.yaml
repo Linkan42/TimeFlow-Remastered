@@ -9,29 +9,31 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: user
+
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 2
+        averageUtilization: 85
   - type: Resource
     resource:
       name: memory
       target:
-        type: AverageValue
-        averageValue: 50Mi
-  behavior:                              # This scaling behavior is only used during the exercise so we don't have to wait
-    scaleDown:                           # too long when scaling pods, but choose more appropriate values for production:
-      stabilizationWindowSeconds: 0      # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
+        type: Utilization
+        averageUtilization: 85
+
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 120 # wait 2 min before scaling down
       policies:
-      - type: Percent
-        value: 100
-        periodSeconds: 5
+      - type: Pods
+        value: 1 # remove pod
+        periodSeconds: 60 # remove a pod every 60 seconds
     scaleUp:
-      stabilizationWindowSeconds: 0
+      stabilizationWindowSeconds: 0 # instantly scale up
       policies:
-      - type: Percent
-        value: 100
-        periodSeconds: 5
+      - type: Pods
+        value: 1 # ad a new pod
+        periodSeconds: 5 # add a new pod every 5 seconds
