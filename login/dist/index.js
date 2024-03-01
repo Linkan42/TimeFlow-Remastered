@@ -81,24 +81,6 @@ async function connect() {
   } catch (error) {
     console.error(error);
   }
-  console.log(KEY);
-  const person = await User.findOne({
-    Email: "27cmkärlek@hotmail.com",
-    Password: "123"
-  });
-  try {
-    console.log("Try to make token");
-    let token = jwt.sign({
-      userId: person.UserId
-    }, process.env.SECRET_KEY, {
-      // Token expires in 8 hours
-      expiresIn: "8h"
-    });
-    console.log(token);
-  } catch (error) {
-    console.log("Token fail");
-    console.log(error);
-  }
 }
 connect();
 //#endregion
