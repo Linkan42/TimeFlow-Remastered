@@ -5,8 +5,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-import dotenv from "dotenv";
-dotenv.config();
+
 const GATEWAYIP = process.env.GATEWAYIP;
 
 function AddMeeting() {
@@ -27,7 +26,7 @@ function AddMeeting() {
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
-			Authorization: `Bearer ${token}`},
+				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ location: inputValueLocation,
 				startTime: inputValueFrom,
 				endTime: inputValueTo,
@@ -45,12 +44,12 @@ function AddMeeting() {
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
-			Authorization: `Bearer ${token}`},
+				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/userList"})
 		})
 			.then((response) => response.json())
-		    .then((data) => {
+			.then((data) => {
 				setMenuItems(data);
 			});
 	};
@@ -69,7 +68,7 @@ function AddMeeting() {
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
-			Authorization: `Bearer ${token}`},
+				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ users: participants,
 				meetingId: parseInt(currentMeetingId),
 				URL: "http://meeting-microservices/meeting/add-participants-to-meetings"

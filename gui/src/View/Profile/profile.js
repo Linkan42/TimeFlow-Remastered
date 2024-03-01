@@ -2,9 +2,8 @@ import { React, Component, useState } from "react";
 import { Grid, TextField, Button, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
-import dotenv from "dotenv";
-dotenv.config();
-const GATEWAYIP = process.env.GATEWAYIP;
+
+//const GATEWAYIP = process.env.GATEWAYIP;
 
 
 import useValidateEmail from "../LoginPage/useValidateEmail";

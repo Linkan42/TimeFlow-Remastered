@@ -1,11 +1,9 @@
 import { Grid, Stack, ListItemButton, ListItemText, Container, Paper, Button, Dialog, DialogTitle} from "@mui/material";
 import React,{Component, useState, useEffect} from "react";
-
-import dotenv from "dotenv";
-dotenv.config();
+import "./WeekDisplay.css";
 const GATEWAYIP = process.env.GATEWAYIP;
 
-import "./WeekDisplay.css";
+
 
 
 function DispMeeting() {
@@ -28,7 +26,7 @@ function DispMeeting() {
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
-			Authorization: `Bearer ${token}`},
+				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/meeting-list"})
 		})
@@ -42,7 +40,7 @@ function DispMeeting() {
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
-			Authorization: `Bearer ${token}`},
+				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/meeting-list"})
 		})
@@ -56,7 +54,7 @@ function DispMeeting() {
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
-			Authorization: `Bearer ${token}`},
+				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/youre-meeting-list"})
 		})
@@ -70,7 +68,7 @@ function DispMeeting() {
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
-			Authorization: `Bearer ${token}`},
+				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/delete-meeting",
 				meetingId: id })
