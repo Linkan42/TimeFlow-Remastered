@@ -2,17 +2,20 @@ import { Container, Paper  } from "@mui/material";
 import React, {useState, useEffect} from "react";
 
 
+const GATEWAYIP = process.env.GATEWAYIP;
+
+
 export function NextMeeting(/*props*/) {
 	const [nextMeetingData, setNextMeetingData] = useState([]);
 	const [token] = useState(localStorage.getItem("token"));
 	useEffect(() => {
-		fetch("/api/meeting",{
+		fetch(GATEWAYIP, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},body: JSON.stringify({
-			})})
+			headers: {"Content-Type":"application/json", 
+				Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/next-meeting"})
+		})
 			.then(response => response.json())
 			.then(data => {setNextMeetingData(data);})
 			.catch(error => {

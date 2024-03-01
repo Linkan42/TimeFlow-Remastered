@@ -12,11 +12,6 @@ const app = express();
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.post("/meeting/test", (req, res) => {
-	console.log("Here /meeting/test");
-	console.log("Data received:", req.body);
-	res.status(200).json({ message: "POST request to /meeting/test successful" });
-});
 
 
 app.get("/meeting/Save", async (req, res) => {
@@ -77,7 +72,7 @@ app.post("/meeting/ListOneUser", async (req, res) => {
 	}
 });
 
-app.post("/meeting/addParticipantsToMeetings", async (req) => {
+app.post("/meeting/add-participants-to-meetings", async (req) => {
 	const {users, meetingId} = req.body,
 		mId = parseInt(meetingId);
 	try{
@@ -92,7 +87,7 @@ app.post("/meeting/addParticipantsToMeetings", async (req) => {
 	}	
 });
 
-app.post("/meeting/DeleteMeeting", async (req, res) => {
+app.post("/meeting/delete-meeting", async (req, res) => {
 	const { meetingId } = req.body;
 
 	try {
@@ -115,7 +110,7 @@ app.post("/meeting/DeleteMeeting", async (req, res) => {
 });
   
 
-app.post("/meeting/ListMeeting", async (req, res) => {
+app.post("/meeting/list-meeting", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -142,7 +137,7 @@ app.post("/meeting/ListMeeting", async (req, res) => {
 	}
 });
 
-app.post("/meeting/YoureMeetingList", async (req, res) => {
+app.post("/meeting/youre-meeting-list", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
