@@ -21,7 +21,7 @@ app.post("/login/validateLogin", async (req, res) => {
 		console.log("/login/validateLogin");
 		console.log("Email:", Email);
 		console.log("Password:", Password);
-		const person  = await User.findOne({ Email: Email, Password: Password });
+		const person  = User.findOne({ Email: Email, Password: Password });
 		console.log("await DB");
 		if(person.Email === Email && person.Password === Password){
 			console.log("DB done");
@@ -48,7 +48,8 @@ app.post("/login/validateLogin", async (req, res) => {
 		return res.status(httpCodeNotFound).json({ error: "User does not exist."});
 
 	}
-	catch {
+	catch(error){
+		console.log(error);
 		return res.status(httpCodeServiceUnavailable).json({ error: "Log in failed."});
 	}
 });
