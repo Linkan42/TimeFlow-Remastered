@@ -24,7 +24,9 @@ app.post("/login/validateLogin", async (req, res) => {
       Email,
       Password
     });
+    console.log("await DB");
     if (person.Email === Email && person.Password === Password) {
+      console.log("DB done");
       /*
        * Authenticaton was successfull, generate a time-limited token
        * and return it with the response
