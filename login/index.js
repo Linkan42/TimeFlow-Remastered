@@ -23,7 +23,7 @@ app.post("/login/validateLogin", async (req, res) => {
 		console.log("/login/validateLogin");
 		console.log("Email:", Email);
 		console.log("Password:", Password);
-		const person  = User.findOne({ Email: Email, Password: Password });
+		const person = await User.findOne({ Email: Email, Password: Password });
 		console.log("await DB");
 		console.log("person:", person);
 		if(person.Email === Email && person.Password === Password){
@@ -68,6 +68,7 @@ app.listen(PORT, () => {
 async function connect(){
 	try {
 		await mongoose.connect(URL);
+		console.error("Connected");
 	}
 	catch (error) {
 		console.error(error);
