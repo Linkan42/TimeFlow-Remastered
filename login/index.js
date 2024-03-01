@@ -21,7 +21,7 @@ app.post("/login/validateLogin", async (req, res) => {
 	console.log("Email:", Email);
 	console.log("Password:", Password);
 	try{
-		const person  = await User.findOne({Email, Password});
+		const person  = await User.findOne({ Email: Email, Password: Password });
 		console.log("await DB");
 		if(person.Email === Email && person.Password === Password){
 			console.log("DB done");
