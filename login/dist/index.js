@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 dotenv.config();
+const KEY = process.env.SECRET_KEY;
 const app = express(),
   httpCodeInternalServerError = 500,
   httpCodeNotFound = 404,
@@ -32,18 +33,19 @@ app.post("/login/validateLogin", async (req, res) => {
        * Authenticaton was successfull, generate a time-limited token
        * and return it with the response
        */
-
       let token = null;
       try {
         console.log("Try to make token");
-        token = jwt.sign({
+        let token = jwt.sign({
           userId: person.UserId
-        }, process.env.SECRET_KEY, {
+        }, KEY, {
           // Token expires in 8 hours
           expiresIn: "8h"
         });
+        console.log(token);
       } catch (error) {
         console.log("Token fail");
+        console.log(error);
         return res.status(httpCodeInternalServerError).send({
           error: "Failed to generate JWT token."
         });
@@ -78,6 +80,24 @@ async function connect() {
     console.error("Connected");
   } catch (error) {
     console.error(error);
+  }
+  console.log(KEY);
+  const person = await User.findOne({
+    Email: "27cmkärlek@hotmail.com",
+    Password: "123"
+  });
+  try {
+    console.log("Try to make token");
+    let token = jwt.sign({
+      userId: person.UserId
+    }, process.env.SECRET_KEY, {
+      // Token expires in 8 hours
+      expiresIn: "8h"
+    });
+    console.log(token);
+  } catch (error) {
+    console.log("Token fail");
+    console.log(error);
   }
 }
 connect();

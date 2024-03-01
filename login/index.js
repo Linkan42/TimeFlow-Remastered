@@ -7,7 +7,7 @@ import bodyParser from "body-parser";
 
 
 dotenv.config();
-
+const KEY = process.env.SECRET_KEY;
 const app = express(),
 	httpCodeInternalServerError = 500,
 	httpCodeNotFound = 404,
@@ -32,16 +32,18 @@ app.post("/login/validateLogin", async (req, res) => {
 			 * Authenticaton was successfull, generate a time-limited token
 			 * and return it with the response
 			 */
-
 			let token = null;
 			try {
 				console.log("Try to make token");
-				token = jwt.sign({userId: person.UserId}, process.env.SECRET_KEY, {
+				let token = jwt.sign({userId: person.UserId}, KEY, {
 					// Token expires in 8 hours
 					expiresIn: "8h"
 				});
+				console.log(token);
+				
 			} catch (error) {
 				console.log("Token fail");
+				console.log(error);
 				return res.status(httpCodeInternalServerError).send({error: "Failed to generate JWT token."});
 			}
 			console.log("Token successful");
@@ -73,6 +75,7 @@ async function connect(){
 	catch (error) {
 		console.error(error);
 	}
+	console.log(KEY);
 }
 connect();
 //#endregion
