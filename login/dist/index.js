@@ -3,12 +3,14 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bodyParser from "body-parser";
 dotenv.config();
 const app = express(),
   httpCodeInternalServerError = 500,
   httpCodeNotFound = 404,
   httpCodeOk = 200,
   httpCodeServiceUnavailable = 503;
+app.use(bodyParser.json());
 app.post("/login/validateLogin", async (req, res) => {
   const {
     Email,
