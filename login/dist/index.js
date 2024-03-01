@@ -16,6 +16,9 @@ app.post("/login/validateLogin", async (req, res) => {
     {
       Password
     } = req.body;
+  console.log("/login/validateLogin");
+  console.log("Email:", Email);
+  console.log("Password:", Password);
   try {
     const person = await User.findOne({
       Email,
@@ -29,6 +32,7 @@ app.post("/login/validateLogin", async (req, res) => {
 
       let token = null;
       try {
+        console.log("Try to make token");
         token = jwt.sign({
           userId: person.UserId
         }, process.env.SECRET_KEY, {
@@ -36,15 +40,18 @@ app.post("/login/validateLogin", async (req, res) => {
           expiresIn: "8h"
         });
       } catch (error) {
+        console.log("Token fail");
         return res.status(httpCodeInternalServerError).send({
           error: "Failed to generate JWT token."
         });
       }
+      console.log("Token successful");
       return res.status(httpCodeOk).send({
         message: "Authentication successful.",
         token
       });
     }
+    console.log("User do not exist");
     return res.status(httpCodeNotFound).json({
       error: "User does not exist."
     });
