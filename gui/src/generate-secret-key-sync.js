@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+const crypto = require('crypto-browserify');
 
 function generateSecretKey() {
 	try {

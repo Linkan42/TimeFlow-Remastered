@@ -1,6 +1,10 @@
 import { Grid, Stack, ListItemButton, ListItemText, Container, Paper, Button, Dialog, DialogTitle} from "@mui/material";
 import React,{Component, useState, useEffect} from "react";
 
+import dotenv from "dotenv";
+dotenv.config();
+const GATEWAYIP = process.env.GATEWAYIP;
+
 import "./WeekDisplay.css";
 
 
