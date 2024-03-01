@@ -11,11 +11,9 @@ const app = express(),
   httpCodeServiceUnavailable = 503;
 app.post("/login/validateLogin", async (req, res) => {
   const {
-      Email
-    } = req.body,
-    {
-      Password
-    } = req.body;
+    Email,
+    Password
+  } = req.body;
   console.log("/login/validateLogin");
   console.log("Email:", Email);
   console.log("Password:", Password);

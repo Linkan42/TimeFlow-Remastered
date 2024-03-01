@@ -14,8 +14,8 @@ const app = express(),
 
 
 app.post("/login/validateLogin", async (req, res) => {
-	const {Email} = req.body,
-		{Password} = req.body;
+	const {Email, Password} = req.body;
+	
 	console.log("/login/validateLogin");
 	console.log("Email:", Email);
 	console.log("Password:", Password);
