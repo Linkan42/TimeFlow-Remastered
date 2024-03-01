@@ -75,7 +75,6 @@ async function connect(){
 	catch (error) {
 		console.error(error);
 	}
-	console.log(KEY);
 }
 connect();
 //#endregion
