@@ -21,41 +21,41 @@ function DispMeeting() {
 	};
 
 	useEffect(() => {
-		fetch("/api/meetingList",{ //if i put the function call here i get error i the code :(
-			method: "POST",			// meetingList(); dont work...
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify({
-			})}).then((response) => response.json())
+		fetch(GATEWAYIP, {
+			method: "POST",
+			headers: {"Content-Type":"application/json", 
+			Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/meeting-list"})
+		})
+			.then((response) => response.json())
 			.then((data) => {
 				setMenuItems(data);
 			});
 	},[token]);
 	const meetingList = () => 
 	{
-		fetch("/api/meetingList",{
+		fetch(GATEWAYIP, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify({
-			})}).then((response) => response.json())
+			headers: {"Content-Type":"application/json", 
+			Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/meeting-list"})
+		})
+			.then((response) => response.json())
 			.then((data) => {
 				setMenuItems(data);
 			});
 	};
 	const getYoureMeetingList = () =>
 	{
-		fetch("/api/YoureMeetingList",{
+		fetch(GATEWAYIP, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},body: JSON.stringify({
-			})})
+			headers: {"Content-Type":"application/json", 
+			Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/youre-meeting-list"})
+		})
 			.then((response) => response.json())
 			.then((data) => {
 				setDelMenuItems(data);
@@ -63,13 +63,13 @@ function DispMeeting() {
 	};
 	const deleteMeeting = (id) =>
 	{
-		fetch("/api/DeleteMeeting", {
+		fetch(GATEWAYIP, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify({ meetingId: id })
+			headers: {"Content-Type":"application/json", 
+			Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/delete-meeting",
+				meetingId: id })
 		})
 			.then((response) => {
 				if (!response.ok) {

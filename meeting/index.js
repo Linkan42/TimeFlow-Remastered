@@ -10,13 +10,7 @@ dotenv.config();
 const app = express();
 
 const DBCONECT = process.env.DBCONECT;
-const PORT = process.env.PORT; // Should be an parameter given in startup
-
-app.post("/meeting/test", (req, res) => {
-	console.log("Here /meeting/test");
-	console.log("Data received:", req.body);
-	res.status(200).json({ message: "POST request to /meeting/test successful" });
-});
+const PORT = process.env.PORT; 
 
 
 app.get("/meeting/Save", async (req, res) => {
@@ -77,7 +71,7 @@ app.post("/meeting/ListOneUser", async (req, res) => {
 	}
 });
 
-app.post("/meeting/addParticipantsToMeetings", async (req) => {
+app.post("/meeting/add-participants-to-meeting", async (req) => {
 	const {users, meetingId} = req.body,
 		mId = parseInt(meetingId);
 	try{
@@ -92,7 +86,7 @@ app.post("/meeting/addParticipantsToMeetings", async (req) => {
 	}	
 });
 
-app.post("/meeting/DeleteMeeting", async (req, res) => {
+app.post("/meeting/delete-meeting", async (req, res) => {
 	const { meetingId } = req.body;
 
 	try {
@@ -115,7 +109,7 @@ app.post("/meeting/DeleteMeeting", async (req, res) => {
 });
   
 
-app.post("/meeting/ListMeeting", async (req, res) => {
+app.post("/meeting/meeting-list", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -142,7 +136,7 @@ app.post("/meeting/ListMeeting", async (req, res) => {
 	}
 });
 
-app.post("/meeting/YoureMeetingList", async (req, res) => {
+app.post("/meeting/youre-meeting-list", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -210,10 +204,50 @@ app.post("/meeting/sort", async(req, res) => {
 	}
 });
 
-//Code test remove later
-app.get("/", (/*req, res */) => 
-	console.log("Hello World!")
-);
+app.post("/meeting/next-meeting", async(req, res) => {    
+	try{
+		const token = req.header("Authorization").replace("Bearer ", "");
+		let decoded = null;
+		try {
+			decoded = jwt.verify(token, secretKey);
+		} catch (error) {
+			console.log("jwt.verify() failed: ", error);
+		}
+		const userId = decoded.userId;
+		const list = await MeetingParticipan.find({UserId: userId});
+		const meetings =  await MeetingProp.find({});
+		let nextMeeting = new MeetingProp({day:99,
+			month:99});
+		const cDate = new Date();
+		list.forEach(invite => {
+			meetings.forEach(meeting => {
+				if(invite.meetingId === meeting.meetingId)
+				{
+					if(meeting.month <= nextMeeting.month)
+					{
+						if(meeting.day <= nextMeeting.day)
+						{
+							if(meeting.day >= cDate.getDate() && meeting.day >= cDate.getMonth())
+							{
+								nextMeeting = meeting;
+							}
+						}
+					}
+				}
+			});
+		});
+		if(nextMeeting)
+		{	
+			
+			res.json(nextMeeting);
+			
+		} else {
+			res.status(404).json({ message: "No upcoming meetings found" });
+		}
+	} catch {
+		res.status(500).json({ message: "Error retrieving next meeting" });
+	}
+});
 
 // Open port for comunication
 app.listen(PORT, () => {

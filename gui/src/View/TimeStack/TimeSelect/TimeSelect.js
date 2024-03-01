@@ -5,6 +5,10 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
+import dotenv from "dotenv";
+dotenv.config();
+const GATEWAYIP = process.env.GATEWAYIP;
+
 function AddMeeting() {
 	const [inputValueFrom, setInputValueFrom] = useState("");
 	const [inputValueTo, setInputValueTo] = useState("");
@@ -17,19 +21,19 @@ function AddMeeting() {
 	useEffect(() => {
 		getUserList();
 	},[]);
+
 	const handelButton = async () =>
 	{ 	
-		fetch("/api/meeting/save", {
+		fetch(GATEWAYIP, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},
+			headers: {"Content-Type":"application/json", 
+			Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ location: inputValueLocation,
 				startTime: inputValueFrom,
 				endTime: inputValueTo,
 				agenda: inputValueAgenda,
-				date: inputDate
+				date: inputDate,
+				URL: "http://meeting-microservices/meeting/save"
 			})}).then((response) => response.json())
 			.then((data) => {
 				const {meetingId} = data;
@@ -38,9 +42,15 @@ function AddMeeting() {
 	};
 	const getUserList = () =>
 	{
-		fetch("/api/userList",{ method: "POST"})
+		fetch(GATEWAYIP, {
+			method: "POST",
+			headers: {"Content-Type":"application/json", 
+			Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/userList"})
+		})
 			.then((response) => response.json())
-			.then((data) => {
+		    .then((data) => {
 				setMenuItems(data);
 			});
 	};
@@ -56,13 +66,13 @@ function AddMeeting() {
 	};
 	const addParticipantsToMeetings = async (currentMeetingId) =>
 	{
-		fetch("/api/addParticipantsToMeetings",{
+		fetch(GATEWAYIP, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
+			headers: {"Content-Type":"application/json", 
+			Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ users: participants,
-				meetingId: parseInt(currentMeetingId)
+				meetingId: parseInt(currentMeetingId),
+				URL: "http://meeting-microservices/meeting/add-participants-to-meetings"
 			}), 
 		});
 	};
