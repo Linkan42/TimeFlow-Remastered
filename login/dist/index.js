@@ -33,7 +33,6 @@ app.post("/login/validateLogin", async (req, res) => {
        * Authenticaton was successfull, generate a time-limited token
        * and return it with the response
        */
-      let token = null;
       try {
         console.log("Try to make token");
         let token = jwt.sign({
@@ -43,6 +42,11 @@ app.post("/login/validateLogin", async (req, res) => {
           expiresIn: "8h"
         });
         console.log(token);
+        console.log("Token successful");
+        return res.status(httpCodeOk).send({
+          message: "Authentication successful.",
+          token: token
+        });
       } catch (error) {
         console.log("Token fail");
         console.log(error);
@@ -50,11 +54,6 @@ app.post("/login/validateLogin", async (req, res) => {
           error: "Failed to generate JWT token."
         });
       }
-      console.log("Token successful");
-      return res.status(httpCodeOk).send({
-        message: "Authentication successful.",
-        token: token
-      });
     }
     console.log("User do not exist");
     return res.status(httpCodeNotFound).json({
