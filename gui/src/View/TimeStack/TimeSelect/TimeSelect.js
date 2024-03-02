@@ -6,8 +6,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
-const GATEWAYIP = process.env.GATEWAYIP;
-
 function AddMeeting() {
 	const [inputValueFrom, setInputValueFrom] = useState("");
 	const [inputValueTo, setInputValueTo] = useState("");
@@ -25,7 +23,7 @@ function AddMeeting() {
 	{ 	
 		try{
 			console.log("handelButton called");
-			const response = await fetch(GATEWAYIP, {
+			const response = await fetch(process.env.GATEWAYIP, {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
@@ -47,7 +45,7 @@ function AddMeeting() {
 	const getUserList = async () =>
 	{
 		console.log("getUserList called");
-		const response = await fetch(GATEWAYIP, {
+		const response = await fetch(process.env.GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -71,7 +69,7 @@ function AddMeeting() {
 	const addParticipantsToMeetings = async (currentMeetingId) =>
 	{
 		console.log("addParticipantsToMeetings called");
-		fetch(GATEWAYIP, {
+		fetch(process.env.GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
