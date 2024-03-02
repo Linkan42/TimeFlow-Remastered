@@ -17,6 +17,7 @@ const PORT = process.env.PORT; // Should be an parameter given in startup
 
 
 app.get("/meeting/Save", async (req, res) => {
+	console.log("/meeting/Save");
 	try{
 		const {location, startTime, endTime, agenda, date} = req.body,
 			meetingId = ~~(Math.random() * 1000000);
@@ -66,6 +67,7 @@ app.get("/meeting/Save", async (req, res) => {
 });
 
 app.post("/meeting/ListOneUser", async (req, res) => {
+	console.logI("/meeting/ListOneUser was called:");
 	try{
 		const list = await User.find().select("Name UserId");
 		res.json(list);
@@ -76,6 +78,7 @@ app.post("/meeting/ListOneUser", async (req, res) => {
 });
 
 app.post("/meeting/add-participants-to-meetings", async (req) => {
+	console.log("/meeting/add-participants-to-meetings was called.");
 	try{
 		const {users, meetingId} = req.body,
 			mId = parseInt(meetingId);
@@ -91,6 +94,7 @@ app.post("/meeting/add-participants-to-meetings", async (req) => {
 });
 
 app.post("/meeting/delete-meeting", async (req, res) => {
+	console.log("/meeting/delete-meeting was called:");
 	try {
 		const { meetingId } = req.body;
 		const meetingDeleteResult = await MeetingProp.deleteOne({ meetingId });
@@ -113,6 +117,7 @@ app.post("/meeting/delete-meeting", async (req, res) => {
   
 
 app.post("/meeting/list-meeting", async (req, res) => {
+	console.log("/meeting/list-meeting");
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -140,6 +145,7 @@ app.post("/meeting/list-meeting", async (req, res) => {
 });
 
 app.post("/meeting/youre-meeting-list", async (req, res) => {
+	console.log("/meeting/youre-meeting-list");
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -164,6 +170,7 @@ app.post("/meeting/youre-meeting-list", async (req, res) => {
 });
 
 app.post("/meeting/sort", async(req, res) => {    
+	console.log("/meeting/youre-meeting-list");
 	try{
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
@@ -207,10 +214,6 @@ app.post("/meeting/sort", async(req, res) => {
 	}
 });
 
-//Code test remove later
-app.get("/", (/*req, res */) => 
-	console.log("Hello World!")
-);
 
 // Open port for comunication
 app.listen(PORT, () => {
