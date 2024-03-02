@@ -21,16 +21,16 @@ function DispMeeting() {
 		setOpen(false);
 	};
 
-	useEffect(() => {
+	useEffect(async () => {
 		console.log("useEffect: meeting/list-meeting");
-		const response = fetch(GATEWAYURL, {
+		const response = await fetch(GATEWAYURL, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/list-meeting"})
 		});
-		const data = response.json();
+		const data = await response.json();
 		setMenuItems(data);
 			
 	},[token]);
@@ -50,7 +50,7 @@ function DispMeeting() {
 	const getYoureMeetingList = async () =>
 	{
 		console.log("getYoureMeetingList");
-		const response = await fetch(GATEWAYURL, {
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -64,7 +64,7 @@ function DispMeeting() {
 	{
 		try{
 			console.log("deleteMeeting");
-			const response = await fetch(GATEWAYURL, {
+			const response = await fetch("http://20.103.11.40/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
