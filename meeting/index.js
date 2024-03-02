@@ -2,12 +2,14 @@ import express from "express";
 import MeetingProp from "../database/meeting.js";
 import MeetingParticipan from "../database/meetingParticipan.js";
 import User from "../database/user.js";
-
+import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
+
+app.use(bodyParser.json());
 
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
