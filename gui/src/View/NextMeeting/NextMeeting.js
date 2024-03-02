@@ -9,21 +9,27 @@ const GATEWAYURL = "http://20.103.11.40/";
 export function NextMeeting(/*props*/) {
 	const [nextMeetingData, setNextMeetingData] = useState([]);
 	const [token] = useState(localStorage.getItem("token"));
-	useEffect( () => {
-		try{
-			const response = fetch(GATEWAYURL, {
-				method: "POST",
-				headers: {"Content-Type":"application/json", 
-					Authorization: `Bearer ${token}`},
-				body: JSON.stringify({ 
-					URL: "http://meeting-microservices/meeting/next-meeting"})
-			});
-			const data = response.json();
-			setNextMeetingData(data);
-		}
-		catch(error){
-			console.error("Error fetching next meeting:", error);
-		}
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch(GATEWAYURL, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json", 
+						Authorization: `Bearer ${token}`
+					},
+					body: JSON.stringify({ 
+						URL: "http://meeting-microservices/meeting/next-meeting"
+					})
+				});
+				const data = await response.json();
+				setNextMeetingData(data);
+			} catch(error) {
+				console.error("Error fetching next meeting:", error);
+			}
+		};
+
+		fetchData();
 	}, [token]);
 	return (
 		<Container className="Panel" backgroundColor={"#FFFFFF"}>
