@@ -31,7 +31,7 @@ function DispMeeting() {
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/list-meeting"})
 		});
-		const data = response.json();
+		const data = await response.json();
 		setMenuItems(data);
 			
 	},[token]);
@@ -45,7 +45,7 @@ function DispMeeting() {
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/list-meeting"})
 		});
-		const data = response.json();
+		const data = await response.json();
 		setMenuItems(data);
 	};
 	const getYoureMeetingList = async () =>
@@ -58,7 +58,7 @@ function DispMeeting() {
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/youre-meeting-list"})
 		});
-		const data = response.json();
+		const data = await response.json();
 		setDelMenuItems(data);
 	};
 	const deleteMeeting = async (id) =>
