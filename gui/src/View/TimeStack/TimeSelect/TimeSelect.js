@@ -53,8 +53,8 @@ function AddMeeting() {
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/user-list"})
 		});
-		const data = response.json();
-		setMenuItems(data);
+		setMenuItems(response.json());
+		console.log(menuItems);
 	};
 	const addParticipants = (id) =>
 	{
