@@ -229,7 +229,7 @@ export default function SignIn() {
 
 			// store token locally
 			localStorage.setItem("token", receivedToken);
-			console.Console("Store token locally");
+			console.log("Store token locally");
 			auth = true;
 		}
 		else {
@@ -237,11 +237,11 @@ export default function SignIn() {
 		}
     
 		if (auth){
-			console.Console("Login valid");
+			console.log("Login valid");
 			return window.location.href = "/home";
 		}
 		else{
-			console.Console("Login not valid");
+			console.log("Login not valid");
 		}
 	};
 
