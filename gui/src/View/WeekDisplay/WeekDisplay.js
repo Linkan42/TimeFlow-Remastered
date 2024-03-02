@@ -21,16 +21,16 @@ function DispMeeting() {
 		setOpen(false);
 	};
 
-	useEffect(async () => {
+	useEffect(() => {
 		console.log("useEffect: meeting/list-meeting");
-		const response = await fetch(GATEWAYURL, {
+		const response = fetch(GATEWAYURL, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/list-meeting"})
 		});
-		const data = await response.json();
+		const data = response.json();
 		setMenuItems(data);
 			
 	},[token]);

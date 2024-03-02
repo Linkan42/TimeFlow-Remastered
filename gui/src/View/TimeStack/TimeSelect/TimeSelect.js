@@ -15,15 +15,12 @@ function AddMeeting() {
 	const [participants, setParticipants] = useState([]);
 	let [menuItems, setMenuItems] = useState([{Name: "Eric"}]);
 	const [token] = useState(localStorage.getItem("token"));
-	useEffect(() => {
-		getUserList();
-	},[]);
 
-	const handelButton = async () =>
+	const handelButton = () =>
 	{ 	
 		try{
 			console.log("handelButton called");
-			const response = await fetch("http://20.103.11.40/", {
+			const response = fetch("http://20.103.11.40/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
@@ -34,7 +31,7 @@ function AddMeeting() {
 					date: inputDate,
 					URL: "http://meeting-microservices/meeting/save"
 				})});
-			const data = await response.json();
+			const data = response.json();
 			const {meetingId} = data;
 			addParticipantsToMeetings(meetingId);
 		}
@@ -42,19 +39,22 @@ function AddMeeting() {
 			console.error("Error fetching next meeting:", error);
 		}
 	};
-	const getUserList = async () =>
+	const getUserList = () =>
 	{
 		console.log("getUserList called");
-		const response = await fetch("http://20.103.11.40/", {
+		const response = fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/user-list"})
 		});
-		setMenuItems(await response.json());
+		setMenuItems(response.json());
 		console.log(menuItems);
 	};
+	useEffect(() => {
+		getUserList();
+	},[]);
 	const addParticipants = (id) =>
 	{
 		console.log("addParticipants called");

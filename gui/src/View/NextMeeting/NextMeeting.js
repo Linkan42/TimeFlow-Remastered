@@ -9,9 +9,9 @@ const GATEWAYURL = "http://20.103.11.40/";
 export function NextMeeting(/*props*/) {
 	const [nextMeetingData, setNextMeetingData] = useState([]);
 	const [token] = useState(localStorage.getItem("token"));
-	useEffect(async () => {
+	useEffect( () => {
 		try{
-			const response = await fetch(GATEWAYURL, {
+			const response = fetch(GATEWAYURL, {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
