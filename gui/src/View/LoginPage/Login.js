@@ -224,8 +224,8 @@ export default function SignIn() {
 		});
 
 		if (response.ok) {
-			console.log(response.json());
 			const data = await response.json();
+			console.log(data);
 			const receivedToken = data.token;
 
 
