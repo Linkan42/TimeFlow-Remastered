@@ -53,7 +53,7 @@ app.post("/login/validateLogin", async (req, res) => {
       console.log("Token successful");
       return res.status(httpCodeOk).send({
         message: "Authentication successful.",
-        token
+        token: token
       });
     }
     console.log("User do not exist");

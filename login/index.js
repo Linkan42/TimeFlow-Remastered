@@ -47,7 +47,7 @@ app.post("/login/validateLogin", async (req, res) => {
 				return res.status(httpCodeInternalServerError).send({error: "Failed to generate JWT token."});
 			}
 			console.log("Token successful");
-			return res.status(httpCodeOk).send({message: "Authentication successful.", token});
+			return res.status(httpCodeOk).send({message: "Authentication successful.", token: token});
 		}
 		console.log("User do not exist");
 		return res.status(httpCodeNotFound).json({ error: "User does not exist."});
