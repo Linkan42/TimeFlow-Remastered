@@ -7,6 +7,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
 function AddMeeting() {
+	const GATEWAYURL = "http://20.103.11.40/";
 	const [inputValueFrom, setInputValueFrom] = useState("");
 	const [inputValueTo, setInputValueTo] = useState("");
 	const [inputValueLocation, setInputValueLocation] = useState("");
@@ -23,7 +24,7 @@ function AddMeeting() {
 	{ 	
 		try{
 			console.log("handelButton called");
-			const response = await fetch(process.env.GATEWAYIP, {
+			const response = await fetch(GATEWAYURL, {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
@@ -45,7 +46,7 @@ function AddMeeting() {
 	const getUserList = async () =>
 	{
 		console.log("getUserList called");
-		const response = await fetch(process.env.GATEWAYIP, {
+		const response = await fetch(GATEWAYURL, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},

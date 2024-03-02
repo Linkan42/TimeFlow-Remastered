@@ -2,7 +2,7 @@ import { Grid, Stack, ListItemButton, ListItemText, Container, Paper, Button, Di
 import React,{Component, useState, useEffect} from "react";
 import "./WeekDisplay.css";
 
-
+const GATEWAYURL = "http://20.103.11.40/";
 
 
 function DispMeeting() {
@@ -22,9 +22,8 @@ function DispMeeting() {
 	};
 
 	useEffect(async () => {
-		console.log(process.env.GATEWAYIP);
 		console.log("useEffect: meeting/list-meeting");
-		const response = await fetch("http://20.103.11.40/", {
+		const response = await fetch(GATEWAYURL, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -38,7 +37,7 @@ function DispMeeting() {
 	const meetingList = async() => 
 	{
 		console.log("useEffect: meeting/list-meeting");
-		const response = await fetch("http://20.103.11.40/", {
+		const response = await fetch(GATEWAYURL, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -51,7 +50,7 @@ function DispMeeting() {
 	const getYoureMeetingList = async () =>
 	{
 		console.log("getYoureMeetingList");
-		const response = await fetch("http://20.103.11.40/", {
+		const response = await fetch(GATEWAYURL, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -65,7 +64,7 @@ function DispMeeting() {
 	{
 		try{
 			console.log("deleteMeeting");
-			const response = await fetch("http://20.103.11.40/", {
+			const response = await fetch(GATEWAYURL, {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
