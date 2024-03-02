@@ -34,7 +34,7 @@ function AddMeeting() {
 					date: inputDate,
 					URL: "http://meeting-microservices/meeting/save"
 				})});
-			const data = response.json();
+			const data = await response.json();
 			const {meetingId} = data;
 			addParticipantsToMeetings(meetingId);
 		}
@@ -52,7 +52,7 @@ function AddMeeting() {
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/user-list"})
 		});
-		setMenuItems(response.json());
+		setMenuItems(await response.json());
 		console.log(menuItems);
 	};
 	const addParticipants = (id) =>
