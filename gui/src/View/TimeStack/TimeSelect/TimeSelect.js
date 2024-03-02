@@ -24,18 +24,18 @@ function AddMeeting() {
 	const handelButton = async () =>
 	{ 	
 		try{
-		console.log("handelButton called");
-		const response = await fetch(GATEWAYIP, {
-			method: "POST",
-			headers: {"Content-Type":"application/json", 
-				Authorization: `Bearer ${token}`},
-			body: JSON.stringify({ location: inputValueLocation,
-				startTime: inputValueFrom,
-				endTime: inputValueTo,
-				agenda: inputValueAgenda,
-				date: inputDate,
-				URL: "http://meeting-microservices/meeting/save"
-			})});
+			console.log("handelButton called");
+			const response = await fetch(GATEWAYIP, {
+				method: "POST",
+				headers: {"Content-Type":"application/json", 
+					Authorization: `Bearer ${token}`},
+				body: JSON.stringify({ location: inputValueLocation,
+					startTime: inputValueFrom,
+					endTime: inputValueTo,
+					agenda: inputValueAgenda,
+					date: inputDate,
+					URL: "http://meeting-microservices/meeting/save"
+				})});
 			const data = response.json();
 			const {meetingId} = data;
 			addParticipantsToMeetings(meetingId);

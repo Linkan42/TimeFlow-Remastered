@@ -10,14 +10,14 @@ export function NextMeeting(/*props*/) {
 	const [token] = useState(localStorage.getItem("token"));
 	useEffect(async () => {
 		try{
-		const response = await fetch(GATEWAYIP, {
-			method: "POST",
-			headers: {"Content-Type":"application/json", 
-				Authorization: `Bearer ${token}`},
-			body: JSON.stringify({ 
-				URL: "http://meeting-microservices/meeting/next-meeting"})
-		});
-		const data = response.json();
+			const response = await fetch(GATEWAYIP, {
+				method: "POST",
+				headers: {"Content-Type":"application/json", 
+					Authorization: `Bearer ${token}`},
+				body: JSON.stringify({ 
+					URL: "http://meeting-microservices/meeting/next-meeting"})
+			});
+			const data = response.json();
 			setNextMeetingData(data);
 		}
 		catch(error){

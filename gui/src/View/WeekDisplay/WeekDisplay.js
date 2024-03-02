@@ -23,6 +23,7 @@ function DispMeeting() {
 	};
 
 	useEffect(async () => {
+		console.log(GATEWAYIP);
 		console.log("useEffect: meeting/list-meeting");
 		const response = await fetch(GATEWAYIP, {
 			method: "POST",
@@ -30,7 +31,7 @@ function DispMeeting() {
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/list-meeting"})
-		})
+		});
 		const data = response.json();
 		setMenuItems(data);
 			
@@ -44,7 +45,7 @@ function DispMeeting() {
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/list-meeting"})
-		})
+		});
 		const data = response.json();
 		setMenuItems(data);
 	};
@@ -57,22 +58,22 @@ function DispMeeting() {
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/youre-meeting-list"})
-		})
+		});
 		const data = response.json();
 		setDelMenuItems(data);
 	};
 	const deleteMeeting = async (id) =>
 	{
 		try{
-		console.log("deleteMeeting");
-		const response = await fetch(GATEWAYIP, {
-			method: "POST",
-			headers: {"Content-Type":"application/json", 
-				Authorization: `Bearer ${token}`},
-			body: JSON.stringify({ 
-				URL: "http://meeting-microservices/meeting/delete-meeting",
-				meetingId: id })
-		});
+			console.log("deleteMeeting");
+			const response = await fetch(GATEWAYIP, {
+				method: "POST",
+				headers: {"Content-Type":"application/json", 
+					Authorization: `Bearer ${token}`},
+				body: JSON.stringify({ 
+					URL: "http://meeting-microservices/meeting/delete-meeting",
+					meetingId: id })
+			});
 			
 			if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);
@@ -83,7 +84,7 @@ function DispMeeting() {
 		}
 		catch(error){
 			console.error("Error deleting meeting:", error);
-		};
+		}
 
 		getYoureMeetingList();
 		meetingList();
