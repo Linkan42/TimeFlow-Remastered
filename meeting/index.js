@@ -61,12 +61,12 @@ app.get("/meeting/save", async (req, res) => {
 			console.error("jwt.verify() failed: ", error);
 		}
 	}
-	catch{meeting
+	catch{
 		return res.status(400).json({ error: "Faill to insert to database"});
 	}
 });
 
-app.post("/meeting/list-one-user", async (req, res) => {
+app.post("/meeting/user-list", async (req, res) => {
 	console.logI("/meeting/ListOneUser was called:");
 	try{
 		const list = await User.find().select("Name UserId");
@@ -76,6 +76,7 @@ app.post("/meeting/list-one-user", async (req, res) => {
 		return res.status(400).json({ error: "userlist"});
 	}
 });
+
 
 app.post("/meeting/add-participants-to-meetings", async (req) => {
 	console.log("/meeting/add-participants-to-meetings was called.");

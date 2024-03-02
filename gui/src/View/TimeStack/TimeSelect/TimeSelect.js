@@ -51,7 +51,7 @@ function AddMeeting() {
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
-				URL: "http://meeting-microservices/meeting/userList"})
+				URL: "http://meeting-microservices/meeting/user-list"})
 		});
 		const data = response.json();
 		setMenuItems(data);

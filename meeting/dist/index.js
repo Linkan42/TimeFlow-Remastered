@@ -69,7 +69,7 @@ app.get("/meeting/save", async (req, res) => {
     });
   }
 });
-app.post("/meeting/list-one-user", async (req, res) => {
+app.post("/meeting/user-list", async (req, res) => {
   console.logI("/meeting/ListOneUser was called:");
   try {
     const list = await User.find().select("Name UserId");
