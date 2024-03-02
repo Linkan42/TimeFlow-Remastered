@@ -149,7 +149,7 @@ app.post("/meeting/youre-meeting-list", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
-		try {GATEWAYIP
+		try {
 			decoded = jwt.verify(token, process.env.SECRET_KEY);
 		} catch (error) {
 			console.error("jwt.verify() failed: ", error);
