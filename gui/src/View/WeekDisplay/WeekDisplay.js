@@ -23,13 +23,13 @@ function DispMeeting() {
 	};
 
 	useEffect(() => {
-		console.log("useEffect: meeting/meeting-list");
+		console.log("useEffect: meeting/list-meeting");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
-				URL: "http://meeting-microservices/meeting/meeting-list"})
+				URL: "http://meeting-microservices/meeting/list-meeting"})
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -38,13 +38,13 @@ function DispMeeting() {
 	},[token]);
 	const meetingList = () => 
 	{
-		console.log("meeting/meeting-list");
+		console.log("meeting/list-meeting");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
-				URL: "http://meeting-microservices/meeting/meeting-list"})
+				URL: "http://meeting-microservices/meeting/list-meeting"})
 		})
 			.then((response) => response.json())
 			.then((data) => {

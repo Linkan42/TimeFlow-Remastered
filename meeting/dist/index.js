@@ -12,8 +12,8 @@ app.use(bodyParser.json());
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.get("/meeting/Save", async (req, res) => {
-  console.log("/meeting/Save");
+app.get("/meeting/save", async (req, res) => {
+  console.log("/meeting/save");
   try {
     const {
         location,
@@ -69,7 +69,7 @@ app.get("/meeting/Save", async (req, res) => {
     });
   }
 });
-app.post("/meeting/ListOneUser", async (req, res) => {
+app.post("/meeting/list-one-user", async (req, res) => {
   console.logI("/meeting/ListOneUser was called:");
   try {
     const list = await User.find().select("Name UserId");
