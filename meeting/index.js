@@ -61,7 +61,7 @@ app.get("/meeting/save", async (req, res) => {
 			console.error("jwt.verify() failed: ", error);
 		}
 	}
-	catch{
+	catch{meeting
 		return res.status(400).json({ error: "Faill to insert to database"});
 	}
 });
@@ -149,7 +149,7 @@ app.post("/meeting/youre-meeting-list", async (req, res) => {
 	try {
 		const token = req.header("Authorization").replace("Bearer ", "");
 		let decoded = null;
-		try {
+		try {GATEWAYIP
 			decoded = jwt.verify(token, process.env.SECRET_KEY);
 		} catch (error) {
 			console.error("jwt.verify() failed: ", error);

@@ -22,71 +22,68 @@ function DispMeeting() {
 		setOpen(false);
 	};
 
-	useEffect(() => {
+	useEffect(async () => {
 		console.log("useEffect: meeting/list-meeting");
-		fetch(GATEWAYIP, {
+		const response = await fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/list-meeting"})
 		})
-			.then((response) => response.json())
-			.then((data) => {
-				setMenuItems(data);
-			});
+		const data = response.json();
+		setMenuItems(data);
+			
 	},[token]);
-	const meetingList = () => 
+	const meetingList = async() => 
 	{
-		console.log("meeting/list-meeting");
-		fetch(GATEWAYIP, {
+		console.log("useEffect: meeting/list-meeting");
+		const response = await fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/list-meeting"})
 		})
-			.then((response) => response.json())
-			.then((data) => {
-				setMenuItems(data);
-			});
+		const data = response.json();
+		setMenuItems(data);
 	};
-	const getYoureMeetingList = () =>
+	const getYoureMeetingList = async () =>
 	{
 		console.log("getYoureMeetingList");
-		fetch(GATEWAYIP, {
+		const response = await fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/youre-meeting-list"})
 		})
-			.then((response) => response.json())
-			.then((data) => {
-				setDelMenuItems(data);
-			});
+		const data = response.json();
+		setDelMenuItems(data);
 	};
-	const deleteMeeting = (id) =>
+	const deleteMeeting = async (id) =>
 	{
+		try{
 		console.log("deleteMeeting");
-		fetch(GATEWAYIP, {
+		const response = await fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/delete-meeting",
 				meetingId: id })
-		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(`HTTP error! Status: ${response.status}`);
-				}
+		});
+			
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			else{
 				return response.json();
-			})
-			.catch((error) => {
-				console.error("Error deleting meeting:", error);
-				// Handle the error here
-			});
+			}
+		}
+		catch(error){
+			console.error("Error deleting meeting:", error);
+		};
 
 		getYoureMeetingList();
 		meetingList();

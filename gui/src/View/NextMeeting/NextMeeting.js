@@ -8,19 +8,21 @@ const GATEWAYIP = process.env.GATEWAYIP;
 export function NextMeeting(/*props*/) {
 	const [nextMeetingData, setNextMeetingData] = useState([]);
 	const [token] = useState(localStorage.getItem("token"));
-	useEffect(() => {
-		fetch(GATEWAYIP, {
+	useEffect(async () => {
+		try{
+		const response = await fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/next-meeting"})
-		})
-			.then(response => response.json())
-			.then(data => {setNextMeetingData(data);})
-			.catch(error => {
-				console.error("Error fetching next meeting:", error);
-			});
+		});
+		const data = response.json();
+			setNextMeetingData(data);
+		}
+		catch(error){
+			console.error("Error fetching next meeting:", error);
+		}
 	}, [token]);
 	return (
 		<Container className="Panel" backgroundColor={"#FFFFFF"}>

@@ -23,8 +23,9 @@ function AddMeeting() {
 
 	const handelButton = async () =>
 	{ 	
+		try{
 		console.log("handelButton called");
-		fetch(GATEWAYIP, {
+		const response = await fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -34,26 +35,27 @@ function AddMeeting() {
 				agenda: inputValueAgenda,
 				date: inputDate,
 				URL: "http://meeting-microservices/meeting/save"
-			})}).then((response) => response.json())
-			.then((data) => {
-				const {meetingId} = data;
-				addParticipantsToMeetings(meetingId);
-			});
+			})});
+			const data = response.json();
+			const {meetingId} = data;
+			addParticipantsToMeetings(meetingId);
+		}
+		catch(error){
+			console.error("Error fetching next meeting:", error);
+		}
 	};
-	const getUserList = () =>
+	const getUserList = async () =>
 	{
 		console.log("getUserList called");
-		fetch(GATEWAYIP, {
+		const response = await fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/userList"})
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				setMenuItems(data);
-			});
+		});
+		const data = response.json();
+		setMenuItems(data);
 	};
 	const addParticipants = (id) =>
 	{
