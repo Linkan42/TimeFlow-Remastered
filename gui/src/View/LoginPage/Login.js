@@ -224,8 +224,10 @@ export default function SignIn() {
 		});
 
 		if (response.ok) {
-			const data = await response.json();
+			console.log(response.json());
+			const data = response.json();
 			const receivedToken = data.token;
+
 
 			// store token locally
 			localStorage.setItem("token", receivedToken);
