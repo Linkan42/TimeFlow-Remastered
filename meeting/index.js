@@ -37,27 +37,28 @@ app.get("/meeting/Save", async (req, res) => {
 		}
 		const token = req.header("Authorization").replace("Bearer ", "");
 
-		let decoded = null;
 		try {
+			let decoded = null;
+
 			decoded = jwt.verify(token, process.env.SECRET_KEY);
+			const {userId} = decoded,
+				userName = decoded.name,
+	
+				meetingProposal = new MeetingProp({meetingId,
+					location, 
+					startTime, 
+					endTime,
+					createrUserId:userId,
+					createrName: userName,
+					agenda,
+					date,
+					day:newday,
+					month:newmonth});
+			await meetingProposal.save();
+			return res.json({meetingId});
 		} catch (error) {
 			console.error("jwt.verify() failed: ", error);
 		}
-		const {userId} = decoded,
-			userName = decoded.name,
-	
-			meetingProposal = new MeetingProp({meetingId,
-				location, 
-				startTime, 
-				endTime,
-				createrUserId:userId,
-				createrName: userName,
-				agenda,
-				date,
-				day:newday,
-				month:newmonth});
-		await meetingProposal.save();
-		return res.json({meetingId});
 	}
 	catch{
 		return res.status(400).json({ error: "Faill to insert to database"});
@@ -75,9 +76,9 @@ app.post("/meeting/ListOneUser", async (req, res) => {
 });
 
 app.post("/meeting/add-participants-to-meetings", async (req) => {
-	const {users, meetingId} = req.body,
-		mId = parseInt(meetingId);
 	try{
+		const {users, meetingId} = req.body,
+			mId = parseInt(meetingId);
 		users.forEach(async userId =>	{
 			const uId = parseInt(userId),
 				newMeetingParticipan = new MeetingParticipan({meetingId:mId, UserId:uId});
@@ -90,9 +91,8 @@ app.post("/meeting/add-participants-to-meetings", async (req) => {
 });
 
 app.post("/meeting/delete-meeting", async (req, res) => {
-	const { meetingId } = req.body;
-
 	try {
+		const { meetingId } = req.body;
 		const meetingDeleteResult = await MeetingProp.deleteOne({ meetingId });
 
 		if (meetingDeleteResult.deletedCount === 0) {
