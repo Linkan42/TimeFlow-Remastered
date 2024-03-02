@@ -24,7 +24,7 @@ function DispMeeting() {
 	useEffect(async () => {
 		console.log(process.env.GATEWAYIP);
 		console.log("useEffect: meeting/list-meeting");
-		const response = await fetch(process.env.GATEWAYIP, {
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -38,7 +38,7 @@ function DispMeeting() {
 	const meetingList = async() => 
 	{
 		console.log("useEffect: meeting/list-meeting");
-		const response = await fetch(process.env.GATEWAYIP, {
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -51,7 +51,7 @@ function DispMeeting() {
 	const getYoureMeetingList = async () =>
 	{
 		console.log("getYoureMeetingList");
-		const response = await fetch(process.env.GATEWAYIP, {
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -65,7 +65,7 @@ function DispMeeting() {
 	{
 		try{
 			console.log("deleteMeeting");
-			const response = await fetch(process.env.GATEWAYIP, {
+			const response = await fetch("http://20.103.11.40/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
