@@ -23,6 +23,7 @@ function AddMeeting() {
 
 	const handelButton = async () =>
 	{ 	
+		console.log("handelButton called");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
@@ -41,6 +42,7 @@ function AddMeeting() {
 	};
 	const getUserList = () =>
 	{
+		console.log("getUserList called");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
@@ -55,6 +57,7 @@ function AddMeeting() {
 	};
 	const addParticipants = (id) =>
 	{
+		console.log("addParticipants called");
 		if(participants.indexOf(id) === -1)
 		{
 			participants.push(id);
@@ -65,6 +68,7 @@ function AddMeeting() {
 	};
 	const addParticipantsToMeetings = async (currentMeetingId) =>
 	{
+		console.log("addParticipantsToMeetings called");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 

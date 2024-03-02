@@ -23,6 +23,7 @@ function DispMeeting() {
 	};
 
 	useEffect(() => {
+		console.log("useEffect: meeting/meeting-list");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
@@ -37,6 +38,7 @@ function DispMeeting() {
 	},[token]);
 	const meetingList = () => 
 	{
+		console.log("meeting/meeting-list");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
@@ -51,6 +53,7 @@ function DispMeeting() {
 	};
 	const getYoureMeetingList = () =>
 	{
+		console.log("getYoureMeetingList");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
@@ -65,6 +68,7 @@ function DispMeeting() {
 	};
 	const deleteMeeting = (id) =>
 	{
+		console.log("deleteMeeting");
 		fetch(GATEWAYIP, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
