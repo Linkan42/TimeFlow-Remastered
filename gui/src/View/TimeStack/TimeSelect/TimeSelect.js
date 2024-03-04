@@ -49,8 +49,7 @@ function AddMeeting() {
 		console.log("getUserList called");
 		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
-			headers: {"Content-Type":"application/json", 
-				Authorization: `Bearer ${token}`},
+			headers: {"Content-Type":"application/json"},
 			body: JSON.stringify({ 
 				URL: "http://meeting-microservices/meeting/user-list"})
 		});
