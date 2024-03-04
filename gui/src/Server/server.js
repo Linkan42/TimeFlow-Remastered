@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, my_path)));
 
 // Add CORS middleware
 app.use(cors({
-	origin: "http://20.76.209.148",
+	origin: "http://20.103.11.40",
 	methods: ["GET", "POST", "PUT", "DELETE"],
 	allowedHeaders: ["Content-Type", "Authorization"],
 	credentials: true // Allow credentials
