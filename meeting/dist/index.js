@@ -73,7 +73,7 @@ app.post("/meeting/user-list", async (req, res) => {
   console.log("/meeting/ListOneUser was called:");
   try {
     const list = await User.find().select("UserId");
-    res.json(list);
+    return res.json(list);
   } catch (error) {
     console.log(error);
     return res.status(400).json({
