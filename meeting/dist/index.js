@@ -1,7 +1,7 @@
 import express from "express";
 import MeetingProp from "../database/meeting.js";
 import MeetingParticipan from "../database/meetingParticipan.js";
-import User from "../database/user.js";
+import userSchema from "../database/user.js";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
@@ -72,7 +72,7 @@ app.get("/meeting/save", async (req, res) => {
 app.post("/meeting/user-list", async (req, res) => {
   console.log("/meeting/ListOneUser was called:");
   try {
-    const list = await User.find().select("UserId");
+    const list = await userSchema.find().select("UserId");
     return res.json(list);
   } catch (error) {
     console.log(error);
