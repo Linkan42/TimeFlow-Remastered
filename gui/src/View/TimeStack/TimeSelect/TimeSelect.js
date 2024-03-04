@@ -25,7 +25,7 @@ function AddMeeting() {
 	{ 	
 		try{
 			console.log("handelButton called");
-			const response = await fetch(GATEWAYURL, {
+			const response = await fetch("http://20.103.11.40/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
@@ -47,7 +47,7 @@ function AddMeeting() {
 	const getUserList = async () =>
 	{
 		console.log("getUserList called");
-		const response = await fetch(GATEWAYURL, {
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
