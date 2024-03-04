@@ -12,7 +12,7 @@ export function NextMeeting(/*props*/) {
 		const fetchData = async () => {
 			try {
 				const response = await fetch("http://20.103.11.40/", {
-				method: "POST",
+					method: "POST",
 					headers: {
 						"Content-Type": "application/json", 
 						Authorization: `Bearer ${token}`

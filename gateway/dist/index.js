@@ -21,7 +21,8 @@ app.post("/", async (req, res) => {
     const response = await fetch(req.body.URL, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Authorization": req.header("Authorization")
       },
       body: JSON.stringify(req.body)
     });
