@@ -1,9 +1,9 @@
 import express from "express";
+import mongoose from "mongoose";
 import MeetingProp from "../database/meeting.js";
 import MeetingParticipan from "../database/meetingParticipan.js";
 import userSchema from "../database/user.js";
 import bodyParser from "body-parser";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
