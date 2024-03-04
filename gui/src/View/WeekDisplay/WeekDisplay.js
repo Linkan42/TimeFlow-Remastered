@@ -2,7 +2,7 @@ import { Grid, Stack, ListItemButton, ListItemText, Container, Paper, Button, Di
 import React,{Component, useState, useEffect} from "react";
 import "./WeekDisplay.css";
 
-const GATEWAYURL = "http://20.103.11.40/";
+const GATEWAYURL = process.env.GATEWAYIP;
 
 
 function DispMeeting() {
@@ -50,7 +50,7 @@ function DispMeeting() {
 	const getYoureMeetingList = async () =>
 	{
 		console.log("getYoureMeetingList");
-		const response = await fetch("http://20.103.11.40/", {
+		const response = await fetch(GATEWAYURL, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -64,7 +64,7 @@ function DispMeeting() {
 	{
 		try{
 			console.log("deleteMeeting");
-			const response = await fetch("http://20.103.11.40/", {
+			const response = await fetch(GATEWAYURL, {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},

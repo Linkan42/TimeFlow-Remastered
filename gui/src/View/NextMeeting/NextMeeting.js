@@ -2,9 +2,8 @@ import { Container, Paper  } from "@mui/material";
 import React, {useState, useEffect} from "react";
 
 
-//const GATEWAYIP = process.env.GATEWAYIP;
+const GATEWAYURL = process.env.GATEWAYIP;
 
-const GATEWAYURL = "http://20.103.11.40/";
 
 export function NextMeeting(/*props*/) {
 	const [nextMeetingData, setNextMeetingData] = useState([]);
