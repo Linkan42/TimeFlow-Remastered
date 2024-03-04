@@ -22,7 +22,7 @@ app.post("/", async (req, res) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": req.get("Authorization")
+        "Authorization": req.headers.Authorization
       },
       body: JSON.stringify(req.body)
     });
