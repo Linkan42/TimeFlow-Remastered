@@ -71,7 +71,7 @@ function AddMeeting() {
 	const addParticipantsToMeetings = async (currentMeetingId) =>
 	{
 		console.log("addParticipantsToMeetings called");
-		fetch(GATEWAYURL, {
+		fetch("http://20.103.11.40/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
