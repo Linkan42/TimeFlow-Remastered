@@ -66,14 +66,15 @@ app.get("/meeting/save", async (req, res) => {
 	}
 });
 
-app.post("/meeting/user-list", (req, res) => {
+app.post("/meeting/user-list", async (req, res) => {
 	console.log("/meeting/ListOneUser was called:");
 	try{
-		const list = User.find().select("Name UserId");
-	 	res.json(list);
+		const list = await User.find().select("Name UserId");
+		res.json(list);
 	}
-	catch{
-		return res.status(400).json({ error: "userlist"});
+	catch(error){
+		console.log(error);
+		return res.status(400).json({ error: error});
 	}
 });
 
