@@ -19,7 +19,7 @@ function AddMeeting() {
 		getUserList();
 	},[]);
 
-	const GATEWAYURL = process.env.GATEWAYIP;
+	//const GATEWAYURL = process.env.GATEWAYIP;
 
 	const handelButton = async () =>
 	{ 	

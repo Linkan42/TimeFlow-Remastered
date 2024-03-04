@@ -2,7 +2,7 @@ import { Container, Paper  } from "@mui/material";
 import React, {useState, useEffect} from "react";
 
 
-const GATEWAYURL = process.env.GATEWAYIP;
+//const GATEWAYURL = process.env.GATEWAYIP;
 
 
 export function NextMeeting(/*props*/) {
@@ -11,8 +11,8 @@ export function NextMeeting(/*props*/) {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch(GATEWAYURL, {
-					method: "POST",
+				const response = await fetch("http://20.103.11.40/", {
+				method: "POST",
 					headers: {
 						"Content-Type": "application/json", 
 						Authorization: `Bearer ${token}`
