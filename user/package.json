@@ -1,9 +1,9 @@
 {
-  "type": "module",
+  "testEnvironment": "node",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node index.js",
     "lint": "npx eslint index.js database/**/*.js --config .eslintrc.json --fix",
-    "build": "babel index.js -d dist"
+    "test": "npx jest"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -16,6 +16,9 @@
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
-    "eslint-plugin-react": "^7.33.2"
+    "@types/jest": "^29.5.12",
+    "eslint-plugin-react": "^7.33.2",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.4"
   }
 }
