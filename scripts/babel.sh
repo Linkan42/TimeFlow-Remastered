@@ -20,4 +20,4 @@ npm run build
 
 echo "***user microservice***"
 cd ../user
-npm run build
+
