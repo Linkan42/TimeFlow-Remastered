@@ -1,14 +1,14 @@
-import User from "../database/user.js";
-import express from "express";
-import mongoose from "mongoose";
-import bodyParser from "body-parser";
-import dotenv from "dotenv";
-dotenv.config();
+const User = require("./database/user.js");
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 const app = express();
-const DBCONNECT = process.env.DBCONNECT;
-const PORT = process.env.PORT;
-mongoose.connection.on("connected", () => console.log("Connected to the database"));
-mongoose.connection.on("error", () => console.log("Database connection error"));
+const {
+  connectToDatabase
+} = require("./database/functions.js");
+dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 /* Might want to use in the future
 mongoose.connection.on("open",         () => console.log("Database connection open"));
@@ -19,6 +19,25 @@ mongoose.connection.on("close",        () => console.log("Database connection cl
 */
 
 app.use(bodyParser.json());
+const server = app.listen(PORT, () => {
+  console.log(`user-microservice on ${PORT}`);
+});
+connectToDatabase();
+
+/*
+async function setupServer() {
+	await connectToDatabase(); // Establish database connection
+	return new Promise((resolve) => {
+		server = app.listen(PORT, () => {
+			console.log(`Server running on port ${PORT}`);
+			resolve(server);
+		});
+	});
+}
+setupServer();
+*/
+mongoose.connection.on("connected", () => console.log("Connected to the database"));
+mongoose.connection.on("error", () => console.log("Database connection error"));
 app.post("/user/validate-email", async (req, res) => {
   try {
     console.log(req.body);
@@ -31,12 +50,12 @@ app.post("/user/validate-email", async (req, res) => {
     if (emailFound) {
       console.log("Email unavailable, returning status 400");
       return res.status(400).json({
-        message: "Email unavailable, returning res.status(400)"
+        error: "Email unavailable"
       });
     } else {
       console.log("Email available, returning status 200");
       return res.status(200).json({
-        message: "Email available, returning res.status(200)"
+        message: "Email available"
       });
     }
   } catch (error) {
@@ -175,17 +194,9 @@ app.post("/user/update-user", async (req, res) => {
     });
   }
 });
-app.listen(PORT, () => {
-  console.log(`user microservice on ${PORT}`);
-});
-async function connect() {
-  try {
-    await mongoose.connect(DBCONNECT);
-  } catch (error) {
-    console.log(error);
-  }
-}
-connect();
+module.exports = {
+  /*setupServer,*/server
+};
 
 // Example function for testing creating users
 /*
