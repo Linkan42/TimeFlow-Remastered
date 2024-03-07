@@ -5,6 +5,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
+
 function AddMeeting() {
 	const [inputValueFrom, setInputValueFrom] = useState("");
 	const [inputValueTo, setInputValueTo] = useState("");
@@ -17,35 +18,47 @@ function AddMeeting() {
 	useEffect(() => {
 		getUserList();
 	},[]);
+
+	//const GATEWAYURL = process.env.GATEWAYIP;
+
 	const handelButton = async () =>
 	{ 	
-		fetch("/api/meeting/save", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify({ location: inputValueLocation,
-				startTime: inputValueFrom,
-				endTime: inputValueTo,
-				agenda: inputValueAgenda,
-				date: inputDate
-			})}).then((response) => response.json())
-			.then((data) => {
-				const {meetingId} = data;
-				addParticipantsToMeetings(meetingId);
-			});
+		try{
+			console.log("handelButton called!");
+			const response = await fetch("http://20.103.11.40/", {
+				method: "POST",
+				headers: {"Content-Type":"application/json", 
+					Authorization: `Bearer ${token}`},
+				body: JSON.stringify({ location: inputValueLocation,
+					startTime: inputValueFrom,
+					endTime: inputValueTo,
+					agenda: inputValueAgenda,
+					date: inputDate,
+					URL: "http://meeting-microservices/meeting/save"
+				})});
+			const data = await response.json();
+			const {meetingId} = data;
+			addParticipantsToMeetings(meetingId);
+		}
+		catch(error){
+			console.error("Error fetching next meeting:", error);
+		}
 	};
-	const getUserList = () =>
+	const getUserList = async () =>
 	{
-		fetch("/api/userList",{ method: "POST"})
-			.then((response) => response.json())
-			.then((data) => {
-				setMenuItems(data);
-			});
+		console.log("getUserList called");
+		const response = await fetch("http://20.103.11.40/", {
+			method: "POST",
+			headers: {"Content-Type":"application/json"},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/user-list"})
+		});
+		setMenuItems(await response.json());
+		console.log(menuItems);
 	};
 	const addParticipants = (id) =>
 	{
+		console.log("addParticipants called");
 		if(participants.indexOf(id) === -1)
 		{
 			participants.push(id);
@@ -56,13 +69,14 @@ function AddMeeting() {
 	};
 	const addParticipantsToMeetings = async (currentMeetingId) =>
 	{
-		fetch("/api/addParticipantsToMeetings",{
+		console.log("addParticipantsToMeetings called");
+		fetch("http://20.103.11.40/", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
+			headers: {"Content-Type":"application/json", 
+				Authorization: `Bearer ${token}`},
 			body: JSON.stringify({ users: participants,
-				meetingId: parseInt(currentMeetingId)
+				meetingId: parseInt(currentMeetingId),
+				URL: "http://meeting-microservices/meeting/add-participants-to-meetings"
 			}), 
 		});
 	};

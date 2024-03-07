@@ -225,19 +225,26 @@ export default function SignIn() {
 
 		if (response.ok) {
 			const data = await response.json();
+			console.log(data);
 			const receivedToken = data.token;
+
 
 			// store token locally
 			localStorage.setItem("token", receivedToken);
-			
+			console.log("Store token locally");
 			auth = true;
 		}
 		else {
 			auth = false;
 		}
     
-		if (auth)
+		if (auth){
+			console.log("Login valid");
 			return window.location.href = "/home";
+		}
+		else{
+			console.log("Login not valid");
+		}
 	};
 
 	return (

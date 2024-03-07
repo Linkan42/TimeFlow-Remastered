@@ -3,6 +3,9 @@ import { Grid, TextField, Button, IconButton, InputAdornment } from "@mui/materi
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 
+//const GATEWAYIP = process.env.GATEWAYIP;
+
+
 import useValidateEmail from "../LoginPage/useValidateEmail";
 import useValidateName from "../LoginPage/useValidateName";
 

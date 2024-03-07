@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: meeting
+  name: meeting-microservices
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: meeting
+      app: meeting-microservices
   template:
     metadata:
       labels:
-        app: meeting
+        app: meeting-microservices
     spec:
       containers: 
       - name: meeting
@@ -30,10 +30,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: meeting
+  name: meeting-microservices
 spec:
   selector:
-    app: meeting
+    app: meeting-microservices
   type: ClusterIP
   ports:
     - protocol: TCP

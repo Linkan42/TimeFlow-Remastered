@@ -2,22 +2,33 @@ import { Container, Paper  } from "@mui/material";
 import React, {useState, useEffect} from "react";
 
 
+//const GATEWAYURL = process.env.GATEWAYIP;
+
+
 export function NextMeeting(/*props*/) {
 	const [nextMeetingData, setNextMeetingData] = useState([]);
 	const [token] = useState(localStorage.getItem("token"));
 	useEffect(() => {
-		fetch("/api/meeting",{
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},body: JSON.stringify({
-			})})
-			.then(response => response.json())
-			.then(data => {setNextMeetingData(data);})
-			.catch(error => {
+		const fetchData = async () => {
+			try {
+				const response = await fetch("http://20.103.11.40/", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json", 
+						Authorization: `Bearer ${token}`
+					},
+					body: JSON.stringify({ 
+						URL: "http://meeting-microservices/meeting/next-meeting"
+					})
+				});
+				const data = await response.json();
+				setNextMeetingData(data);
+			} catch(error) {
 				console.error("Error fetching next meeting:", error);
-			});
+			}
+		};
+
+		fetchData();
 	}, [token]);
 	return (
 		<Container className="Panel" backgroundColor={"#FFFFFF"}>

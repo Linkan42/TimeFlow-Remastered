@@ -1,23 +1,19 @@
 import express from "express";
+import mongoose from "mongoose";
 import MeetingProp from "../database/meeting.js";
 import MeetingParticipan from "../database/meetingParticipan.js";
-import User from "../database/user.js";
-import mongoose from "mongoose";
+import userSchema from "../database/user.js";
+import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 const app = express();
+app.use(bodyParser.json());
 const DBCONECT = process.env.DBCONECT;
 const PORT = process.env.PORT; // Should be an parameter given in startup
 
-app.post("/meeting/test", (req, res) => {
-  console.log("Here /meeting/test");
-  console.log("Data received:", req.body);
-  res.status(200).json({
-    message: "POST request to /meeting/test successful"
-  });
-});
-app.get("/meeting/Save", async (req, res) => {
+app.get("/meeting/save", async (req, res) => {
+  console.log("/meeting/save");
   try {
     const {
         location,
@@ -41,55 +37,58 @@ app.get("/meeting/Save", async (req, res) => {
       }
     }
     const token = req.header("Authorization").replace("Bearer ", "");
-    let decoded = null;
     try {
+      let decoded = null;
       decoded = jwt.verify(token, process.env.SECRET_KEY);
+      const {
+          userId
+        } = decoded,
+        userName = decoded.name,
+        meetingProposal = new MeetingProp({
+          meetingId,
+          location,
+          startTime,
+          endTime,
+          createrUserId: userId,
+          createrName: userName,
+          agenda,
+          date,
+          day: newday,
+          month: newmonth
+        });
+      await meetingProposal.save();
+      return res.json({
+        meetingId
+      });
     } catch (error) {
       console.error("jwt.verify() failed: ", error);
     }
-    const {
-        userId
-      } = decoded,
-      userName = decoded.name,
-      meetingProposal = new MeetingProp({
-        meetingId,
-        location,
-        startTime,
-        endTime,
-        createrUserId: userId,
-        createrName: userName,
-        agenda,
-        date,
-        day: newday,
-        month: newmonth
-      });
-    await meetingProposal.save();
-    return res.json({
-      meetingId
-    });
   } catch {
     return res.status(400).json({
       error: "Faill to insert to database"
     });
   }
 });
-app.post("/meeting/ListOneUser", async (req, res) => {
+app.post("/meeting/user-list", async (req, res) => {
+  console.log("/meeting/ListOneUser was called:");
   try {
-    const list = await User.find().select("Name UserId");
-    res.json(list);
-  } catch {
+    const list = await userSchema.find().select("UserId");
+    return res.json(list);
+  } catch (error) {
+    console.log(error);
     return res.status(400).json({
-      error: "userlist"
+      error: error
     });
   }
 });
-app.post("/meeting/addParticipantsToMeetings", async req => {
-  const {
-      users,
-      meetingId
-    } = req.body,
-    mId = parseInt(meetingId);
+app.post("/meeting/add-participants-to-meetings", async req => {
+  console.log("/meeting/add-participants-to-meetings was called.");
   try {
+    const {
+        users,
+        meetingId
+      } = req.body,
+      mId = parseInt(meetingId);
     users.forEach(async userId => {
       const uId = parseInt(userId),
         newMeetingParticipan = new MeetingParticipan({
@@ -102,11 +101,12 @@ app.post("/meeting/addParticipantsToMeetings", async req => {
     console.error(error);
   }
 });
-app.post("/meeting/DeleteMeeting", async (req, res) => {
-  const {
-    meetingId
-  } = req.body;
+app.post("/meeting/delete-meeting", async (req, res) => {
+  console.log("/meeting/delete-meeting was called:");
   try {
+    const {
+      meetingId
+    } = req.body;
     const meetingDeleteResult = await MeetingProp.deleteOne({
       meetingId
     });
@@ -131,7 +131,8 @@ app.post("/meeting/DeleteMeeting", async (req, res) => {
     });
   }
 });
-app.post("/meeting/ListMeeting", async (req, res) => {
+app.post("/meeting/list-meeting", async (req, res) => {
+  console.log("/meeting/list-meeting");
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
     let decoded = null;
@@ -160,7 +161,8 @@ app.post("/meeting/ListMeeting", async (req, res) => {
     console.error(error);
   }
 });
-app.post("/meeting/YoureMeetingList", async (req, res) => {
+app.post("/meeting/youre-meeting-list", async (req, res) => {
+  console.log("/meeting/youre-meeting-list");
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
     let decoded = null;
@@ -185,6 +187,7 @@ app.post("/meeting/YoureMeetingList", async (req, res) => {
   }
 });
 app.post("/meeting/sort", async (req, res) => {
+  console.log("/meeting/youre-meeting-list");
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
     let decoded = null;
@@ -231,10 +234,6 @@ app.post("/meeting/sort", async (req, res) => {
     });
   }
 });
-
-//Code test remove later
-app.get("/", ( /*req, res */
-) => console.log("Hello World!"));
 
 // Open port for comunication
 app.listen(PORT, () => {

@@ -1,7 +1,8 @@
 import { Grid, Stack, ListItemButton, ListItemText, Container, Paper, Button, Dialog, DialogTitle} from "@mui/material";
 import React,{Component, useState, useEffect} from "react";
-
 import "./WeekDisplay.css";
+
+//const GATEWAYURL = process.env.GATEWAYIP;
 
 
 function DispMeeting() {
@@ -20,67 +21,68 @@ function DispMeeting() {
 		setOpen(false);
 	};
 
-	useEffect(() => {
-		fetch("/api/meetingList",{ //if i put the function call here i get error i the code :(
-			method: "POST",			// meetingList(); dont work...
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify({
-			})}).then((response) => response.json())
-			.then((data) => {
-				setMenuItems(data);
-			});
+	useEffect(async () => {
+		console.log("useEffect: meeting/list-meeting");
+		const response = await fetch("http://20.103.11.40/", {
+			method: "POST",
+			headers: {"Content-Type":"application/json", 
+				Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/list-meeting"})
+		});
+		const data = await response.json();
+		setMenuItems(data);
+			
 	},[token]);
-	const meetingList = () => 
+	const meetingList = async() => 
 	{
-		fetch("/api/meetingList",{
+		console.log("useEffect: meeting/list-meeting");
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify({
-			})}).then((response) => response.json())
-			.then((data) => {
-				setMenuItems(data);
-			});
+			headers: {"Content-Type":"application/json", 
+				Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/list-meeting"})
+		});
+		const data = await response.json();
+		setMenuItems(data);
 	};
-	const getYoureMeetingList = () =>
+	const getYoureMeetingList = async () =>
 	{
-		fetch("/api/YoureMeetingList",{
+		console.log("getYoureMeetingList");
+		const response = await fetch("http://20.103.11.40/", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},body: JSON.stringify({
-			})})
-			.then((response) => response.json())
-			.then((data) => {
-				setDelMenuItems(data);
-			});
+			headers: {"Content-Type":"application/json", 
+				Authorization: `Bearer ${token}`},
+			body: JSON.stringify({ 
+				URL: "http://meeting-microservices/meeting/youre-meeting-list"})
+		});
+		const data = await response.json();
+		setDelMenuItems(data);
 	};
-	const deleteMeeting = (id) =>
+	const deleteMeeting = async (id) =>
 	{
-		fetch("/api/DeleteMeeting", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${token}`
-			},
-			body: JSON.stringify({ meetingId: id })
-		})
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(`HTTP error! Status: ${response.status}`);
-				}
+		try{
+			console.log("deleteMeeting");
+			const response = await fetch("http://20.103.11.40/", {
+				method: "POST",
+				headers: {"Content-Type":"application/json", 
+					Authorization: `Bearer ${token}`},
+				body: JSON.stringify({ 
+					URL: "http://meeting-microservices/meeting/delete-meeting",
+					meetingId: id })
+			});
+			
+			if (!response.ok) {
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
+			else{
 				return response.json();
-			})
-			.catch((error) => {
-				console.error("Error deleting meeting:", error);
-				// Handle the error here
-			});
+			}
+		}
+		catch(error){
+			console.error("Error deleting meeting:", error);
+		}
 
 		getYoureMeetingList();
 		meetingList();
