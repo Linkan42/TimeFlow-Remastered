@@ -27,7 +27,12 @@ app.post("/login/validateLogin", async (req, res) => {
     });
     console.log("await DB");
     console.log("person:", person);
-    if (person.Email === Email && person.Password === Password) {
+    if (person === null) {
+      console.log("User do not exist");
+      return res.status(httpCodeNotFound).json({
+        error: "User does not exist."
+      });
+    } else if (person.Email === Email && person.Password === Password) {
       console.log("DB done");
       /*
        * Authenticaton was successfull, generate a time-limited token
@@ -55,10 +60,6 @@ app.post("/login/validateLogin", async (req, res) => {
         });
       }
     }
-    console.log("User do not exist");
-    return res.status(httpCodeNotFound).json({
-      error: "User does not exist."
-    });
   } catch (error) {
     console.log(error);
     return res.status(httpCodeServiceUnavailable).json({

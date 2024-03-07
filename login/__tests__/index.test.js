@@ -21,7 +21,7 @@ describe("login validateLogin", () => {
 	};
 
 	beforeAll(() => {
-		mongoose.connection.on("connected", () => console.log("test connected"));
+		mongoose.connection.on("connected", () => console.log("test connected to DB"));
 	});
 
 	
