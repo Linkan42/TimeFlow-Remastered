@@ -8,7 +8,7 @@ const PORT = process.env.PORT;
 app.use(bodyParser.json());
 
 app.use(cors({
-	origin: "http://20.76.209.148",
+	origin: "http://98.64.202.68",
 	methods: ["GET", "POST", "PUT", "DELETE"],
 	allowedHeaders: ["Content-Type", "Authorization"],
 	credentials: true // Allow credentials
