@@ -53,6 +53,11 @@ function FormDialog() {
 					Email: email, 
 					URL: "http://user-microservices/user/validate-email"})
 			});
+			console.log("Body:");
+			console.log(JSON.stringify({ 
+				Email: email, 
+				URL: "http://user-microservices/user/validate-email"}));
+			console.log("Body end:");
 			console.log("Response status:", response.status);
 			if (response.status === 200) {
 				setValidEmail(true);
