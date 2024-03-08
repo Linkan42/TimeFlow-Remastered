@@ -46,7 +46,7 @@ function FormDialog() {
 		console.log("Evaluating email availability with", email, "...");
 
 		try {
-			const response = await fetch(`http://${GATEWAYURL}/`, {
+			const response = await fetch("http://98.64.201.148/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
 				body: JSON.stringify({ 
@@ -72,7 +72,7 @@ function FormDialog() {
 		console.log("Evaluating name availability with", userName, "...");
 
 		try {
-			const response = await fetch(`http://${GATEWAYURL}/`, {
+			const response = await fetch("http://98.64.201.148/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
 				body: JSON.stringify({ Name: userName,
@@ -100,7 +100,7 @@ function FormDialog() {
 			//create account
 			setOpen(false);
 			try {
-				const response = await fetch(GATEWAYURL, {
+				const response = await fetch("http://98.64.201.148/", {
 					method: "POST",
 					headers: {"Content-Type":"application/json"},
 					body: JSON.stringify({ 

@@ -19,13 +19,13 @@ function AddMeeting() {
 		getUserList();
 	},[]);
 
-	const GATEWAYURL = process.env.GATEWAYURL;
+	//const GATEWAYURL = process.env.GATEWAYURL;
 
 	const handelButton = async () =>
 	{ 	
 		try{
 			console.log("handelButton called!");
-			const response = await fetch(GATEWAYURL, {
+			const response = await fetch("http://98.64.201.148/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
@@ -47,7 +47,7 @@ function AddMeeting() {
 	const getUserList = async () =>
 	{
 		console.log("getUserList called");
-		const response = await fetch(GATEWAYURL, {
+		const response = await fetch("http://98.64.201.148/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json"},
 			body: JSON.stringify({ 
@@ -70,7 +70,7 @@ function AddMeeting() {
 	const addParticipantsToMeetings = async (currentMeetingId) =>
 	{
 		console.log("addParticipantsToMeetings called");
-		fetch(GATEWAYURL, {
+		fetch("http://98.64.201.148/", {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
