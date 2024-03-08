@@ -18,7 +18,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import "./Login.css";
 
-const GATEWAYURL = process.env.GATEWAYURL;
+//const GATEWAYURL = process.env.GATEWAYURL;
 
 function FormDialog() {
 	const [open, setOpen]                     = React.useState(false);
@@ -214,7 +214,7 @@ export default function SignIn() {
 
 		auth = false;
 
-		const response = await fetch(`http://${GATEWAYURL}/`, {
+		const response = await fetch("http://98.64.201.148/", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
