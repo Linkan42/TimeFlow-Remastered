@@ -50,5 +50,5 @@ app.post("/", async (req, res) => {
 
 
 app.listen(PORT, () => {
-	console.log("Gatway open");
+	console.log("Gateway open");
 });

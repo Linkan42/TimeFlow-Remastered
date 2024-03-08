@@ -23,7 +23,7 @@ function DispMeeting() {
 
 	useEffect(async () => {
 		console.log("useEffect: meeting/list-meeting");
-		const response = await fetch(GATEWAYURL, {
+		const response = await fetch(`http://${GATEWAYURL}/`, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -37,7 +37,7 @@ function DispMeeting() {
 	const meetingList = async() => 
 	{
 		console.log("useEffect: meeting/list-meeting");
-		const response = await fetch(GATEWAYURL, {
+		const response = await fetch(`http://${GATEWAYURL}/`, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -50,7 +50,7 @@ function DispMeeting() {
 	const getYoureMeetingList = async () =>
 	{
 		console.log("getYoureMeetingList");
-		const response = await fetch(GATEWAYURL, {
+		const response = await fetch(`http://${GATEWAYURL}/`, {
 			method: "POST",
 			headers: {"Content-Type":"application/json", 
 				Authorization: `Bearer ${token}`},
@@ -64,7 +64,7 @@ function DispMeeting() {
 	{
 		try{
 			console.log("deleteMeeting");
-			const response = await fetch(GATEWAYURL, {
+			const response = await fetch(`http://${GATEWAYURL}/`, {
 				method: "POST",
 				headers: {"Content-Type":"application/json", 
 					Authorization: `Bearer ${token}`},
