@@ -21,11 +21,11 @@ spec:
           value: "4025"
         resources:
           requests:
-            cpu: 126m
-            memory: 256Mi
-          limits:
             cpu: 256m
             memory: 512Mi
+          limits:
+            cpu: 512m
+            memory: 1024Mi
         readinessProbe:
             tcpSocket:
               port: 80
