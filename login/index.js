@@ -15,7 +15,7 @@ const app = express(),
 
 app.use(bodyParser.json());
 
-app.post("/", (req, res) => {
+app.get("/healt", (req, res) => {
 	res.sendStatus(200);
 });
 
