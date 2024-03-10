@@ -12,8 +12,8 @@ const app = express(),
   httpCodeOk = 200,
   httpCodeServiceUnavailable = 503;
 app.use(bodyParser.json());
-app.post("/", async (req, res) => {
-  res.status(httpCodeOk);
+app.post("/", (req, res) => {
+  res.sendStatus(200);
 });
 app.post("/login/validateLogin", async (req, res) => {
   try {
