@@ -18,6 +18,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import "./Login.css";
 
+//const GATEWAYURL = process.env.GATEWAYURL;
 
 function FormDialog() {
 	const [open, setOpen]                     = React.useState(false);
@@ -45,13 +46,18 @@ function FormDialog() {
 		console.log("Evaluating email availability with", email, "...");
 
 		try {
-			const response = await fetch("http://20.103.11.40/", {
+			const response = await fetch("http://98.64.201.148/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
 				body: JSON.stringify({ 
 					Email: email, 
 					URL: "http://user-microservices/user/validate-email"})
 			});
+			console.log("Body:");
+			console.log(JSON.stringify({ 
+				Email: email, 
+				URL: "http://user-microservices/user/validate-email"}));
+			console.log("Body end:");
 			console.log("Response status:", response.status);
 			if (response.status === 200) {
 				setValidEmail(true);
@@ -71,7 +77,7 @@ function FormDialog() {
 		console.log("Evaluating name availability with", userName, "...");
 
 		try {
-			const response = await fetch("http://20.103.11.40/", {
+			const response = await fetch("http://98.64.201.148/", {
 				method: "POST",
 				headers: {"Content-Type":"application/json"},
 				body: JSON.stringify({ Name: userName,
@@ -99,7 +105,7 @@ function FormDialog() {
 			//create account
 			setOpen(false);
 			try {
-				const response = await fetch("http://20.103.11.40/", {
+				const response = await fetch("http://98.64.201.148/", {
 					method: "POST",
 					headers: {"Content-Type":"application/json"},
 					body: JSON.stringify({ 
@@ -213,7 +219,7 @@ export default function SignIn() {
 
 		auth = false;
 
-		const response = await fetch("http://20.103.11.40/", {
+		const response = await fetch("http://98.64.201.148/", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({

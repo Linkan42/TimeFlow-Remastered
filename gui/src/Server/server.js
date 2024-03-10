@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, my_path)));
 
 // Add CORS middleware
 app.use(cors({
-	origin: "http://20.76.209.148",
+	origin: "http://98.64.202.68",
 	methods: ["GET", "POST", "PUT", "DELETE"],
 	allowedHeaders: ["Content-Type", "Authorization"],
 	credentials: true // Allow credentials
@@ -33,7 +33,7 @@ app.get(["/", "/home", "/login", "/meetingScheduler", "/*"], (req, res) => {
 
 // Start the server
 const port = process.env.PORT || 3001;
-app.listen(port, () => console.log(`server listening on http://localhost:${port}`));
+app.listen(port);
 
 
 
