@@ -31,19 +31,19 @@ spec:
             command:
               - echo
               - "Oskar är en noob"
-        #   periodSeconds: 10
-        #   failureThreshold: 3
-        # readinessProbe:
-        #   tcpSocket:
-        #     port: 1337
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 2
-        # livenessProbe:
-        #   httpGet:
-        #     path: /
-        #     port: 1337
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 2
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 1337
+          initialDelaySeconds: 10
+          periodSeconds: 2
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 1337
+          initialDelaySeconds: 10
+          periodSeconds: 2
 ---
 apiVersion: v1
 kind: Service
