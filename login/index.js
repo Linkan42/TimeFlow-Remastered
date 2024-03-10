@@ -15,6 +15,10 @@ const app = express(),
 
 app.use(bodyParser.json());
 
+app.post("/", async (req, res) => {
+	res.status(httpCodeOk);
+});
+
 app.post("/login/validateLogin", async (req, res) => {
 	try{
 		const {Email, Password} = req.body;
