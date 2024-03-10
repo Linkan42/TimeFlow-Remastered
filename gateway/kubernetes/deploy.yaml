@@ -28,13 +28,13 @@ spec:
             memory: 512Mi
         readinessProbe:
             tcpSocket:
-              port: 4025
+              port: 80
             initialDelaySeconds: 10
             periodSeconds: 2
         livenessProbe:
           httpGet:
             path: /
-            port: 4025
+            port: 80
           initialDelaySeconds: 10
           periodSeconds: 2
 ---
