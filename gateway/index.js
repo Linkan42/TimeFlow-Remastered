@@ -48,7 +48,12 @@ app.post("/", async (req, res) => {
 	}
 });
 
-
+app.post("/test", async () => {
+	for(var i = 0; i < 100000; i++)
+	{
+		//do nothing
+	}
+});
 app.listen(PORT, () => {
 	console.log("Gateway open");
 });
