@@ -16,7 +16,7 @@ app.use(cors({
 
 // the function 
 
-app.get("/", async (req, res) => {
+app.post("/", async (req, res) => {
 	console.log(req.body);
 	try {
 		const response = await fetch(req.body.URL, {
@@ -48,7 +48,7 @@ app.get("/", async (req, res) => {
 	}
 });
 
-app.get("/test", async () => {
+app.post("/test", async () => {
 	for(var i = 0; i < 100000; i++)
 	{
 		//do nothing
